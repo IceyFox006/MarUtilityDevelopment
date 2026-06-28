@@ -7,13 +7,14 @@
  */
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace MarUtility.ExecutionManagement
 {
     public class SceneLoader : MonoBehaviour
     {
         private static SceneLoader instance;
 
-        [SerializeField, MinValue(0)]
+        [SerializeField, MinValue(0.001f)]
             private float _tickInterval;
         [SerializeField]
             private bool _runTickUpdate = true;
@@ -37,6 +38,10 @@ namespace MarUtility.ExecutionManagement
 
         private void Awake()
         {
+            //Load persistant scene.
+            if (!SceneManager.GetSceneByBuildIndex((int)SceneIndex.PERSISTANT).isLoaded)
+                SceneManager.LoadSceneAsync((int)SceneIndex.PERSISTANT, LoadSceneMode.Additive);
+
             //SceneLoader Instance
             if (Instance != null && Instance != this)
                 Destroy(this);

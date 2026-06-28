@@ -13,6 +13,8 @@ namespace MarUtility.ExecutionManagement
     {
         [SerializeField, Tooltip("When this is initialized.\nSCENELOADER_AWAKE is recommended to avoid execution order issues.")]
             private InitializeTime _initializeTime;
+        [SerializeField]
+        private string LoadMessage = "Loading manager.";
 
         #region GS
         public InitializeTime InitializeTime { get => _initializeTime; set => _initializeTime = value; }

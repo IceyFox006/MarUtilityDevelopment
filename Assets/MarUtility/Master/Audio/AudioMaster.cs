@@ -14,7 +14,7 @@ namespace MarUtility
 {
     public class AudioMaster : Manager
     {
-        public static AudioMaster AUDIO_MASTER;
+        public static AudioMaster INSTANCE;
 
         [SerializeField, Required]
         private GameObject _audioDataSourcePrefab;
@@ -30,8 +30,8 @@ namespace MarUtility
         public override void Initialize()
         {
             //Set singleton.
-            if (AUDIO_MASTER == null)
-                AUDIO_MASTER = this;
+            if (INSTANCE == null)
+                INSTANCE = this;
             else
                 Debug.LogError("Multiple instances of AUDIO_MASTER exists, you can only have one.");
 

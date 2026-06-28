@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aace20f7ecf14144b3e8db16f0ae0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.AudioMaster
-  _initializeTime: 100
+  _initializeTime: 110
+  LoadMessage: AUDIO MASTER
   _audioDataSourcePrefab: {fileID: 263880922785229906, guid: b7f5bfbffa297cc40b42bd22bce38a7d, type: 3}
   _library:
   - key: Demo

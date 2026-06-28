@@ -59,7 +59,7 @@ namespace MarUtility.UIExtensions
                 _particles.Play();
             }
             else
-                ParticleMaster.PARTICLE_MASTER.Play(_particleName, pos);
+                ParticleMaster.INSTANCE.Play(_particleName, pos);
         }
     }
 }

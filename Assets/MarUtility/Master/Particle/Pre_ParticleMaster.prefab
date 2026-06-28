@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b0c208c9d49614286d3c8934dbb92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleMaster
-  _initializeTime: 100
+  _initializeTime: 110
+  LoadMessage: PARTICLE MASTER
   _library:
   - key: Demo
     value: {fileID: 1043660855501934622, guid: 171a680ed2a4b434e8c88ff436689cce, type: 3}

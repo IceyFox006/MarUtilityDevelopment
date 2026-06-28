@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class ParticleMaster : Manager
 {
-    public static ParticleMaster PARTICLE_MASTER;
+    public static ParticleMaster INSTANCE;
 
     [SerializeField, Tooltip("Keys are case sensitive. If a key is changed, make sure all instances where it is used are updated.")]
         private Dictionary<string, GameObject> _library;
@@ -19,8 +19,8 @@ public class ParticleMaster : Manager
     public override void Initialize()
     {
         //Set singleton.
-        if (PARTICLE_MASTER == null)
-            PARTICLE_MASTER = this;
+        if (INSTANCE == null)
+            INSTANCE = this;
         else
             Debug.LogError("Multiple instances of PARTICLE_MASTER exists, you can only have one.");
         base.Initialize();

@@ -43,6 +43,10 @@ namespace MarUtility
             if (_destroyOnEnd)
                 _onPlayEnd.AddListener(delegate { Destroy(this); });
         }
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
 
         public void BeginPlay()
         {
