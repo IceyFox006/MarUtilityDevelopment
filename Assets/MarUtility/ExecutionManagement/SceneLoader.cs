@@ -39,8 +39,8 @@ namespace MarUtility.ExecutionManagement
         private void Awake()
         {
             //Load persistant scene.
-            if (!SceneManager.GetSceneByBuildIndex((int)SceneIndex.PERSISTANT).isLoaded)
-                SceneManager.LoadSceneAsync((int)SceneIndex.PERSISTANT, LoadSceneMode.Additive);
+            if (!UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex((int)SceneIndex.PERSISTANT).isLoaded)
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)SceneIndex.PERSISTANT, LoadSceneMode.Additive);
 
             //SceneLoader Instance
             if (Instance != null && Instance != this)

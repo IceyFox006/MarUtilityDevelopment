@@ -3011,7 +3011,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectEventSystem
   _initializeTime: 200
-  LoadMessage: Loading manager.
   _firstSelected: {fileID: 1343006716}
   _maxNumSelected: 1
   _confirmOnSelect: 0
@@ -3632,7 +3631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a1d98dd8bbd29469f0329b0de5cef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
-  _tickInterval: 0
+  _tickInterval: 0.001
   _runTickUpdate: 1
   _managers:
   - {fileID: 269544746}

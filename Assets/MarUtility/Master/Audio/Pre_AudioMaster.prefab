@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7717553416298227063}
   - component: {fileID: 5001694377546888326}
-  - component: {fileID: 8173155530607888289}
+  - component: {fileID: 7255456831731417214}
   m_Layer: 0
   m_Name: Pre_AudioMaster
   m_TagString: Untagged
@@ -46,19 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.AudioMaster
   _initializeTime: 110
-  LoadMessage: AUDIO MASTER
   _audioDataSourcePrefab: {fileID: 263880922785229906, guid: b7f5bfbffa297cc40b42bd22bce38a7d, type: 3}
   _library:
   - key: Demo
     value:
       _clip: {fileID: 8300000, guid: 7fc1e96d34047894ab9d2b0fc87a7ee9, type: 3}
+      _mixerGroup: {fileID: -7014648763909859184, guid: f834feab821c7004e82d2b5cab97e41b, type: 2}
       startTime: 1
       endTime: 1.5
       _volumeRange: {x: 0.95, y: 1}
       _pitchRange: {x: 0.8, y: 1.2}
-  _testSource: {fileID: 8173155530607888289}
+  _testSource: {fileID: 7255456831731417214}
   _testName: Demo
---- !u!82 &8173155530607888289
+--- !u!82 &7255456831731417214
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,12 +67,12 @@ AudioSource:
   m_GameObject: {fileID: 3991706373209816636}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7014648763909859184, guid: f834feab821c7004e82d2b5cab97e41b, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 7fc1e96d34047894ab9d2b0fc87a7ee9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.95338005
-  m_Pitch: 0.9309048
+  m_Volume: 0.97603095
+  m_Pitch: 1.0182391
   Loop: 0
   Mute: 0
   Spatialize: 0

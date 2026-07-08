@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 6/27/2026
- * Last Updated: 6/27/2026
+ * Last Updated: 7/8/2026
  * 
  * Manages all instantiated audio.
  */
@@ -9,6 +9,7 @@ using MarUtility.ExecutionManagement;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace MarUtility
 {
@@ -46,6 +47,7 @@ namespace MarUtility
         private void InstantiateSource(AudioData aData)
             => aData.LinkToSource(gameObject.AddComponent<AudioSource>(), false);
 
+
         //Plays a sound at position.
         public void Play(string aName)
         {
@@ -76,7 +78,7 @@ namespace MarUtility
         private void TestSound()
         {
             AudioData ad; _library.TryGetValue(_testName, out ad);
-            ad.LinkToSource(_testSource, true);
+            ad.LinkToSource(_testSource, _testSource.playOnAwake);
             Play(_testName);
         }
         #endregion
@@ -87,6 +89,8 @@ namespace MarUtility
     {
         [SerializeField]
         private AudioClip _clip;
+        [SerializeField]
+        private AudioMixerGroup _mixerGroup;
 
         [SerializeField, MinValue(0), Tooltip("The point in the clip where it begins playing.")]
         private float startTime = 0;
@@ -110,6 +114,7 @@ namespace MarUtility
             source.playOnAwake = playOnAwake;
 
             source.clip = _clip;
+            source.outputAudioMixerGroup = _mixerGroup;
 
             if (endTime < 0)
                 endTime = _clip.length;
