@@ -524,10 +524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ccd54cba5c30b43bdba3f30a148bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ParticleFillSlider
-  _fm: {fileID: 1113315300}
-  _slider: {fileID: 1113315301}
+  spawnsNew: 0
+  _particleName: 
   _particles: {fileID: 1633335180}
-  _playOn: 0
+  _lerpPlayOn: 0
 --- !u!114 &1113315300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,9 +541,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.FillManager
   _fillAmount: 1
-  _onLink:
-    m_PersistentCalls:
-      m_Calls: []
+  _ld:
+    _duration: 1
+    _curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!114 &1113315301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3300,7 +3305,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1915349542}
   - component: {fileID: 1915349539}
-  - component: {fileID: 1915349541}
   - component: {fileID: 1915349540}
   m_Layer: 0
   m_Name: UICamera
@@ -3404,14 +3408,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!81 &1915349541
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915349538}
-  m_Enabled: 1
 --- !u!4 &1915349542
 Transform:
   m_ObjectHideFlags: 0
