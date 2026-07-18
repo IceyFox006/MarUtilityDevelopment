@@ -8,7 +8,7 @@
 
 using UnityEngine;
 
-namespace MarUtility.DataMethod
+namespace MarUtility
 {
     public static class Math
     {

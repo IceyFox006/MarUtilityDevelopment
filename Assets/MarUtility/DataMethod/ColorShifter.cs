@@ -8,7 +8,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace MarUtility.DataMethod
+namespace MarUtility
 {
     public class ColorShifter : MonoBehaviour
     {
