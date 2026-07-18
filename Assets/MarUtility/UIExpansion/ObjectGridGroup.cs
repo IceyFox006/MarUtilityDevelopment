@@ -14,11 +14,11 @@ namespace MarUtility.UIExtensions
     public class NewMonoBehaviourScript : MonoBehaviour
     {
         //SIZING
-        [SerializeField, BoxGroup("Sizing"), Tooltip("Number of rows and columns.\nX = column count.\nY = row count.")]
+        [SerializeField, BoxGroup("Sizing"), OnValueChanged("SnapAll"), Tooltip("Number of rows and columns.\nX = column count.\nY = row count.")]
         private Vector3Int _size = Vector3Int.one;
-        [SerializeField, BoxGroup("Sizing"), Tooltip("Size of children gameobjects.")]
+        [SerializeField, BoxGroup("Sizing"), OnValueChanged("SnapAll"), Tooltip("Size of children gameobjects.")]
         private Vector3 _childSize;
-        [SerializeField, BoxGroup("Sizing"), Tooltip("X = spacing between columns, Y = spacing between rows.")]
+        [SerializeField, BoxGroup("Sizing"), OnValueChanged("SnapAll"), Tooltip("X = spacing between columns, Y = spacing between rows.")]
         private Vector3 _spacing;
 
         //CHILDREN
@@ -67,7 +67,12 @@ namespace MarUtility.UIExtensions
         {
             for (int i = 0; i < _children.Count; i++)
             {
-                if (i < _size.x * _size.y * _size.z) SnapChild(i);
+
+                if (i < _size.x * _size.y * _size.z)
+                {
+                    transform.GetChild(i).gameObject.SetActive(true);
+                    SnapChild(i);
+                }
                 else transform.GetChild(i).gameObject.SetActive(false);
             }
         }
