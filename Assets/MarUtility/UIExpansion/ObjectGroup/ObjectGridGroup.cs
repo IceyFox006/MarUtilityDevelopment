@@ -15,7 +15,7 @@ namespace MarUtility.UIExtensions
 {
     public class ObjectGridGroup : MonoBehaviour
     {
-        //SIZING
+        //ALIGNMENT
         [SerializeField, BoxGroup("Alignment"), OnValueChanged("OnVC_Children"), Tooltip("Number of rows and columns.\nX = column count.\nY = row count.")]
         private Vector3Int _size = Vector3Int.one;
         [SerializeField, BoxGroup("Alignment"), OnValueChanged("OnVC_Children"), Tooltip("Size of children gameobjects.")]

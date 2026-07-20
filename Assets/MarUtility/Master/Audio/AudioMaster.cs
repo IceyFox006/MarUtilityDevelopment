@@ -15,7 +15,7 @@ namespace MarUtility
 {
     public class AudioMaster : Manager
     {
-        public static AudioMaster INSTANCE;
+        public static AudioMaster INST;
 
         [SerializeField, Required]
         private GameObject _audioDataSourcePrefab;
@@ -31,10 +31,10 @@ namespace MarUtility
         public override void Initialize()
         {
             //Set singleton.
-            if (INSTANCE == null)
-                INSTANCE = this;
+            if (INST == null)
+                INST = this;
             else
-                Debug.LogError("Multiple instances of AUDIO_MASTER exists, you can only have one.");
+                DebugMessages.MultipleMasterInstances("AUDIO");
 
             //Spawn audio sources.
             foreach (AudioData ad in _library.Values)
@@ -49,12 +49,12 @@ namespace MarUtility
 
 
         //Plays a sound at position.
-        public void Play(string aName)
+        public void Play(string aID)
         {
-            if (!_library.ContainsKey(aName))
-                Debug.LogError("AUDIO_MASTER does not contain " + aName + ".");
+            if (!_library.ContainsKey(aID))
+                DebugMessages.LibraryDoesNotContain("AUDIO", aID);
 
-            AudioData ad; _library.TryGetValue(aName, out ad);
+            AudioData ad; _library.TryGetValue(aID, out ad);
             ad.Play();
         }
 

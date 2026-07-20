@@ -7,6 +7,7 @@
  */
 using NaughtyAttributes;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 namespace MarUtility.UIExtensions
@@ -105,18 +106,33 @@ namespace MarUtility.UIExtensions
         [Button]
         private void SimulateReturn()
         {
+            if (!EditorApplication.isPlaying)
+            {
+                DebugMessages.SimulationPlaytestOnly("Return");
+                return;
+            }
             BeginReturnToOriginLerp();
         }
 
         [Button]
         private void SimulateEntrance()
         {
+            if (!EditorApplication.isPlaying)
+            {
+                DebugMessages.SimulationPlaytestOnly("Entrance");
+                return;
+            }
             BeginEntranceLerp();
         }
 
         [Button]
         private void SimulateExit()
         {
+            if (!EditorApplication.isPlaying)
+            {
+                DebugMessages.SimulationPlaytestOnly("Exit");
+                return;
+            }
             BeginExitLerp();
         }
         #endregion

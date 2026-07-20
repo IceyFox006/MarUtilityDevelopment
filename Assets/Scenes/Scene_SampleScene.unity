@@ -3039,15 +3039,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ef11ef295ec894b8e3558291a33d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.DataMethod.ColorShifter
-  hPercent: 0.05072998
-  vPercent: 0.0075555327
-  cshade3: {r: 0.8573934, g: 0.08045187, b: 0.81975096, a: 1}
-  cshade2: {r: 0.86494887, g: 0.087695934, b: 0.5907111, a: 1}
-  cshade1: {r: 0.8725044, g: 0.095054224, b: 0.36155686, a: 1}
-  c: {r: 0.88005996, g: 0.102526665, b: 0.13239229, a: 1}
-  ctint1: {r: 0.8876155, g: 0.31690502, b: 0.11011332, a: 1}
-  ctint2: {r: 0.89517105, g: 0.56117904, b: 0.11781413, a: 1}
-  ctint3: {r: 0.90272653, g: 0.80537885, b: 0.12562905, a: 1}
+  hPercent: 0.053
+  vPercent: 0.03
+  cshade3: {r: 0, g: 0.91, b: 0.65509385, a: 1}
+  cshade2: {r: 0, g: 0.9043898, b: 0.94, a: 1}
+  cshade1: {r: 0, g: 0.6247932, b: 0.97, a: 1}
+  c: {r: 0, g: 0.3261168, b: 1, a: 1}
+  ctint1: {r: 0.029999971, g: 0.037873425, b: 1, a: 1}
+  ctint2: {r: 0.35129026, g: 0.060000002, b: 1, a: 1}
+  ctint3: {r: 0.6613736, g: 0.089999974, b: 1, a: 1}
 --- !u!4 &268155090
 Transform:
   m_ObjectHideFlags: 0
@@ -4996,7 +4996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.76635724, g: 0.773, b: 0.227, a: 1}
+  m_Color: {r: 0.67246103, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5008,7 +5008,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.227
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -5129,10 +5129,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.FillManager
   _fillAmount: 0
   _ld:
-    _duration: 0
+    _duration: 1
     _curve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
