@@ -30,7 +30,7 @@ namespace MarUtility.ExecutionManagement
         [SerializeField, Required]
         private GameObject _loadingScreen;
         [SerializeField]
-        private FillManager _progressBarFill;
+        private FillController _progressBarFill;
         [SerializeField]
         private TMP_Text _loadingText;
 

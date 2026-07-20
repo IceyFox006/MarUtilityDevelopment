@@ -1,9 +1,9 @@
 /*
  * Marlow Greenan
  * Created: 6/26/2026
- * Last Updated: 6/27/2026
+ * Last Updated: 7/19/2026
  * 
- * Managers various UIExtensions related to the fill of images and sliders.
+ * Controls various UIExtensions related to the fill of images and sliders.
  */
 using NaughtyAttributes;
 using System.Collections;
@@ -13,7 +13,7 @@ using UnityEngine.Events;
 namespace MarUtility.UIExtensions
 {
 
-    public class FillManager : MonoBehaviour
+    public class FillController : MonoBehaviour
     {
         [SerializeField, Range(0, 1), OnValueChanged("OnVC_FillAmount")]
         protected float _fillAmount = 1;
@@ -27,9 +27,6 @@ namespace MarUtility.UIExtensions
 
         //EVENTS
         private UnityEvent onLink = new UnityEvent();
-        private UnityEvent onLerpStart = new UnityEvent();
-        private UnityEvent onLerpBody = new UnityEvent();
-        private UnityEvent onLerpEnd = new UnityEvent();
 
         #region GS
         public virtual float FillAmount
@@ -43,9 +40,7 @@ namespace MarUtility.UIExtensions
         }
 
         public UnityEvent OnLink { get => onLink; set => onLink = value; }
-        public UnityEvent OnLerpStart { get => onLerpStart; set => onLerpStart = value; }
-        public UnityEvent OnLerpBody { get => onLerpBody; set => onLerpBody = value; }
-        public UnityEvent OnLerpEnd { get => onLerpEnd; set => onLerpEnd = value; }
+        public LerpData Ld { get => _ld; set => _ld = value; }
         #endregion
 
         //Begins lerping the fill amount.
@@ -63,17 +58,17 @@ namespace MarUtility.UIExtensions
         {
             lTime = 0;
             FillAmount = lStart;
-            onLerpStart.Invoke();
+            _ld.OnStart.Invoke();
 
             while (lTime < _ld.Duration)
             {
                 FillAmount = Mathf.Lerp(lStart, lEnd, _ld.Curve.Evaluate(lTime / _ld.Duration));//FillAmount = Mathf.Lerp(lStart, lEnd, lTime / _ld.Duration);
                 lTime += Time.deltaTime;
-                onLerpBody.Invoke();
+                _ld.OnBody.Invoke();
                 yield return null;
             }
             FillAmount = lEnd;
-            onLerpEnd.Invoke();
+            _ld.OnEnd.Invoke();
         }
 
         #region Inspector

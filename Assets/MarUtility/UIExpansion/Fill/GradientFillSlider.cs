@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace MarUtility.UIExtensions
 {
-    [RequireComponent(typeof(FillManager))]
+    [RequireComponent(typeof(FillController))]
     [RequireComponent(typeof(Slider))]
     public class GradientFillSlider : GradientFill
     {
@@ -39,7 +39,7 @@ namespace MarUtility.UIExtensions
         #region Inspector
         public override void OnVC_FillAmount()
         {
-            GetComponent<Slider>().value = GetComponent<FillManager>().FillAmount;
+            GetComponent<Slider>().value = GetComponent<FillController>().FillAmount;
             base.OnVC_FillAmount();
         }
         #endregion

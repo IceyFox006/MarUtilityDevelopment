@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/21/2026
+ * Last Updated: 7/19/2026
  * 
  * Contains various reuable enums.
  */
@@ -18,6 +18,11 @@ namespace MarUtility
         RIGHT,
         FORWARD,
         BACKWARD,
+    }
+    public enum FrontBack
+    {
+        FRONT,
+        BACK,
     }
 
     public enum Dimension
