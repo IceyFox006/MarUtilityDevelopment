@@ -11,7 +11,7 @@ namespace MarUtility.UIExtensions
 {
     public class Fill : MonoBehaviour
     {
-        protected FillManager fm;
+        protected FillController fm;
         private void Start()
         {
             Initialize();
@@ -21,7 +21,7 @@ namespace MarUtility.UIExtensions
         protected virtual void Initialize()
             => SetFM();
         protected virtual void SetFM()
-            => fm = GetComponent<FillManager>();
+            => fm = GetComponent<FillController>();
         public virtual void OnVC_FillAmount(){ }
         public virtual void Link() { }
     }

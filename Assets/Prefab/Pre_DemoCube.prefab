@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 816060577474222301}
   - component: {fileID: 2560279406346345091}
   - component: {fileID: 1085946902973948987}
+  - component: {fileID: 863380548561197743}
   m_Layer: 0
   m_Name: Pre_DemoCube
   m_TagString: Untagged
@@ -90,3 +91,124 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7942610798267443887}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &863380548561197743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7942610798267443887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6cf687f7914804398a2a3d39997bd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectGroupChild
+  _returnLD:
+    _duration: 0.3
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    _onBody:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  _doEntrance: 1
+  _entrancePos: {x: 0, y: 30, z: 0}
+  _entranceLD:
+    _duration: 1
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    _onBody:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnd:
+      m_PersistentCalls:
+        m_Calls: []
+  _doExit: 1
+  _exitPos: {x: 0, y: -30, z: 0}
+  _exitLD:
+    _duration: 1
+    _curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _onStart:
+      m_PersistentCalls:
+        m_Calls: []
+    _onBody:
+      m_PersistentCalls:
+        m_Calls: []
+    _onEnd:
+      m_PersistentCalls:
+        m_Calls: []

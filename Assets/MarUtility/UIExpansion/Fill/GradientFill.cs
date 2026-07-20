@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace MarUtility.UIExtensions
 {
-    [RequireComponent(typeof(FillManager))]
+    [RequireComponent(typeof(FillController))]
     public class GradientFill : Fill
     {
         [SerializeField]
@@ -28,7 +28,7 @@ namespace MarUtility.UIExtensions
 
         #region Inspector
         public override void OnVC_FillAmount()
-            => _image.color = _gradient.Evaluate(GetComponent<FillManager>().FillAmount);
+            => _image.color = _gradient.Evaluate(GetComponent<FillController>().FillAmount);
         #endregion
     }
 }

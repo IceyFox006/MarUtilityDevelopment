@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 6/26/2026
- * Last Updated: 6/26/2026
+ * Last Updated: 7/19/2026
  * 
  * Plays particles on fill change.
  */
@@ -11,7 +11,7 @@ using UnityEngine.UI;
 
 namespace MarUtility.UIExtensions 
 {
-    [RequireComponent(typeof(FillManager))]
+    [RequireComponent(typeof(FillController))]
     [RequireComponent(typeof(Slider))]
     public class ParticleFillSlider : Fill
     {
@@ -24,21 +24,13 @@ namespace MarUtility.UIExtensions
         [SerializeField, HideIf("spawnsNew")]
         private ParticleSystem _particles;
 
-        [SerializeField, EnumFlags, Tooltip("When particles will be played on lerping.")]
-        private LerpEvent _lerpPlayOn;
+        [SerializeField, Tooltip("If particles play when the player manually moves the slider.")]
+        private bool _playOnInput = true;
 
         protected override void Initialize() 
         {
             base.Initialize();
             slider = GetComponent<Slider>();
-
-            //Link lerp events
-            if (_lerpPlayOn.HasFlag(LerpEvent.START))
-                fm.OnLerpStart.AddListener(delegate { PlayParticle(); });
-            if (_lerpPlayOn.HasFlag(LerpEvent.BODY))
-                fm.OnLerpBody.AddListener(delegate {  PlayParticle(); });
-            if (_lerpPlayOn.HasFlag(LerpEvent.END))
-                fm.OnLerpEnd.AddListener(delegate {  PlayParticle(); });
 
             //Link slider events
             slider.onValueChanged.AddListener(delegate { LinkSlider(); });
@@ -46,11 +38,11 @@ namespace MarUtility.UIExtensions
 
         private void LinkSlider()
         {
-            if (_lerpPlayOn.HasFlag(LerpEvent.BODY))
+            if (_playOnInput)
                 PlayParticle();
         }
 
-        private void PlayParticle()
+        public void PlayParticle()
         {
             Vector3 pos = slider.handleRect.position;
             if (!spawnsNew)
