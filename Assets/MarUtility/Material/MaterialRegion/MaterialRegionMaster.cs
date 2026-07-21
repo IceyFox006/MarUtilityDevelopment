@@ -9,7 +9,7 @@ using NaughtyAttributes;
 using System;
 using UnityEngine;
 
-namespace MarUtility.MaterialRegion
+namespace MarUtility.Material
 {
     public  static class MaterialRegionMaster
     {
@@ -24,7 +24,7 @@ namespace MarUtility.MaterialRegion
             => ChangeColorAtRegion(regID, newColor, renderer.sharedMaterial);
 
         //Changes the color at regID of mat.
-        public static void ChangeColorAtRegion(int regID, Color newColor, Material mat)
+        public static void ChangeColorAtRegion(int regID, Color newColor, UnityEngine.Material mat)
         {
             if (!mat.HasColor(VN_COLORS[regID]))
             {

@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class ParticleMaster : Manager
 {
-    public static ParticleMaster INSTANCE;
+    public static ParticleMaster INST;
 
     [SerializeField, Tooltip("Keys are case sensitive. If a key is changed, make sure all instances where it is used are updated.")]
         private Dictionary<string, GameObject> _library;
@@ -19,25 +19,25 @@ public class ParticleMaster : Manager
     public override void Initialize()
     {
         //Set singleton.
-        if (INSTANCE == null)
-            INSTANCE = this;
+        if (INST == null)
+            INST = this;
         else
-            Debug.LogError("Multiple instances of PARTICLE_MASTER exists, you can only have one.");
+            DebugMessages.MultipleMasterInstances("PARTICLE");
         base.Initialize();
     }
 
-    public GameObject Play(string pN, Vector3 position)
+    public GameObject Play(string pID, Vector3 position)
     {
-        if (!_library.ContainsKey(pN))
+        if (!_library.ContainsKey(pID))
         {
-            Debug.LogError("PARTICLE MASTER library does not contain " + pN + ".");
+            DebugMessages.LibraryDoesNotContain("PARTICLE", pID);
             return null;
         }
 
-        GameObject goPref; _library.TryGetValue(pN, out goPref);
+        GameObject goPref; _library.TryGetValue(pID, out goPref);
         if (goPref.GetComponent<ParticleSystem>() == null)
         {
-            Debug.LogError("PARTICLE MASTER particle " + pN + " does not have a particle system component.");
+            Debug.LogError("PARTICLE MASTER particle " + pID + " does not have a particle system component.");
             return null;
         }
 

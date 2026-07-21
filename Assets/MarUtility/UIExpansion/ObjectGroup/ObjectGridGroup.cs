@@ -1,21 +1,27 @@
 /*
  * Marlow Greenan
  * Created: 6/27/2026
- * Last Updated: 7/19/2026
+ * Last Updated: 7/21/2026 by Marlow Greenan
  * 
  * Spaces out objects into rowns and/or columns.
  */
+using MarUtility.ExecutionManagement;
+using MarUtility.ObjectEventSystem;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MarUtility.UIExtensions
 {
     public class ObjectGridGroup : MonoBehaviour
     {
-        //SIZING
+        [SerializeField]
+        private InitializeTime _initializeTime;
+
+        //ALIGNMENT
         [SerializeField, BoxGroup("Alignment"), OnValueChanged("OnVC_Children"), Tooltip("Number of rows and columns.\nX = column count.\nY = row count.")]
         private Vector3Int _size = Vector3Int.one;
         [SerializeField, BoxGroup("Alignment"), OnValueChanged("OnVC_Children"), Tooltip("Size of children gameobjects.")]
@@ -37,7 +43,15 @@ namespace MarUtility.UIExtensions
         [SerializeField, BoxGroup("Entrance/Exit")]
         private FrontBack _entranceListExecutionOrder;
         [SerializeField, BoxGroup("Entrance/Exit")]
+        private UnityEvent _onEntranceStart;
+        [SerializeField, BoxGroup("Entrance/Exit")]
+        private UnityEvent _onEntranceEnd;
+        [SerializeField, BoxGroup("Entrance/Exit")]
         private FrontBack _exitListExecutionOrder;
+        [SerializeField, BoxGroup("Entrance/Exit")]
+        private UnityEvent _onExitStart;
+        [SerializeField, BoxGroup("Entrance/Exit")]
+        private UnityEvent _onExitEnd;
 
         //SWAP
         [SerializeField, Label("Swap Lerp Data"), BoxGroup("Swap")]
@@ -52,16 +66,28 @@ namespace MarUtility.UIExtensions
         private float _simMovePercent;
 
         private ChildData[,,] grid;
-        private ObjectGroupChild[] _groupChildren;
 
+        #region GS
+        public UnityEvent OnEntranceStart { get => _onEntranceStart; set => _onEntranceStart = value; }
+        public UnityEvent OnEntranceEnd { get => _onEntranceEnd; set => _onEntranceEnd = value; }
+        public UnityEvent OnExitStart { get => _onExitStart; set => _onExitStart = value; }
+        public UnityEvent OnExitEnd { get => _onExitEnd; set => _onExitEnd = value; }
+        public ChildData[,,] Grid { get => grid; set => grid = value; }
+        #endregion
 
         private void Awake()
         {
-            Initialize();
+            if (_initializeTime == InitializeTime.AWAKE)
+                Initialize();
+        }
+        private void Start()
+        {
+            if (_initializeTime == InitializeTime.START)
+                Initialize();
         }
 
         //Sets up children list, creates grid, snaps all children, and initializes group children.
-        private void Initialize()
+        public void Initialize()
         {
             //Set up child list.
             if (!_spawnChildren) //Add pre-existing children to list.
@@ -104,6 +130,9 @@ namespace MarUtility.UIExtensions
         //Plays entrance movement for all children.
         public IEnumerator PlayEntrance()
         {
+            _onEntranceStart.Invoke();
+            StartCoroutine(EntranceCD());
+
             if (_entranceListExecutionOrder == FrontBack.FRONT) //Front
             {
                 for (int z = 0; z < grid.GetLength(2); z++)
@@ -134,9 +163,20 @@ namespace MarUtility.UIExtensions
             }
         }
 
+        //Waits until end of entrance lerp.
+        private IEnumerator EntranceCD()
+        {
+            float entranceDuration = (grid[0, 0,0].Ogc.EntranceLD.Duration + (_size.x * _size.y * _size.z * _intervalBetweenPiece) * 1.5f);
+            yield return new WaitForSeconds(entranceDuration);
+            _onEntranceEnd.Invoke();
+        }
+
         //Plays exit movement for all children.
         public IEnumerator PlayExit()
         {
+            _onExitStart.Invoke();
+            StartCoroutine(ExitCD());
+
             if (_exitListExecutionOrder == FrontBack.FRONT) //Front
             {
                 for (int z = 0; z < grid.GetLength(2); z++)
@@ -165,6 +205,14 @@ namespace MarUtility.UIExtensions
                     }
                 }
             }
+        }
+
+        //Waits until end of entrance lerp.
+        private IEnumerator ExitCD()
+        {
+            float exitDuration = (grid[0, 0, 0].Ogc.ExitLD.Duration + (_size.x * _size.y * _size.z * _intervalBetweenPiece)) * 1.5f;
+            yield return new WaitForSeconds(exitDuration);
+            _onExitEnd.Invoke();
         }
 
         //Plays swap movement and swaps the data.
@@ -227,8 +275,7 @@ namespace MarUtility.UIExtensions
 
         private void SetGroupChildrenList()
         {
-            _groupChildren = GetComponentsInChildren<ObjectGroupChild>();
-            foreach (ObjectGroupChild child in _groupChildren)
+            foreach (ObjectGroupChild child in GetComponentsInChildren<ObjectGroupChild>())
                 child.Initialize();
         }
 
@@ -261,13 +308,15 @@ namespace MarUtility.UIExtensions
         //Swaps only the DATA of the gameObjects at coordA and coordB. NO EFFECT ON IN GAME POSITION.
         public void SwapChildrenData(Vector3Int coordA, Vector3Int coordB)
         {
-            ChildData holder = GetDataAtCoord(coordA);
-            SetDataAtCoord(coordA, GetDataAtCoord(coordB));
+            ChildData holder = GetCoordData(coordA);
+            SetDataAtCoord(coordA, GetCoordData(coordB));
             SetDataAtCoord(coordB, holder);
         }
 
         //Gets the object at coord.
-        private ChildData GetDataAtCoord(Vector3Int coord)
+        public ChildData GetCoordData(Vector2Int coord)
+            => GetCoordData(new Vector3Int(coord.x, coord.y, 0));
+        public ChildData GetCoordData(Vector3Int coord)
             => grid[coord.x, coord.y, coord.z];
 
         //Sets object at coords and recalculates originPos.
@@ -278,30 +327,6 @@ namespace MarUtility.UIExtensions
             ObjectGroupChild child = newObj.Ogc;
             if (child != null)
                 child.OriginPos = CalculateOriginPos(coord);
-        }
-
-        //Returns true if coord is in the grid bounds.
-        private bool InBounds(Vector3Int coord)
-        {
-            if (!(coord.x >= 0 && coord.x <= grid.GetLength(0))) return false;
-            if (!(coord.y >= 0 && coord.y <= grid.GetLength(1))) return false;
-            if (!(coord.z >= 0 && coord.z <= grid.GetLength(2))) return false;
-            return true;
-        }
-
-        //Returns true if coord is in bounds, not null, and is not moving.
-        private bool CanMoveCoord(Vector3Int coord, out ObjectGroupChild ogc)
-        {
-            ogc = null;
-
-            if (!(InBounds(coord))) return false;
-
-            ogc = GetDataAtCoord(coord).Ogc;
-
-            if (ogc == null) return false;
-            if (ogc.IsLerping) return false;
-
-            return true;
         }
         #endregion
 
@@ -321,7 +346,7 @@ namespace MarUtility.UIExtensions
 
         private Vector3 CalculateOriginPos(Vector3Int coord)
         {
-            if (GetDataAtCoord(coord) == null) return new Vector3(-1, -1, -1);
+            if (GetCoordData(coord) == null) return new Vector3(-1, -1, -1);
 
             float xPos = transform.position.x + (coord.x * (_spacing.x + _childSize.x));
             float yPos = transform.position.y - (coord.y * (_spacing.y + _childSize.y));
@@ -333,9 +358,38 @@ namespace MarUtility.UIExtensions
         //Snaps a child to their origin position.
         private void SnapChild(Vector3Int coord)
         {
-            if (GetDataAtCoord(coord) == null) return;
+            if (GetCoordData(coord) == null) return;
 
             grid[coord.x, coord.y, coord.z].Obj.transform.position = CalculateOriginPos(coord);
+        }
+        #endregion
+
+        #region BoolCheck
+        //Returns true if coord is in the grid bounds.
+        public bool InBounds(Vector2Int coord)
+            => InBounds(new Vector3Int(coord.x, coord.y, 0));
+
+        public bool InBounds(Vector3Int coord)
+        {
+            if (!(coord.x >= 0 && coord.x <= grid.GetLength(0))) return false;
+            if (!(coord.y >= 0 && coord.y <= grid.GetLength(1))) return false;
+            if (!(coord.z >= 0 && coord.z <= grid.GetLength(2))) return false;
+            return true;
+        }
+
+        //Returns true if coord is in bounds, not null, and is not moving.
+        private bool CanMoveCoord(Vector3Int coord, out ObjectGroupChild ogc)
+        {
+            ogc = null;
+
+            if (!(InBounds(coord))) return false;
+
+            ogc = GetCoordData(coord).Ogc;
+
+            if (ogc == null) return false;
+            if (ogc.IsLerping) return false;
+
+            return true;
         }
         #endregion
 
@@ -411,20 +465,23 @@ namespace MarUtility.UIExtensions
         #endregion
 
         //=============================================================================================================
-        private class ChildData
+        public class ChildData
         {
             private GameObject obj;
             private ObjectGroupChild ogc;
+            private ObjectButton obtn;
 
             public ChildData(GameObject go)
             {
                 obj = go;
                 ogc = go.GetComponent<ObjectGroupChild>();
+                obtn = go.GetComponent<ObjectButton>();
             }
 
             #region GS
             public GameObject Obj { get => obj; set => obj = value; }
             public ObjectGroupChild Ogc { get => ogc; set => ogc = value; }
+            public ObjectButton Obtn { get => obtn; set => obtn = value; }
             #endregion
         }
     }

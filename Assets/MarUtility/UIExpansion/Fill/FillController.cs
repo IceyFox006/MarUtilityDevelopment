@@ -7,6 +7,7 @@
  */
 using NaughtyAttributes;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -44,17 +45,17 @@ namespace MarUtility.UIExtensions
         #endregion
 
         //Begins lerping the fill amount.
-        public void BeginLerp(float end)
-            => BeginLerp(_fillAmount, end);
-        public void BeginLerp(float start, float end)
+        public void BeginFillLerp(float end)
+            => BeginFillLerp(_fillAmount, end);
+        public void BeginFillLerp(float start, float end)
         {
             lStart = start;
             lEnd = end;
-            StartCoroutine(LerpInterval());
+            StartCoroutine(FillLerpInterval());
         }
 
         //Lerps the fill amount.
-        private IEnumerator LerpInterval()
+        private IEnumerator FillLerpInterval()
         {
             lTime = 0;
             FillAmount = lStart;
@@ -72,9 +73,16 @@ namespace MarUtility.UIExtensions
         }
 
         #region Inspector
-        [Button("Simulate")]
-        private void TestLerp()
-            => BeginLerp(1, 0);
+        [Button]
+        private void SimulateFill()
+        {
+            if (!EditorApplication.isPlaying)
+            {
+                DebugMessages.SimulationPlaytestOnly("Fill");
+                return;
+            }
+            BeginFillLerp(1, 0);
+        }
 
         private void OnVC_FillAmount()
         {

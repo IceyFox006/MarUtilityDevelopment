@@ -9,7 +9,7 @@ using NaughtyAttributes;
 using System;
 using UnityEngine;
 
-namespace MarUtility.MaterialRegion
+namespace MarUtility.Material
 {
     [RequireComponent(typeof(SpriteRenderer))]
     [Serializable]

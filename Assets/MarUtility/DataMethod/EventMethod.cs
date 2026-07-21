@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 7/1/2026
- * Last Updated: 7/8/2026
+ * Last Updated: 7/20/2026
  * 
  * General methods used for buttons, animation events, etc.
  */
@@ -12,15 +12,19 @@ namespace MarUtility
 {
     public class EventMethod : MonoBehaviour
     {
+        #region Debug
+        public void DebugLog(string message)
+            => Debug.Log(message);
+        public void DebugLogError(string message)
+            => Debug.Log(message);
+        #endregion
+        #region Scene
         public void SceneLoad(int index)
-        {
-            SceneManager.INSTANCE.LoadScene((SceneIndex)index); //end of transition
-        }
+            => SceneManager.INSTANCE.LoadScene((SceneIndex)index); //end of transition
 
         public void SceneTransition(int index)
-        {
-            TransitionManager.INSTANCE.Close((SceneIndex)index);
-        }
+            => TransitionManager.INSTANCE.Close((SceneIndex)index);
+        #endregion
     }
 }
 
