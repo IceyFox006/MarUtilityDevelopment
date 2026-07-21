@@ -4,8 +4,8 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     [SerializeField]
-    private IntCellData _grid;
+    private IntCellData _intGrid;
 
     [SerializeField]
-    private int[] _tgrid;
+    private BoolCellData _boolGrid;
 }

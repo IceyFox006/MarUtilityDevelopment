@@ -9,16 +9,31 @@ namespace MarUtility.InspectorExtentions
 {
     public class Array2DInspectorData{}
 
+    #region Int
     [System.Serializable]
     public class IntCellData
     {
-        public RowData[] rows = new RowData[5];
+        public RowData[] rows = new RowData[7];
 
         [System.Serializable]
         public class RowData
         {
-            public int[] row = new int[10];
+            public int[] row = new int[7];
         }
     }
+    #endregion
 
+    #region Bool
+    [System.Serializable]
+    public class BoolCellData
+    {
+        public RowData[] rows = new RowData[7];
+
+        [System.Serializable]
+        public class RowData
+        {
+            public bool[] row = new bool[7];
+        }
+    }
+    #endregion
 }
