@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/21/2026
+ * Last Updated: 6/21/2026 by Marlow Greenan
  * 
  * Runs the system for object buttons.
  */
@@ -94,7 +94,8 @@ namespace MarUtility.ObjectEventSystem
         public override void Initialize()
         {
             curHover = _firstSelected;
-            _firstSelected.OnHoverEnter();
+            if (curHover != null)
+                _firstSelected.OnHoverEnter();
 
             InitializeInput();
             if (_receiveInput)
@@ -180,9 +181,13 @@ namespace MarUtility.ObjectEventSystem
         //Switches which button is currently being hovered over.
         public void SwitchHover(ObjectButton ob)
         {
-            curHover.OnHoverExit();
+            if (curHover != null)
+                curHover.OnHoverExit();
+
             curHover = ob;
-            curHover.OnHoverEnter();
+
+            if (curHover != null)
+                curHover.OnHoverEnter();
         }
 
         //Adds ob to curSelected and selects it.

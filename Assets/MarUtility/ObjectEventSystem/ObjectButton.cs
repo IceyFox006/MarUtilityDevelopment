@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/20/2026
+ * Last Updated: 6/20/2026 by Marlow Greenan
  * 
  * A button for the ObjectEventSystem. Manages events and visuals for selection changes.
  */
@@ -116,8 +116,6 @@ namespace MarUtility.ObjectEventSystem
         {
             isSelected = true;
 
-            _onSelectEvents.Invoke();
-
             if (isHovered)
             {
                 foreach (OBVisual visual in curVisuals)
@@ -128,6 +126,7 @@ namespace MarUtility.ObjectEventSystem
                 foreach (OBVisual visual in curVisuals)
                     visual.ApplySelect();
             }
+            _onSelectEvents.Invoke();
         }
 
         //Invoke deselect events and update visuals.
@@ -135,7 +134,6 @@ namespace MarUtility.ObjectEventSystem
         {
             isSelected = false;
 
-            _onDeselectEvents.Invoke();
             if (isHovered)
             {
                 foreach (OBVisual visual in curVisuals)
@@ -146,6 +144,7 @@ namespace MarUtility.ObjectEventSystem
                 foreach (OBVisual visual in curVisuals)
                     visual.Reset();
             }
+            _onDeselectEvents.Invoke();
         }
 
         //Invoke hover enter events and update visuals.
@@ -153,7 +152,6 @@ namespace MarUtility.ObjectEventSystem
         {
             isHovered = true;
 
-            _onHoverEnterEvents.Invoke();
             if (!isSelected)
             {
                 foreach (OBVisual visual in curVisuals)
@@ -164,6 +162,7 @@ namespace MarUtility.ObjectEventSystem
                 foreach (OBVisual visual in curVisuals)
                     visual.ApplyHoverSelect();
             }
+            _onHoverEnterEvents.Invoke();
         }
 
         //Invoke hover exit events and update visuals.
@@ -171,7 +170,6 @@ namespace MarUtility.ObjectEventSystem
         {
             isHovered = false;
 
-            _onHoverExitEvents.Invoke();
             if (!isSelected)
             {
                 foreach (OBVisual visual in curVisuals)
@@ -182,6 +180,7 @@ namespace MarUtility.ObjectEventSystem
                 foreach (OBVisual visual in curVisuals)
                     visual.ApplySelect();
             }
+            _onHoverExitEvents.Invoke();
         }
         #endregion
 
@@ -520,17 +519,17 @@ namespace MarUtility.ObjectEventSystem
     {
         [SerializeField, AllowNesting, Required]
         private SpriteRenderer _renderer;
-        private Material defaultMaterial;
+        private UnityEngine.Material defaultMaterial;
 
         [Header("Material")]
         [SerializeField, AllowNesting]
-        private Material _hover;
+        private UnityEngine.Material _hover;
         [SerializeField, AllowNesting]
-        private Material _select;
+        private UnityEngine.Material _select;
         [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
-        private Material _hoverSelect;
+        private UnityEngine.Material _hoverSelect;
         [SerializeField, AllowNesting]
-        private Material _confirm;
+        private UnityEngine.Material _confirm;
 
         public override void Initialize(ObjectButton ob)
         {
@@ -576,17 +575,17 @@ namespace MarUtility.ObjectEventSystem
     {
         [SerializeField, AllowNesting, Required]
         private MeshRenderer _renderer;
-        private Material defaultMaterial;
+        private UnityEngine.Material defaultMaterial;
 
         [Header("Material")]
         [SerializeField, AllowNesting]
-        private Material _hover;
+        private UnityEngine.Material _hover;
         [SerializeField, AllowNesting]
-        private Material _select;
+        private UnityEngine.Material _select;
         [SerializeField, AllowNesting, Tooltip("Activated when hovering over a selected button. If this is not set, select will be activated.")]
-        private Material _hoverSelect;
+        private UnityEngine.Material _hoverSelect;
         [SerializeField, AllowNesting]
-        private Material _confirm;
+        private UnityEngine.Material _confirm;
 
         public override void Initialize(ObjectButton ob)
         {
