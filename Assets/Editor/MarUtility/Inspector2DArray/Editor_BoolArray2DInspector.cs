@@ -27,7 +27,7 @@ namespace MarUtility.InspectorExtentions
                 SerializedProperty row = rows.GetArrayElementAtIndex(x).FindPropertyRelative("row");
 
                 newPosition.height = 20;
-                newPosition.width = 20;
+                newPosition.width = 30;
 
                 for (int y = 0; y < row.arraySize; y++)
                 {

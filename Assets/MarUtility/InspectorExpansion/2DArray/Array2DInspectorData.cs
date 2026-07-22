@@ -5,6 +5,8 @@
  * 
  * Contains data for 2D arrays in inspectors.
  */
+using UnityEngine;
+
 namespace MarUtility.InspectorExtentions
 {
     public class Array2DInspectorData{}
@@ -20,6 +22,11 @@ namespace MarUtility.InspectorExtentions
         {
             public int[] row = new int[7];
         }
+
+        public int GetCoordData(Vector2Int coord)
+            => GetCoordData(coord.x, coord.y);
+        public int GetCoordData(int x, int y)
+            => rows[x].row[y];
     }
     #endregion
 
@@ -34,6 +41,11 @@ namespace MarUtility.InspectorExtentions
         {
             public bool[] row = new bool[7];
         }
+
+        public bool GetCoordData(Vector2Int coord)
+            => GetCoordData(coord.x, coord.y);
+        public bool GetCoordData(int x, int y)
+            => rows[x].row[y];
     }
     #endregion
 }
