@@ -41,6 +41,7 @@ namespace MarUtility.UIExtensions
         private LerpData curLD;
         private bool isLerping;
 
+        private Vector3Int gridCoord;
         private Vector3 originPos;
 
         #region GS
@@ -48,6 +49,7 @@ namespace MarUtility.UIExtensions
         public bool IsLerping { get => isLerping; set => isLerping = value; }
         public LerpData EntranceLD { get => _entranceLD; set => _entranceLD = value; }
         public LerpData ExitLD { get => _exitLD; set => _exitLD = value; }
+        public Vector3Int GridCoord { get => gridCoord; set => gridCoord = value; }
         #endregion
 
         public void Initialize()

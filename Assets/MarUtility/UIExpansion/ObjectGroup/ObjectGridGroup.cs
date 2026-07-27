@@ -73,6 +73,7 @@ namespace MarUtility.UIExtensions
         public UnityEvent OnExitStart { get => _onExitStart; set => _onExitStart = value; }
         public UnityEvent OnExitEnd { get => _onExitEnd; set => _onExitEnd = value; }
         public ChildData[,,] Grid { get => grid; set => grid = value; }
+        public LerpData SwapLD { get => _swapLD; set => _swapLD = value; }
         #endregion
 
         private void Awake()
@@ -216,6 +217,8 @@ namespace MarUtility.UIExtensions
         }
 
         //Plays swap movement and swaps the data.
+        public bool PlaySwap(Vector2Int coordA, Vector2Int coordB)
+            => PlaySwap(new Vector3Int(coordA.x, coordA.y, 0), new Vector3Int(coordB.x, coordB.y, 0));
         public bool PlaySwap(Vector3Int coordA, Vector3Int coordB)
         {
             ObjectGroupChild objA;
@@ -238,6 +241,8 @@ namespace MarUtility.UIExtensions
         }
 
         //Moves coordMoving object partially towards coordEnd object.
+        public bool PlayPercentMoveTowards(Vector2Int coordMoving, Vector2Int coordEnd, float percent)
+            => PlayPercentMoveTowards(new Vector3Int(coordMoving.x, coordMoving.y, 0), new Vector3Int(coordEnd.x, coordEnd.y, 0), percent);
         public bool PlayPercentMoveTowards(Vector3Int coordMoving, Vector3Int coordEnd, float percent)
         {
             ObjectGroupChild objA;
@@ -298,7 +303,7 @@ namespace MarUtility.UIExtensions
 
                     //z = ;
 
-                    grid[x, y, z] = new ChildData(_children[i]);
+                    grid[x, y, z] = new ChildData(_children[i], new Vector3Int(x, y, z));
                 }
                 else
                     _children[i].SetActive(false);
@@ -320,13 +325,16 @@ namespace MarUtility.UIExtensions
             => grid[coord.x, coord.y, coord.z];
 
         //Sets object at coords and recalculates originPos.
-        private void SetDataAtCoord(Vector3Int coord, ChildData newObj)
+        private void SetDataAtCoord(Vector3Int coord, ChildData newData)
         {
-            grid[coord.x, coord.y, coord.z] = newObj;
+            grid[coord.x, coord.y, coord.z] = newData;
             
-            ObjectGroupChild child = newObj.Ogc;
+            ObjectGroupChild child = newData.Ogc;
             if (child != null)
+            {
                 child.OriginPos = CalculateOriginPos(coord);
+                child.GridCoord = coord;
+            }
         }
         #endregion
 
@@ -471,10 +479,13 @@ namespace MarUtility.UIExtensions
             private ObjectGroupChild ogc;
             private ObjectButton obtn;
 
-            public ChildData(GameObject go)
+            public ChildData(GameObject go, Vector3Int coord)
             {
                 obj = go;
+
                 ogc = go.GetComponent<ObjectGroupChild>();
+                ogc.GridCoord = coord;
+
                 obtn = go.GetComponent<ObjectButton>();
             }
 
