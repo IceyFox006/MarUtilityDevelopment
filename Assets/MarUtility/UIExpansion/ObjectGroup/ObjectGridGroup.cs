@@ -56,6 +56,8 @@ namespace MarUtility.UIExtensions
         //SWAP
         [SerializeField, Label("Swap Lerp Data"), BoxGroup("Swap")]
         private LerpData _swapLD;
+        [SerializeField, Label("Move Towards Lerp Data"), BoxGroup("Swap")]
+        private LerpData _moveTowardsLD;
 
         //SIMULATE
         [SerializeField, BoxGroup("Simulate")]
@@ -226,13 +228,12 @@ namespace MarUtility.UIExtensions
 
             if (CanMoveCoord(coordA, out objA) && CanMoveCoord(coordB, out objB))
             {
+                //Swap data.
+                StartCoroutine(SwapCD(coordA, coordB, _swapLD.Duration));
 
                 //Swap visuals.
                 objA.BeginPositionLerp(_swapLD, objB.OriginPos);
                 objB.BeginPositionLerp(_swapLD, objA.OriginPos);
-
-                //Swap data.
-                StartCoroutine(SwapCD(coordA, coordB, _swapLD.Duration));
 
                 return true;
             }
@@ -253,7 +254,7 @@ namespace MarUtility.UIExtensions
                 Vector3 lEnd = Vector3.Lerp(objA.OriginPos, objB.OriginPos, percent);
 
                 //Swap visuals.
-                objA.BeginPositionLerp(_swapLD, lEnd);
+                objA.BeginPositionLerp(_moveTowardsLD, lEnd);
 
                 return true;
             }
@@ -281,7 +282,7 @@ namespace MarUtility.UIExtensions
         private void SetGroupChildrenList()
         {
             foreach (ObjectGroupChild child in GetComponentsInChildren<ObjectGroupChild>())
-                child.Initialize();
+                child.Initialize(this);
         }
 
         //Creates a grid out of _children.

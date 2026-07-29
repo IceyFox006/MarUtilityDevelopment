@@ -41,19 +41,22 @@ namespace MarUtility.UIExtensions
         private LerpData curLD;
         private bool isLerping;
 
+        private ObjectGridGroup group;
         private Vector3Int gridCoord;
         private Vector3 originPos;
 
         #region GS
         public Vector3 OriginPos { get => originPos; set => originPos = value; }
-        public bool IsLerping { get => isLerping; set => isLerping = value; }
-        public LerpData EntranceLD { get => _entranceLD; set => _entranceLD = value; }
-        public LerpData ExitLD { get => _exitLD; set => _exitLD = value; }
+        public bool IsLerping { get => isLerping; }
+        public LerpData EntranceLD { get => _entranceLD; }
+        public LerpData ExitLD { get => _exitLD; }
         public Vector3Int GridCoord { get => gridCoord; set => gridCoord = value; }
+        public ObjectGridGroup Group { get => group; set => group = value; }
         #endregion
 
-        public void Initialize()
+        public void Initialize(ObjectGridGroup g)
         {
+            group = g;
             originPos = transform.position;
             if (_doEntrance)
                 transform.position += _entrancePos;
