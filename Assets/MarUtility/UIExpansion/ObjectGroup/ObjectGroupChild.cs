@@ -42,6 +42,7 @@ namespace MarUtility.UIExtensions
         private bool isLerping;
 
         private ObjectGridGroup group;
+        [SerializeField, ReadOnly]
         private Vector3Int gridCoord;
         private Vector3 originPos;
 
@@ -50,8 +51,17 @@ namespace MarUtility.UIExtensions
         public bool IsLerping { get => isLerping; }
         public LerpData EntranceLD { get => _entranceLD; }
         public LerpData ExitLD { get => _exitLD; }
-        public Vector3Int GridCoord { get => gridCoord; set => gridCoord = value; }
+        public Vector3Int Coord { get => gridCoord; set => gridCoord = value; }
         public ObjectGridGroup Group { get => group; set => group = value; }
+        public Vector3 EntrancePos 
+        { 
+            get { return originPos + _entrancePos; }
+            set => _entrancePos = value;
+        }
+        public Vector3 ExitPos 
+        {   get { return originPos + _exitPos; }
+            set => _exitPos = value; 
+        }
         #endregion
 
         public void Initialize(ObjectGridGroup g)
@@ -59,7 +69,7 @@ namespace MarUtility.UIExtensions
             group = g;
             originPos = transform.position;
             if (_doEntrance)
-                transform.position += _entrancePos;
+                transform.position += EntrancePos;
         }
 
         #region PositionLerp
@@ -68,11 +78,11 @@ namespace MarUtility.UIExtensions
 
         //Begins lerping the entrance.
         public void BeginEntranceLerp()
-            => BeginPositionLerp(_entranceLD, originPos + _entrancePos, originPos);
+            => BeginPositionLerp(_entranceLD, EntrancePos, originPos);
 
         //Begins lerping the exit.
         public void BeginExitLerp()
-            => BeginPositionLerp(_exitLD, originPos, originPos + _exitPos);
+            => BeginPositionLerp(_exitLD, originPos, ExitPos);
 
         //Begins lerping the position.
         public void BeginPositionLerp(LerpData cLD, Vector3 end)

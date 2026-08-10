@@ -30,6 +30,26 @@ namespace MarUtility
         public static Vector3[] Direction3DVec3 { get => direction3DVec3; }
         public static Vector3Int[] Direction3DVec3Int { get => direction3DVec3Int; }
         #endregion
+
+        #region ToVector2Int
+        public static Vector2Int ToVector2Int(Vector2 value)
+            => new Vector2Int((int)value.x, (int)value.y);
+        public static Vector2Int ToVector2Int(Vector3 value)
+            => new Vector2Int((int)value.x, (int)value.y);
+        public static Vector2Int ToVector2Int(Vector3Int value)
+            => new Vector2Int(value.x, value.y);
+        #endregion
+        #region ToString
+        public static string ToString(Vector2 value)
+            => "[" + value.x + "," + value.y + "]";
+        public static string ToString(Vector2Int value)
+            => "[" + value.x + "," + value.y + "]";
+
+        public static string ToString(Vector3Int value)
+            => "[" + value.x + "," + value.y + "," + value.z + "]";
+        public static string ToString(Vector3 value)
+            => "[" + value.x + "," + value.y + "," + value.z + "]";
+        #endregion
     }
     public enum Direction
     {

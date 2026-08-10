@@ -222,6 +222,14 @@ namespace MarUtility.ObjectEventSystem
         //Returns true if bo can be moved to.
         private bool CanMoveTo(ObjectButton bo)
                 => (bo != null && bo.Interactable);
+
+        public bool HasCurHover()
+        {
+            if (!ReceiveInput) return false;
+            if (curHover == null) return false;
+
+            return true;
+        }
         #endregion
 
         #region Inspector

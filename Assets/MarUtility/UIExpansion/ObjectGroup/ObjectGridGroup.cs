@@ -263,7 +263,7 @@ namespace MarUtility.UIExtensions
         }
 
         //Swaps data after visual swap has been completed.
-        private IEnumerator SwapCD(Vector3Int coordA, Vector3Int coordB, float waitTime)
+        public IEnumerator SwapCD(Vector3Int coordA, Vector3Int coordB, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
             SwapChildrenData(coordA, coordB);
@@ -334,7 +334,7 @@ namespace MarUtility.UIExtensions
             if (child != null)
             {
                 child.OriginPos = CalculateOriginPos(coord);
-                child.GridCoord = coord;
+                child.Coord = coord;
             }
         }
         #endregion
@@ -380,9 +380,9 @@ namespace MarUtility.UIExtensions
 
         public bool InBounds(Vector3Int coord)
         {
-            if (!(coord.x >= 0 && coord.x <= grid.GetLength(0))) return false;
-            if (!(coord.y >= 0 && coord.y <= grid.GetLength(1))) return false;
-            if (!(coord.z >= 0 && coord.z <= grid.GetLength(2))) return false;
+            if (!(coord.x >= 0 && coord.x < grid.GetLength(0))) return false;
+            if (!(coord.y >= 0 && coord.y < grid.GetLength(1))) return false;
+            if (!(coord.z >= 0 && coord.z < grid.GetLength(2))) return false;
             return true;
         }
 
@@ -485,7 +485,7 @@ namespace MarUtility.UIExtensions
                 obj = go;
 
                 ogc = go.GetComponent<ObjectGroupChild>();
-                ogc.GridCoord = coord;
+                ogc.Coord = coord;
 
                 obtn = go.GetComponent<ObjectButton>();
             }
