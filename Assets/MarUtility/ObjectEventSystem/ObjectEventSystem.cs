@@ -21,7 +21,7 @@ namespace MarUtility.ObjectEventSystem
         [SerializeField, BoxGroup("Selection"), MinValue(0), OnValueChanged("OnVC_IndexReplaced"), Tooltip("The max number of buttons that can be selected at once.")]
         private int _maxNumSelected = 1;
         //Confirm on Select
-        [SerializeField, BoxGroup("Selection"), ShowIf("ShowConfirmOnSelect")]
+        [SerializeField, BoxGroup("Selection"), Tooltip("Confirms when the max number of selected objects has been reached.")]//ShowIf("ShowConfirmOnSelect")]
         private bool _confirmOnSelect = false;
         //Replace Select
         [SerializeField, BoxGroup("Selection"), Tooltip("Instead of preventing selection, deselects one of the selected buttons, to select the curHover on select.")]
@@ -157,7 +157,7 @@ namespace MarUtility.ObjectEventSystem
             {
                 AddSelected(curHover);
 
-                if (_confirmOnSelect)
+                if (curSelected.Count == _maxNumSelected && _confirmOnSelect)
                     ConfirmSelected();
             }
             else
@@ -222,6 +222,14 @@ namespace MarUtility.ObjectEventSystem
         //Returns true if bo can be moved to.
         private bool CanMoveTo(ObjectButton bo)
                 => (bo != null && bo.Interactable);
+
+        public bool HasCurHover()
+        {
+            if (!ReceiveInput) return false;
+            if (curHover == null) return false;
+
+            return true;
+        }
         #endregion
 
         #region Inspector

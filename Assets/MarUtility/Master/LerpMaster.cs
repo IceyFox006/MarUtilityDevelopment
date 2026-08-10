@@ -6,14 +6,21 @@
  * Contains data for a lerp action.
  */
 using NaughtyAttributes;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace MarUtility
 {
-    public class LerpMaster : MonoBehaviour
-    {
+    public class LerpMaster : MonoBehaviour {}
 
+    [Flags]
+    public enum LerpEvent
+    {
+        NONE = 0 << 000,
+        START = 1 << 100,
+        BODY = 1 << 200,
+        END = 1 << 300,
     }
 
     [System.Serializable]

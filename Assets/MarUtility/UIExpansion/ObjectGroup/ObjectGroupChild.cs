@@ -41,20 +41,35 @@ namespace MarUtility.UIExtensions
         private LerpData curLD;
         private bool isLerping;
 
+        private ObjectGridGroup group;
+        [SerializeField, ReadOnly]
+        private Vector3Int gridCoord;
         private Vector3 originPos;
 
         #region GS
         public Vector3 OriginPos { get => originPos; set => originPos = value; }
-        public bool IsLerping { get => isLerping; set => isLerping = value; }
-        public LerpData EntranceLD { get => _entranceLD; set => _entranceLD = value; }
-        public LerpData ExitLD { get => _exitLD; set => _exitLD = value; }
+        public bool IsLerping { get => isLerping; }
+        public LerpData EntranceLD { get => _entranceLD; }
+        public LerpData ExitLD { get => _exitLD; }
+        public Vector3Int Coord { get => gridCoord; set => gridCoord = value; }
+        public ObjectGridGroup Group { get => group; set => group = value; }
+        public Vector3 EntrancePos 
+        { 
+            get { return originPos + _entrancePos; }
+            set => _entrancePos = value;
+        }
+        public Vector3 ExitPos 
+        {   get { return originPos + _exitPos; }
+            set => _exitPos = value; 
+        }
         #endregion
 
-        public void Initialize()
+        public void Initialize(ObjectGridGroup g)
         {
+            group = g;
             originPos = transform.position;
             if (_doEntrance)
-                transform.position += _entrancePos;
+                transform.position += EntrancePos;
         }
 
         #region PositionLerp
@@ -63,11 +78,11 @@ namespace MarUtility.UIExtensions
 
         //Begins lerping the entrance.
         public void BeginEntranceLerp()
-            => BeginPositionLerp(_entranceLD, originPos + _entrancePos, originPos);
+            => BeginPositionLerp(_entranceLD, EntrancePos, originPos);
 
         //Begins lerping the exit.
         public void BeginExitLerp()
-            => BeginPositionLerp(_exitLD, originPos, originPos + _exitPos);
+            => BeginPositionLerp(_exitLD, originPos, ExitPos);
 
         //Begins lerping the position.
         public void BeginPositionLerp(LerpData cLD, Vector3 end)
