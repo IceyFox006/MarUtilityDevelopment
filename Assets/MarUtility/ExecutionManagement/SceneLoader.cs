@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/21/2026
+ * Last Updated: 8/12/2026
  * 
  * Manages the order in which managers are initialized.
  */
@@ -14,7 +14,7 @@ namespace MarUtility.ExecutionManagement
     {
         private static SceneLoader instance;
 
-        [SerializeField, MinValue(0.001f)]
+        [SerializeField, MinValue(0.1f)]
             private float _tickInterval;
         [SerializeField]
             private bool _runTickUpdate = true;
@@ -23,7 +23,7 @@ namespace MarUtility.ExecutionManagement
             private Manager[] _managers;
 
         #region GS
-        public static SceneLoader Instance { get => instance; private set => instance = value; }
+        public static SceneLoader INST { get => instance; private set => instance = value; }
         public float TickInterval
         {
             get => _tickInterval;
@@ -43,10 +43,10 @@ namespace MarUtility.ExecutionManagement
                 UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)SceneIndex.PERSISTANT, LoadSceneMode.Additive);
 
             //SceneLoader Instance
-            if (Instance != null && Instance != this)
+            if (INST != null && INST != this)
                 Destroy(this);
             else
-                Instance = this;
+                INST = this;
 
             //Initialize managers
             foreach (Manager manager in _managers)
