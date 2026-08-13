@@ -81,29 +81,38 @@ public class ControllerManager : Manager
             DisconnectDevice();
     }
 
+    //Connects a device to a player input that does not have a device.
     private void ConnectDevice(int deviceIndex)
     {
-        if (FindDeviceInConnection(inputDevices[deviceIndex]) != -1) return; //Device is already connected.
+        if (FindDeviceInConnections(inputDevices[deviceIndex]) != -1)
+        {
+            Debug.Log(inputDevices[deviceIndex].ToString() + " is already connected.");
+            return; //Device is already connected.
+        }
 
         for (int i = 0; i < connections.Count; i++)
         {
             if (connections[i].IsConnected()) continue; //Connection already has device.
 
             connections[i].Device = inputDevices[deviceIndex];
+            _onControllerConnection.Invoke();
             Debug.Log("Connected " + inputDevices[inputDevices.Length - 1].ToString());
+
+            break;
         }
 
     }
 
     private void DisconnectDevice()
     {
+        _onControllerDisconnection.Invoke();
         Debug.Log("Disconnected");
     }
 
     #region Data
-    private int FindDeviceInConnection(InputDevice device)
-        => FindDeviceInConnection(device.ToString());
-    private int FindDeviceInConnection(string deviceName)
+    private int FindDeviceInConnections(InputDevice device)
+        => FindDeviceInConnections(device.ToString());
+    private int FindDeviceInConnections(string deviceName)
     {
         for (int i = 0; i < connections.Count; i++)
         {
@@ -124,7 +133,15 @@ public class ControllerManager : Manager
             playerInput = pi;
         }
 
-        public InputDevice Device { get => device; set => device = value; }
+        public InputDevice Device 
+        {
+            get => device; 
+            set// => device = value;
+            {
+                device = value;
+                playerInput.SwitchCurrentControlScheme(device);
+            }
+        }
 
         public bool IsConnected()
             => device != null;
