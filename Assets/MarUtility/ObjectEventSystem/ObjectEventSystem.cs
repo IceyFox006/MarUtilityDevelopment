@@ -39,8 +39,10 @@ namespace MarUtility.ObjectEventSystem
         //INPUT
         [SerializeField, BoxGroup("Input")]
         private bool _receiveInput = true;
+        //[SerializeField, BoxGroup("Input")]
+        //private InputActionAsset _inputActions;
         [SerializeField, BoxGroup("Input")]
-        private InputActionAsset _inputActions;
+        private PlayerInput _playerInput;
         //Move
         [SerializeField, BoxGroup("Input")]
         private string moveActionPath = "MOVE";
@@ -106,10 +108,15 @@ namespace MarUtility.ObjectEventSystem
         //Assigns actions to inputs.
         private void InitializeInput()
         {
-            _inputActions.Enable();
-            move = _inputActions.FindAction(moveActionPath);
-            select = _inputActions.FindAction(selectActionPath);
-            confirm = _inputActions.FindAction(confirmActionPath);
+            //_inputActions.Enable();
+            //move = _inputActions.FindAction(moveActionPath);
+            //select = _inputActions.FindAction(selectActionPath);
+            //confirm = _inputActions.FindAction(confirmActionPath);
+
+            _playerInput.actions.Enable();
+            move = _playerInput.actions.FindAction(moveActionPath);
+            select = _playerInput.actions.FindAction(selectActionPath);
+            confirm = _playerInput.actions.FindAction(confirmActionPath);
         }
 
         //Add input listeners.
