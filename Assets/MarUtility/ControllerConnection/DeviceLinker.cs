@@ -1,12 +1,21 @@
-using MarUtility;
+/*
+ * Marlow Greenan
+ * Created: 8/14/2026
+ * Last Updated: 8/15/2026
+ * 
+ * Links devices to players after a button has been pressed on the desired controller.
+ */
 using MarUtility.DeviceManagement;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
-using NaughtyAttributes;
 using UnityEngine.InputSystem;
 
 public class DeviceLinker : MonoBehaviour
 {
+    [SerializeField]
+        private GameObject _connectDeviceScreen;
+
     [SerializeField]
         private GameObject _deviceSensorPrefab;
     private List<DeviceSensor> sensors = new List<DeviceSensor>();
@@ -16,25 +25,47 @@ public class DeviceLinker : MonoBehaviour
     [SerializeField, ReadOnly]
     private int playerLinking = 0;
 
+    //Begins sequence of linking devices to players.
     public void BeginLink()
     {
         if (inLinkingProcess) return;
 
         inLinkingProcess = true;
+
+        DeviceManager.INST.DisablePlayerInputs();
+
         foreach (InputDevice device in DeviceManager.INST.InputDevices)
         {
-            GameObject go = Instantiate(_deviceSensorPrefab, transform);
-            sensors.Add(go.GetComponent<DeviceSensor>());
+            DeviceSensor ds = Instantiate(_deviceSensorPrefab, transform).GetComponent<DeviceSensor>();
+            ds.Initialize(this);
+            sensors.Add(ds);
         }
 
         playerLinking = 0;
     }
 
+    public void LinkDevice(InputDevice device)
+    {
+        Debug.Log("Connected " + device.ToString() + " to " + DeviceManager.INST.PiControllers[playerLinking].Player.Name);
+        //DeviceManager.INST.Connections[playerLinking].Device = device;
+        playerLinking++;
+
+        if (playerLinking >= DeviceManager.INST.PiControllers.Length) //Linked all players.
+            EndLink();
+    }
+
+    //Ends the sequence of linking devices to players.
     public void EndLink()
     {
         if (!inLinkingProcess) return;
 
         inLinkingProcess = false;
-        EventMethod.DestroyChildren(transform);
+
+        DeviceManager.INST.EnablePlayerInputs();
+
+        _connectDeviceScreen.SetActive(false);
+        for (int i = sensors.Count - 1; i >= 0; i--)
+            Destroy(sensors[i].gameObject);
+
     }
 }

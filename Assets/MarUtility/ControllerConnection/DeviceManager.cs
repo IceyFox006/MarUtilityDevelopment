@@ -45,14 +45,13 @@ namespace MarUtility.DeviceManagement
         #region GS
         public PlayerInputController[] PiControllers { get => _piControllers; }
         public InputDevice[] InputDevices { get => inputDevices; }
+        public List<ConnectionData> Connections { get => connections; }
         #endregion
 
         public override void Initialize()
         {
-            if (INST == null)
-                INST = this;
-            else
-                DebugMessages.MultipleScriptInstances("DeviceManager");
+            if (INST == null) INST = this;
+            else DebugMessages.MultipleScriptInstances("DeviceManager");
 
             foreach (PlayerInputController pic in _piControllers)
                 pic.Initialize();
@@ -155,7 +154,7 @@ namespace MarUtility.DeviceManagement
         }
         #endregion
         //=================================================================================================================
-        private class ConnectionData
+        public class ConnectionData
         {
             private PlayerInputController controller;
             private InputDevice device;

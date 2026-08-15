@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
   _initializeTime: 0
+  _player: {fileID: 11400000, guid: 2c08ed9503579de47972e8fbc76c0886, type: 2}
   _input: {fileID: 418245387}
   _oes: {fileID: 418245385}
 --- !u!1 &435692872
@@ -405,18 +406,6 @@ MonoBehaviour:
   _onControllerConnection:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 435692874}
-        m_TargetAssemblyTypeName: ControllerManager, Assembly-CSharp
-        m_MethodName: DisablePlayerInputs
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 435692875}
         m_TargetAssemblyTypeName: MarUtility.EventMethod, Assembly-CSharp
         m_MethodName: SetActiveT
@@ -1742,6 +1731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
   _initializeTime: 0
+  _player: {fileID: 11400000, guid: 0099a7fa4de5d434d8e0f0ef036a5d01, type: 2}
   _input: {fileID: 1966433272}
   _oes: {fileID: 1966433270}
 --- !u!1 &2126862012 stripped
@@ -1805,6 +1795,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6490169628044095294, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: _connectDeviceScreen
+      value: 
+      objectReference: {fileID: 2126862012}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

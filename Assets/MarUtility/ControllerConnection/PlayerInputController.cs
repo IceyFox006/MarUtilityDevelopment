@@ -15,11 +15,16 @@ namespace MarUtility.DeviceManagement
     public class PlayerInputController : Manager
     {
         [SerializeField]
+        private SO_Player _player;
+        [SerializeField]
         private PlayerInput _input;
         [SerializeField]
         private ObjectEventSystem _oes;
 
+        #region GS
         public PlayerInput Input { get => _input; }
+        public SO_Player Player { get => _player; }
+        #endregion
 
         public override void Initialize()
         {
