@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 418245386}
   - component: {fileID: 418245385}
   - component: {fileID: 418245387}
+  - component: {fileID: 418245388}
   m_Layer: 0
   m_Name: P2
   m_TagString: Untagged
@@ -276,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36db56ccd57f7044f9e371c91aa0be4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.ObjectEventSystem.ObjectEventSystem
-  _initializeTime: 100
+  _initializeTime: 0
   _firstSelected: {fileID: 1358088715}
   _maxNumSelected: 1
   _confirmOnSelect: 0
@@ -336,6 +337,21 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &418245388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418245384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615a9745375df3a4cbdba977d89aad07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
+  _initializeTime: 0
+  _input: {fileID: 418245387}
+  _oes: {fileID: 418245385}
 --- !u!1 &435692872
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +364,7 @@ GameObject:
   - component: {fileID: 435692874}
   - component: {fileID: 435692875}
   m_Layer: 0
-  m_Name: ControllerManager
+  m_Name: DeviceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363,7 +379,7 @@ Transform:
   m_GameObject: {fileID: 435692872}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 92.66572, y: 64.69036, z: 21.8182}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -385,15 +401,52 @@ MonoBehaviour:
   _checkOnIntitialize: 1
   _checkIntervalIsTick: 0
   _checkInterval: 1
+  _autoConnectToPlayer: 0
   _onControllerConnection:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 435692874}
+        m_TargetAssemblyTypeName: ControllerManager, Assembly-CSharp
+        m_MethodName: DisablePlayerInputs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 435692875}
+        m_TargetAssemblyTypeName: MarUtility.EventMethod, Assembly-CSharp
+        m_MethodName: SetActiveT
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2126862012}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7885450299564350574}
+        m_TargetAssemblyTypeName: DeviceLinker, Assembly-CSharp
+        m_MethodName: BeginLink
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onControllerDisconnection:
     m_PersistentCalls:
       m_Calls: []
-  _playerInputs:
-  - {fileID: 1966433272}
-  - {fileID: 418245387}
+  _piControllers:
+  - {fileID: 1966433273}
+  - {fileID: 418245388}
 --- !u!114 &435692875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,10 +499,10 @@ MonoBehaviour:
   _visualType: 16
   _colorSpriteVisual:
     _confirmVisualDuration: 0.1
-    _hover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    _select: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    _hoverSelect: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    _confirm: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    _hover: {r: 0, g: 1, b: 0.000000059604645, a: 1}
+    _select: {r: 1, g: 1, b: 0, a: 1}
+    _hoverSelect: {r: 0.00000011920929, g: 0, b: 1, a: 1}
+    _confirm: {r: 1, g: 0, b: 0, a: 1}
     _renderer: {fileID: 1075922863}
   _colorImageVisual:
     _confirmVisualDuration: 0.1
@@ -615,10 +668,10 @@ MonoBehaviour:
   _visualType: 16
   _colorSpriteVisual:
     _confirmVisualDuration: 0.1
-    _hover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    _select: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    _hoverSelect: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    _confirm: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    _hover: {r: 0, g: 1, b: 0.000000059604645, a: 1}
+    _select: {r: 1, g: 1, b: 0, a: 1}
+    _hoverSelect: {r: 0.00000011920929, g: 0, b: 1, a: 1}
+    _confirm: {r: 1, g: 0, b: 0, a: 1}
     _renderer: {fileID: 1358088716}
   _colorImageVisual:
     _confirmVisualDuration: 0.1
@@ -876,10 +929,10 @@ MonoBehaviour:
   _visualType: 16
   _colorSpriteVisual:
     _confirmVisualDuration: 0.1
-    _hover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    _select: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    _hoverSelect: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    _confirm: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    _hover: {r: 0, g: 1, b: 0.000000059604645, a: 1}
+    _select: {r: 1, g: 1, b: 0, a: 1}
+    _hoverSelect: {r: 0.00000011920929, g: 0, b: 1, a: 1}
+    _confirm: {r: 1, g: 0, b: 0, a: 1}
     _renderer: {fileID: 1453702878}
   _colorImageVisual:
     _confirmVisualDuration: 0.1
@@ -1059,16 +1112,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7355478640982540927, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
       propertyPath: _managers.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7355478640982540927, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
       propertyPath: '_managers.Array.data[0]'
       value: 
-      objectReference: {fileID: 1966433270}
+      objectReference: {fileID: 435692874}
     - target: {fileID: 7355478640982540927, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
       propertyPath: '_managers.Array.data[1]'
       value: 
-      objectReference: {fileID: 418245385}
+      objectReference: {fileID: 435692874}
     - target: {fileID: 7355478640982540927, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
       propertyPath: '_managers.Array.data[2]'
       value: 
@@ -1118,10 +1171,10 @@ MonoBehaviour:
   _visualType: 16
   _colorSpriteVisual:
     _confirmVisualDuration: 0.1
-    _hover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    _select: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    _hoverSelect: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    _confirm: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    _hover: {r: 0, g: 1, b: 0.000000059604645, a: 1}
+    _select: {r: 1, g: 1, b: 0, a: 1}
+    _hoverSelect: {r: 0.00000011920929, g: 0, b: 1, a: 1}
+    _confirm: {r: 1, g: 0, b: 0, a: 1}
     _renderer: {fileID: 1600972233}
   _colorImageVisual:
     _confirmVisualDuration: 0.1
@@ -1287,10 +1340,10 @@ MonoBehaviour:
   _visualType: 16
   _colorSpriteVisual:
     _confirmVisualDuration: 0.1
-    _hover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    _select: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    _hoverSelect: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    _confirm: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    _hover: {r: 0, g: 1, b: 0.000000059604645, a: 1}
+    _select: {r: 1, g: 1, b: 0, a: 1}
+    _hoverSelect: {r: 0.00000011920929, g: 0, b: 1, a: 1}
+    _confirm: {r: 1, g: 0, b: 0, a: 1}
     _renderer: {fileID: 1760200966}
   _colorImageVisual:
     _confirmVisualDuration: 0.1
@@ -1456,10 +1509,10 @@ MonoBehaviour:
   _visualType: 16
   _colorSpriteVisual:
     _confirmVisualDuration: 0.1
-    _hover: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    _select: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    _hoverSelect: {r: 0.4, g: 0.4, b: 0.4, a: 1}
-    _confirm: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    _hover: {r: 0, g: 1, b: 0.000000059604645, a: 1}
+    _select: {r: 1, g: 1, b: 0, a: 1}
+    _hoverSelect: {r: 0.00000011920929, g: 0, b: 1, a: 1}
+    _confirm: {r: 1, g: 0, b: 0, a: 1}
     _renderer: {fileID: 1954618043}
   _colorImageVisual:
     _confirmVisualDuration: 0.1
@@ -1596,6 +1649,7 @@ GameObject:
   - component: {fileID: 1966433271}
   - component: {fileID: 1966433270}
   - component: {fileID: 1966433272}
+  - component: {fileID: 1966433273}
   m_Layer: 0
   m_Name: P1
   m_TagString: Untagged
@@ -1615,7 +1669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36db56ccd57f7044f9e371c91aa0be4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.ObjectEventSystem.ObjectEventSystem
-  _initializeTime: 100
+  _initializeTime: 0
   _firstSelected: {fileID: 1600972232}
   _maxNumSelected: 1
   _confirmOnSelect: 0
@@ -1675,6 +1729,98 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1966433273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966433269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615a9745375df3a4cbdba977d89aad07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputManager
+  _initializeTime: 0
+  _input: {fileID: 1966433272}
+  _oes: {fileID: 1966433270}
+--- !u!1 &2126862012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3258926107275789559, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+  m_PrefabInstance: {fileID: 7885450299564350573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7885450299564350573
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3258926107275789559, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_Name
+      value: Pre_ReconnectingDevicesScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3258926107275789559, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+--- !u!114 &7885450299564350574 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6490169628044095294, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+  m_PrefabInstance: {fileID: 7885450299564350573}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126862012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e24481bc5e7eba428cde6580c32df83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeviceLinker
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1685,3 +1831,4 @@ SceneRoots:
   - {fileID: 435692873}
   - {fileID: 1966433271}
   - {fileID: 418245386}
+  - {fileID: 7885450299564350573}

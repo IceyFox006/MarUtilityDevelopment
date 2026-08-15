@@ -6,7 +6,6 @@
  * Spaces out objects into rowns and/or columns.
  */
 using MarUtility.ExecutionManagement;
-using MarUtility.ObjectEventSystem;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -98,7 +97,7 @@ namespace MarUtility.UIExtensions
             else //Destroy pre-existing children, spawn children, then add to list.
             {
                 _children.Clear();
-                DataMethod.DestroyChildren(transform);
+                EventMethod.DestroyChildren(transform);
                 float spawnNum = _size.x * _size.y * _size.z;
                 for (int i = 0; i < spawnNum; i++)
                 {

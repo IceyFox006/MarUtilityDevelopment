@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MarUtility.ObjectEventSystem
+namespace MarUtility.UIExtensions
 {
     public class ObjectEventSystem : ExecutionManagement.Manager
     {

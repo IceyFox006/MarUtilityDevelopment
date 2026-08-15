@@ -5,6 +5,7 @@
  * 
  * Manages all instantiated particles.
  */
+using MarUtility;
 using MarUtility.ExecutionManagement;
 using System.Collections.Generic;
 using UnityEngine;

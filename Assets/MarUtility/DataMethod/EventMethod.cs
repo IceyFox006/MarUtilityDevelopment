@@ -25,6 +25,21 @@ namespace MarUtility
         public void SceneTransition(int index)
             => TransitionManager.INSTANCE.Close((SceneIndex)index);
         #endregion
+        #region Active
+        public void SetActiveT(GameObject go)
+            => go.SetActive(true);
+        public void SetActiveF(GameObject go)
+            => go.SetActive(false);
+        #endregion
+
+        #region Destroy
+        //Destroys all children of the parent.
+        public static void DestroyChildren(Transform parent)
+        {
+            for (int i = parent.childCount - 1; i > -1; i--)
+                Destroy(parent.GetChild(i).gameObject);
+        }
+        #endregion
     }
 }
 
