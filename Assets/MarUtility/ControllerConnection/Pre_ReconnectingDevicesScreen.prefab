@@ -222,6 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3884225493305810148}
   - component: {fileID: 6490169628044095294}
+  - component: {fileID: 8842457541836058640}
   m_Layer: 0
   m_Name: Pre_ReconnectingDevicesScreen
   m_TagString: Untagged
@@ -257,7 +258,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e24481bc5e7eba428cde6580c32df83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeviceLinker
+  _connectDeviceScreen: {fileID: 0}
   _deviceSensorPrefab: {fileID: 945692000464598089, guid: 086d7a40c49ba11489014713cf9b0cf4, type: 3}
+  inLinkingProcess: 0
+  playerLinking: 0
+--- !u!225 &8842457541836058640
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3258926107275789559}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4233224479953197215
 GameObject:
   m_ObjectHideFlags: 0

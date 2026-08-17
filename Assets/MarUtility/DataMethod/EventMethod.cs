@@ -18,6 +18,7 @@ namespace MarUtility
         public void DebugLogError(string message)
             => Debug.Log(message);
         #endregion
+
         #region Scene
         public void SceneLoad(int index)
             => SceneManager.INSTANCE.LoadScene((SceneIndex)index); //end of transition
@@ -25,6 +26,7 @@ namespace MarUtility
         public void SceneTransition(int index)
             => TransitionManager.INSTANCE.Close((SceneIndex)index);
         #endregion
+
         #region Active
         public void SetActiveT(GameObject go)
             => go.SetActive(true);
@@ -39,6 +41,13 @@ namespace MarUtility
             for (int i = parent.childCount - 1; i > -1; i--)
                 Destroy(parent.GetChild(i).gameObject);
         }
+        #endregion
+
+        #region Canvas
+        public void ShowCanvasGroup(CanvasGroup cg)
+            => cg.alpha = 1f;
+        public void HideCanvasGroup(CanvasGroup cg)
+            => cg.alpha = 0f;
         #endregion
     }
 }

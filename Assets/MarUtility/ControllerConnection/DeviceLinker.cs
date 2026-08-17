@@ -7,6 +7,7 @@
  */
 using MarUtility.DeviceManagement;
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -25,12 +26,14 @@ public class DeviceLinker : MonoBehaviour
     [SerializeField, ReadOnly]
     private int playerLinking = 0;
 
+
     //Begins sequence of linking devices to players.
     public void BeginLink()
     {
         if (inLinkingProcess) return;
 
         inLinkingProcess = true;
+        sensors = new List<DeviceSensor>();
 
         DeviceManager.INST.DisablePlayerInputs();
 
@@ -47,6 +50,7 @@ public class DeviceLinker : MonoBehaviour
     public void LinkDevice(InputDevice device)
     {
         Debug.Log("Connected " + device.ToString() + " to " + DeviceManager.INST.PiControllers[playerLinking].Player.Name);
+        DeviceManager.INST.PiControllers[playerLinking].Player.Device = device;
         //DeviceManager.INST.Connections[playerLinking].Device = device;
         playerLinking++;
 
@@ -63,9 +67,24 @@ public class DeviceLinker : MonoBehaviour
 
         DeviceManager.INST.EnablePlayerInputs();
 
-        _connectDeviceScreen.SetActive(false);
+        _connectDeviceScreen.GetComponent<CanvasGroup>().alpha = 0f;
         for (int i = sensors.Count - 1; i >= 0; i--)
             Destroy(sensors[i].gameObject);
 
+
+        for (int i = 0; i < DeviceManager.INST.PiControllers.Length; i++)
+        {
+            DeviceManager.INST.Connections[i].Device = DeviceManager.INST.PiControllers[i].Player.Device;
+        }
+
+    }
+
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0.1f);
+        for (int i = 0; i < DeviceManager.INST.PiControllers.Length; i++)
+        {
+            DeviceManager.INST.Connections[i].Device = DeviceManager.INST.PiControllers[i].Player.Device;
+        }
     }
 }

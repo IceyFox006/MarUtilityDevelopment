@@ -334,7 +334,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &418245388
@@ -408,11 +408,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 435692875}
         m_TargetAssemblyTypeName: MarUtility.EventMethod, Assembly-CSharp
-        m_MethodName: SetActiveT
+        m_MethodName: ShowCanvasGroup
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 2126862012}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 7885450299564350576}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.CanvasGroup, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1715,7 +1715,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1966433273
@@ -1753,7 +1753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3258926107275789559, guid: 62a02488f885383499d2ada3faf81290, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3884225493305810148, guid: 62a02488f885383499d2ada3faf81290, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1815,6 +1815,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e24481bc5e7eba428cde6580c32df83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeviceLinker
+--- !u!225 &7885450299564350576 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8842457541836058640, guid: 62a02488f885383499d2ada3faf81290, type: 3}
+  m_PrefabInstance: {fileID: 7885450299564350573}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
