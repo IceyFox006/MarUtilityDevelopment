@@ -138,6 +138,8 @@ namespace MarUtility.UIExtensions
         //Switches hover to button in direction.
         private void Move_performed(InputAction.CallbackContext obj)
         {
+            if (curHover == null) return;
+
             moveDirection = move.ReadValue<Vector2>();
 
             //Switch Hover
@@ -154,6 +156,8 @@ namespace MarUtility.UIExtensions
         //Select if button is not already selected, deselect if it is.
         private void Select_performed(InputAction.CallbackContext obj)
         {
+            if (curHover == null) return;
+
             if (curHover.IsSelected) //Deselect if selected.
             {
                 RemoveSelected(curHover);
@@ -228,7 +232,13 @@ namespace MarUtility.UIExtensions
         #region Check
         //Returns true if bo can be moved to.
         private bool CanMoveTo(ObjectButton bo)
-                => (bo != null && bo.Interactable);
+        {
+            if (bo == null) return false;
+            if (!bo.Interactable) return false;
+
+            return true;
+            //(bo != null && bo.Interactable);
+        }
 
         public bool HasCurHover()
         {

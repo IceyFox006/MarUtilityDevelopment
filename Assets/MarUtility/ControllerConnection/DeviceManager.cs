@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 namespace MarUtility.DeviceManagement
 {
@@ -101,6 +102,16 @@ namespace MarUtility.DeviceManagement
                 DisconnectDevice();
         }
 
+        //private void ConnectDevice(int deviceIndex)
+        //{
+        //    if (FindDeviceInConnections(inputDevices[deviceIndex]) != -1)
+        //    {
+        //        Debug.Log(inputDevices[deviceIndex].ToString() + " is already connected.");
+        //        return; //Device is already connected.
+        //    }
+        //    InputUser.PerformPairingWithDevice(inputDevices[deviceIndex]);
+        //}
+
         //Connects a device to a player input that does not have a device.
         private void ConnectDevice(int deviceIndex)
         {
@@ -114,12 +125,16 @@ namespace MarUtility.DeviceManagement
             {
                 if (connections[i].IsConnected()) continue; //Connection already has device.
 
-                connections[i].Device = inputDevices[deviceIndex];
+                //if (InputUser.all.Count < 2)
+                //{
+                //    InputUser.PerformPairingWithDevice(inputDevices[deviceIndex]);
+                //}
+                //else
+                    connections[i].Device = inputDevices[deviceIndex];
                 Debug.Log("Connected " + inputDevices[inputDevices.Length - 1].ToString());
 
                 break;
             }
-
         }
 
         private void DisconnectDevice()

@@ -1,11 +1,10 @@
 /*
  * Marlow Greenan
- * Created: 4/19/2026
- * Last Updated: 7/27/2026
+ * Created: 04/19/2026 by Marlow Greenan
+ * Last Updated: 08/19/2026
  * 
  * Contains various reuable enums.
  */
-using System;
 using UnityEngine;
 
 namespace MarUtility
@@ -39,6 +38,7 @@ namespace MarUtility
         public static Vector2Int ToVector2Int(Vector3Int value)
             => new Vector2Int(value.x, value.y);
         #endregion
+        
         #region ToString
         public static string ToString(Vector2 value)
             => "[" + value.x + "," + value.y + "]";

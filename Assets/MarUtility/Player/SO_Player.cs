@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "SO_Player", menuName = "Scriptable Objects/Player")]
+[CreateAssetMenu(fileName = "Player", menuName = "Scriptable Objects/MarUtility/Player")]
 public class SO_Player : ScriptableObject
 {
     [SerializeField]

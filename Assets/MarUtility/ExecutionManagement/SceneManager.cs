@@ -81,7 +81,7 @@ namespace MarUtility.ExecutionManagement
             }
             _loadingScreen.gameObject.SetActive(false);
             if (TransitionManager.INSTANCE != null)
-                TransitionManager.INSTANCE.Open();
+                TransitionManager.INSTANCE.PlayOpen();
         }
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 6/30/2026
- * Last Updated: 7/8/2026
+ * Last Updated: 8/28/2026 by Marlow Greenan
  * 
  * Manages the order in which managers are initialized.
  */
@@ -15,16 +15,16 @@ namespace MarUtility.ExecutionManagement
     {
         public static TransitionManager INSTANCE;
 
-        [SerializeField, BoxGroup("Animation")]
+        [SerializeField]
         private AnimatorController _ac;
-        [SerializeField, BoxGroup("Animation")]
-        private string _openTrigger;
-        [SerializeField, BoxGroup("Animation")]
-        private string _closeTrigger;
+        [SerializeField, BoxGroup("Parameter IDs")]
+        private string _trigOpenID = "T_Open";
+        [SerializeField, BoxGroup("Parameter IDs")]
+        private string _trigCloseID = "T_Close";
 
-        [SerializeField]
+        [SerializeField, BoxGroup("Events")]
         private UnityEvent _onOpenEnd;
-        [SerializeField]
+        [SerializeField, BoxGroup("Events")]
         private UnityEvent _onCloseEnd;
         private int nextScene;
 
@@ -39,9 +39,9 @@ namespace MarUtility.ExecutionManagement
             base.Initialize();
         }
 
-        public void Open()
+        public void PlayOpen()
         {
-            _ac.SetTrigger(_openTrigger);
+            _ac.SetTrigger(_trigOpenID);
         }
         public void OnOpenEnd()
         {
@@ -50,7 +50,7 @@ namespace MarUtility.ExecutionManagement
 
         public void Close(SceneIndex si)
         {
-            _ac.SetTrigger(_closeTrigger);
+            _ac.SetTrigger(_trigCloseID);
             nextScene = (int)si;
         }
         public void OnCloseEnd()

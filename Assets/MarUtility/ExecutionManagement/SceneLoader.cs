@@ -55,10 +55,18 @@ namespace MarUtility.ExecutionManagement
     }
     public enum InitializeTime
     {
-        NONE = 000,
+        MANUAL = 000,
         SCENELOADER_AWAKE = 100,
         AWAKE = 110,
         START = 200,
+    }
+
+    public enum UpdateTime
+    {
+        NONE = 000,
+        SCENELOADER_TICK = 100,
+        FIXED_UPDATE = 200,
+        UPDATE = 300,
     }
 }
 

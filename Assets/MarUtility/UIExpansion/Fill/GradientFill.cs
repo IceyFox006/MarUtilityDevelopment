@@ -16,7 +16,11 @@ namespace MarUtility.UIExtensions
         [SerializeField]
         protected Image _image;
         [SerializeField]
-        protected Gradient _gradient;
+        private Gradient _gradient;
+
+        #region GS
+        public Gradient Gradient { get => _gradient; set => _gradient = value; }
+        #endregion
 
         protected override void Initialize()
         {
