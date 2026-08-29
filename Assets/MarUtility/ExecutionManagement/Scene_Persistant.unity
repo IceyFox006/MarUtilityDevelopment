@@ -595,6 +595,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4260707068540862893, guid: 7922c343ed2c9de47a1db419fcefc30e, type: 3}
+      propertyPath: _trigOpenID
+      value: T_Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260707068540862893, guid: 7922c343ed2c9de47a1db419fcefc30e, type: 3}
+      propertyPath: _closeTrigger
+      value: T_Close
+      objectReference: {fileID: 0}
     - target: {fileID: 7251236439711036517, guid: 7922c343ed2c9de47a1db419fcefc30e, type: 3}
       propertyPath: m_Name
       value: Pre_Transition

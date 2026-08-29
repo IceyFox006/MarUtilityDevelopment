@@ -18,12 +18,33 @@ namespace MarUtility
         public void DebugLogError(string message)
             => Debug.Log(message);
         #endregion
-        #region Scene
-        public void SceneLoad(int index)
-            => SceneManager.INSTANCE.LoadScene((SceneIndex)index); //end of transition
 
-        public void SceneTransition(int index)
-            => TransitionManager.INSTANCE.Close((SceneIndex)index);
+        #region Scene
+        public void SceneTransition(string name)
+            => TransitionManager.INST.PlayClose(name);
+        #endregion
+
+        #region Active
+        public void SetActiveT(GameObject go)
+            => go.SetActive(true);
+        public void SetActiveF(GameObject go)
+            => go.SetActive(false);
+        #endregion
+
+        #region Destroy
+        //Destroys all children of the parent.
+        public static void DestroyChildren(Transform parent)
+        {
+            for (int i = parent.childCount - 1; i > -1; i--)
+                Destroy(parent.GetChild(i).gameObject);
+        }
+        #endregion
+
+        #region Canvas
+        public void ShowCanvasGroup(CanvasGroup cg)
+            => cg.alpha = 1f;
+        public void HideCanvasGroup(CanvasGroup cg)
+            => cg.alpha = 0f;
         #endregion
     }
 }

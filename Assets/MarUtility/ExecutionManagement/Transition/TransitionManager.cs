@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 6/30/2026
- * Last Updated: 7/8/2026
+ * Last Updated: 8/28/2026 by Marlow Greenan
  * 
  * Manages the order in which managers are initialized.
  */
@@ -13,50 +13,55 @@ namespace MarUtility.ExecutionManagement
 {
     public class TransitionManager : Manager
     {
-        public static TransitionManager INSTANCE;
+        private static TransitionManager inst;
 
-        [SerializeField, BoxGroup("Animation")]
+        [SerializeField]
         private AnimatorController _ac;
-        [SerializeField, BoxGroup("Animation")]
-        private string _openTrigger;
-        [SerializeField, BoxGroup("Animation")]
-        private string _closeTrigger;
 
-        [SerializeField]
+        [SerializeField, BoxGroup("Animation IDs")]
+        private string _trigOpenID = "T_Open";
+        [SerializeField, BoxGroup("Animation IDs")]
+        private string _trigCloseID = "T_Close";
+
+        [SerializeField, BoxGroup("Events")]
         private UnityEvent _onOpenEnd;
-        [SerializeField]
+        [SerializeField, BoxGroup("Events")]
         private UnityEvent _onCloseEnd;
-        private int nextScene;
+
+        private string nextScene;
+
+        #region GS
+        public static TransitionManager INST { get => inst; }
+        #endregion
 
         public override void Initialize()
         {
-            if (INSTANCE == null)
-                INSTANCE = this;
+            if (inst == null)
+                inst = this;
             else
                 Debug.LogError("There are multiple instances of TRANSITION_MANAGER. You can only have one.");
-
 
             base.Initialize();
         }
 
-        public void Open()
+        public void PlayOpen()
         {
-            _ac.SetTrigger(_openTrigger);
+            _ac.SetTrigger(_trigOpenID);
         }
         public void OnOpenEnd()
         {
             _onOpenEnd.Invoke();
         }
 
-        public void Close(SceneIndex si)
+        public void PlayClose(string si)
         {
-            _ac.SetTrigger(_closeTrigger);
-            nextScene = (int)si;
+            _ac.SetTrigger(_trigCloseID);
+            nextScene = si;
         }
         public void OnCloseEnd()
         {
-            SceneManager.INSTANCE.LoadScene((SceneIndex)nextScene);
-            nextScene = -1;
+            SceneManager.INST.LoadScene(nextScene);
+            nextScene = "";
         }
     }
 }

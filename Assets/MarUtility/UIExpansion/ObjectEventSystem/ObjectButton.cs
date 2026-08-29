@@ -14,7 +14,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace MarUtility.ObjectEventSystem
+namespace MarUtility.UIExtensions
 {
     public class ObjectButton : MonoBehaviour
     {

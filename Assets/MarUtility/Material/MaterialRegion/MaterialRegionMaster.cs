@@ -94,6 +94,9 @@ namespace MarUtility.Material
             private RegionTypeGradient[] _rtGradients;
         protected RegionType[] curRTs;
 
+        [SerializeField, BoxGroup("Parameter IDs")]
+        protected string _textureID = "_MainTexture";
+
         private void Start()
         {
             Initialize();
@@ -108,12 +111,19 @@ namespace MarUtility.Material
                 case ERegionType.GRADIENT: curRTs = _rtGradients; break;
             }
 
-            Randomize();
-            Apply();
+            if (_regionData != ERegionType.NONE)
+            {
+                Randomize();
+                Apply();
+            }
         }
-        protected virtual void Apply() {}
+        protected virtual void Apply() { }
+        public virtual void LinkTexture() { }
+        public virtual void LinkTexture(Texture newTex) { }
         protected void Randomize()
         {
+            if (_regionData == ERegionType.NONE) return;
+
             foreach (RegionType rt in curRTs)
                 rt.Randomize();
         }
@@ -147,8 +157,9 @@ namespace MarUtility.Material
     //=================================================================================================================
     public enum ERegionType
     {
-        COLOR_POOL,
-        GRADIENT,
+        NONE = 000,
+        COLOR_POOL = 100,
+        GRADIENT = 200,
     }
 }
 

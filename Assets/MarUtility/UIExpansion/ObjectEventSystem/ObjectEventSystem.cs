@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MarUtility.ObjectEventSystem
+namespace MarUtility.UIExtensions
 {
     public class ObjectEventSystem : ExecutionManagement.Manager
     {
@@ -39,8 +39,10 @@ namespace MarUtility.ObjectEventSystem
         //INPUT
         [SerializeField, BoxGroup("Input")]
         private bool _receiveInput = true;
+        //[SerializeField, BoxGroup("Input")]
+        //private InputActionAsset _inputActions;
         [SerializeField, BoxGroup("Input")]
-        private InputActionAsset _inputActions;
+        private PlayerInput _playerInput;
         //Move
         [SerializeField, BoxGroup("Input")]
         private string moveActionPath = "MOVE";
@@ -106,10 +108,15 @@ namespace MarUtility.ObjectEventSystem
         //Assigns actions to inputs.
         private void InitializeInput()
         {
-            _inputActions.Enable();
-            move = _inputActions.FindAction(moveActionPath);
-            select = _inputActions.FindAction(selectActionPath);
-            confirm = _inputActions.FindAction(confirmActionPath);
+            //_inputActions.Enable();
+            //move = _inputActions.FindAction(moveActionPath);
+            //select = _inputActions.FindAction(selectActionPath);
+            //confirm = _inputActions.FindAction(confirmActionPath);
+
+            _playerInput.actions.Enable();
+            move = _playerInput.actions.FindAction(moveActionPath);
+            select = _playerInput.actions.FindAction(selectActionPath);
+            confirm = _playerInput.actions.FindAction(confirmActionPath);
         }
 
         //Add input listeners.
@@ -131,6 +138,8 @@ namespace MarUtility.ObjectEventSystem
         //Switches hover to button in direction.
         private void Move_performed(InputAction.CallbackContext obj)
         {
+            if (curHover == null) return;
+
             moveDirection = move.ReadValue<Vector2>();
 
             //Switch Hover
@@ -147,6 +156,8 @@ namespace MarUtility.ObjectEventSystem
         //Select if button is not already selected, deselect if it is.
         private void Select_performed(InputAction.CallbackContext obj)
         {
+            if (curHover == null) return;
+
             if (curHover.IsSelected) //Deselect if selected.
             {
                 RemoveSelected(curHover);
@@ -221,7 +232,13 @@ namespace MarUtility.ObjectEventSystem
         #region Check
         //Returns true if bo can be moved to.
         private bool CanMoveTo(ObjectButton bo)
-                => (bo != null && bo.Interactable);
+        {
+            if (bo == null) return false;
+            if (!bo.Interactable) return false;
+
+            return true;
+            //(bo != null && bo.Interactable);
+        }
 
         public bool HasCurHover()
         {

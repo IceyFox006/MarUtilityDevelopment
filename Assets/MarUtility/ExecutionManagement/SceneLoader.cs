@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/21/2026
+ * Last Updated: 8/12/2026
  * 
  * Manages the order in which managers are initialized.
  */
@@ -12,18 +12,21 @@ namespace MarUtility.ExecutionManagement
 {
     public class SceneLoader : MonoBehaviour
     {
-        private static SceneLoader instance;
+        private static SceneLoader inst;
 
-        [SerializeField, MinValue(0.001f)]
+        [SerializeField, BoxGroup("Scene IDs")]
+        private string _scenePersistantID = "Scene_Persistant";
+
+        [SerializeField, BoxGroup("Tick"), MinValue(0.1f)]
             private float _tickInterval;
-        [SerializeField]
+        [SerializeField, BoxGroup("Tick")]
             private bool _runTickUpdate = true;
 
         [SerializeField]
             private Manager[] _managers;
 
         #region GS
-        public static SceneLoader Instance { get => instance; private set => instance = value; }
+        public static SceneLoader INST { get => inst; private set => inst = value; }
         public float TickInterval
         {
             get => _tickInterval;
@@ -39,14 +42,14 @@ namespace MarUtility.ExecutionManagement
         private void Awake()
         {
             //Load persistant scene.
-            if (!UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex((int)SceneIndex.PERSISTANT).isLoaded)
-                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)SceneIndex.PERSISTANT, LoadSceneMode.Additive);
+            if (!UnityEngine.SceneManagement.SceneManager.GetSceneByName(_scenePersistantID).isLoaded)
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_scenePersistantID, LoadSceneMode.Additive);
 
             //SceneLoader Instance
-            if (Instance != null && Instance != this)
+            if (INST != null && INST != this)
                 Destroy(this);
             else
-                Instance = this;
+                INST = this;
 
             //Initialize managers
             foreach (Manager manager in _managers)
@@ -55,10 +58,18 @@ namespace MarUtility.ExecutionManagement
     }
     public enum InitializeTime
     {
-        NONE = 000,
+        MANUAL = 000,
         SCENELOADER_AWAKE = 100,
         AWAKE = 110,
         START = 200,
+    }
+
+    public enum UpdateTime
+    {
+        NONE = 000,
+        SCENELOADER_TICK = 100,
+        FIXED_UPDATE = 200,
+        UPDATE = 300,
     }
 }
 

@@ -7,7 +7,6 @@
  */
 using MarUtility.UIExtensions;
 using NaughtyAttributes;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,16 +15,9 @@ using UnityEngine.SceneManagement;
 
 namespace MarUtility.ExecutionManagement
 {
-    [Serializable]
-    public enum SceneIndex
-    {
-        PERSISTANT = 0,
-        TITLE = 1,
-    }
-
     public class SceneManager : MonoBehaviour
     {
-        public static SceneManager INSTANCE;
+        private static SceneManager inst;
 
         [SerializeField, Required]
         private GameObject _loadingScreen;
@@ -36,27 +28,31 @@ namespace MarUtility.ExecutionManagement
 
         private float sceneLoadPercent;
         
-        private SceneIndex curScene;
+        private string curScene;
         List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+
+        #region GS
+        public static SceneManager INST { get => inst; }
+        #endregion
 
         private void Awake()
         {
-            if (INSTANCE == null)
-                INSTANCE = this;
+            if (inst == null)
+                inst = this;
             else
                 Debug.LogError("There are multiple instances of GAME_MANAGER. You can only have one.");
 
-            curScene = (SceneIndex)UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            curScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         }
 
         //Deloads current and loads new.
-        public void LoadScene(SceneIndex si)
+        public void LoadScene(string si)
         {
             _loadingScreen.SetActive(true);
-            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync((int)curScene));
+            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(curScene));
 
             curScene = si;
-            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)si, LoadSceneMode.Additive));
+            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(si, LoadSceneMode.Additive));
             StartCoroutine(GetSceneLoadProgress());
         }
 
@@ -80,8 +76,8 @@ namespace MarUtility.ExecutionManagement
                 }
             }
             _loadingScreen.gameObject.SetActive(false);
-            if (TransitionManager.INSTANCE != null)
-                TransitionManager.INSTANCE.Open();
+            if (TransitionManager.INST != null)
+                TransitionManager.INST.PlayOpen();
         }
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 6/20/2026
- * Last Updated: 6/20/2026
+ * Last Updated: 8/19/2026
  * 
  * Applies color regions to 2D (SpriteRenderer) objects.
  */
@@ -23,6 +23,11 @@ namespace MarUtility.Material
             for (int i = 0; i < curRTs.Length; i++)
                 MaterialRegionMaster.ChangeColorAtRegion(i, curRTs[i].RColor, _renderer);
         }
+
+        public override void LinkTexture()
+            => LinkTexture(_renderer.sprite.texture);
+        public override void LinkTexture(Texture newTex)
+            => _renderer.material.SetTexture(_textureID, newTex);
     }
 }
 
