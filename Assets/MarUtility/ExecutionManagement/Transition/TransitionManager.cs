@@ -28,7 +28,7 @@ namespace MarUtility.ExecutionManagement
         [SerializeField, BoxGroup("Events")]
         private UnityEvent _onCloseEnd;
 
-        private int nextScene;
+        private string nextScene;
 
         #region GS
         public static TransitionManager INST { get => inst; }
@@ -53,7 +53,7 @@ namespace MarUtility.ExecutionManagement
             _onOpenEnd.Invoke();
         }
 
-        public void PlayClose(int si)
+        public void PlayClose(string si)
         {
             _ac.SetTrigger(_trigCloseID);
             nextScene = si;
@@ -61,7 +61,7 @@ namespace MarUtility.ExecutionManagement
         public void OnCloseEnd()
         {
             SceneManager.INST.LoadScene(nextScene);
-            nextScene = -1;
+            nextScene = "";
         }
     }
 }

@@ -28,7 +28,7 @@ namespace MarUtility.ExecutionManagement
 
         private float sceneLoadPercent;
         
-        private int curScene;
+        private string curScene;
         List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
         #region GS
@@ -42,17 +42,17 @@ namespace MarUtility.ExecutionManagement
             else
                 Debug.LogError("There are multiple instances of GAME_MANAGER. You can only have one.");
 
-            curScene = (int)UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            curScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         }
 
         //Deloads current and loads new.
-        public void LoadScene(int si)
+        public void LoadScene(string si)
         {
             _loadingScreen.SetActive(true);
-            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync((int)curScene));
+            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(curScene));
 
             curScene = si;
-            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int)si, LoadSceneMode.Additive));
+            scenesLoading.Add(UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(si, LoadSceneMode.Additive));
             StartCoroutine(GetSceneLoadProgress());
         }
 

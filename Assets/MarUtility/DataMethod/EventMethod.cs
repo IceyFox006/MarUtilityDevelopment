@@ -20,11 +20,8 @@ namespace MarUtility
         #endregion
 
         #region Scene
-        public void SceneLoad(int index)
-            => SceneManager.INST.LoadScene(index); //end of transition
-
-        public void SceneTransition(int index)
-            => TransitionManager.INST.PlayClose(index);
+        public void SceneTransition(string name)
+            => TransitionManager.INST.PlayClose(name);
         #endregion
 
         #region Active
