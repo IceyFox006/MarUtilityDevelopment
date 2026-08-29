@@ -13,28 +13,33 @@ namespace MarUtility.ExecutionManagement
 {
     public class TransitionManager : Manager
     {
-        public static TransitionManager INSTANCE;
+        private static TransitionManager inst;
 
         [SerializeField]
         private AnimatorController _ac;
-        [SerializeField, BoxGroup("Parameter IDs")]
+
+        [SerializeField, BoxGroup("Animation IDs")]
         private string _trigOpenID = "T_Open";
-        [SerializeField, BoxGroup("Parameter IDs")]
+        [SerializeField, BoxGroup("Animation IDs")]
         private string _trigCloseID = "T_Close";
 
         [SerializeField, BoxGroup("Events")]
         private UnityEvent _onOpenEnd;
         [SerializeField, BoxGroup("Events")]
         private UnityEvent _onCloseEnd;
+
         private int nextScene;
+
+        #region GS
+        public static TransitionManager INST { get => inst; }
+        #endregion
 
         public override void Initialize()
         {
-            if (INSTANCE == null)
-                INSTANCE = this;
+            if (inst == null)
+                inst = this;
             else
                 Debug.LogError("There are multiple instances of TRANSITION_MANAGER. You can only have one.");
-
 
             base.Initialize();
         }
@@ -48,14 +53,14 @@ namespace MarUtility.ExecutionManagement
             _onOpenEnd.Invoke();
         }
 
-        public void Close(SceneIndex si)
+        public void PlayClose(int si)
         {
             _ac.SetTrigger(_trigCloseID);
-            nextScene = (int)si;
+            nextScene = si;
         }
         public void OnCloseEnd()
         {
-            SceneManager.INSTANCE.LoadScene((SceneIndex)nextScene);
+            SceneManager.INST.LoadScene(nextScene);
             nextScene = -1;
         }
     }
