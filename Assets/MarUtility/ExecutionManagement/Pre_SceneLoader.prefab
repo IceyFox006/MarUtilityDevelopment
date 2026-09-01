@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a1d98dd8bbd29469f0329b0de5cef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.ExecutionManagement.SceneLoader
+  _scenePersistantID: Scene_Persistant
   _tickInterval: 0.1
   _runTickUpdate: 1
   _managers: []

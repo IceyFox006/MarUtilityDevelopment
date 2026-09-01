@@ -39,8 +39,6 @@ namespace MarUtility.UIExtensions
         //INPUT
         [SerializeField, BoxGroup("Input")]
         private bool _receiveInput = true;
-        //[SerializeField, BoxGroup("Input")]
-        //private InputActionAsset _inputActions;
         [SerializeField, BoxGroup("Input")]
         private PlayerInput _playerInput;
         //Move
@@ -87,6 +85,8 @@ namespace MarUtility.UIExtensions
                 ShowConfirmOnSelect();
             }
         }
+
+        public PlayerInput PlayerInput { get => _playerInput; set => _playerInput = value; }
         #endregion
 
         private void OnDestroy()
@@ -108,11 +108,6 @@ namespace MarUtility.UIExtensions
         //Assigns actions to inputs.
         private void InitializeInput()
         {
-            //_inputActions.Enable();
-            //move = _inputActions.FindAction(moveActionPath);
-            //select = _inputActions.FindAction(selectActionPath);
-            //confirm = _inputActions.FindAction(confirmActionPath);
-
             _playerInput.actions.Enable();
             move = _playerInput.actions.FindAction(moveActionPath);
             select = _playerInput.actions.FindAction(selectActionPath);
@@ -122,6 +117,8 @@ namespace MarUtility.UIExtensions
         //Add input listeners.
         private void EnableInput()
         {
+            if (_playerInput == null) return;
+
             move.performed += Move_performed;
             select.performed += Select_performed;
             confirm.performed += Confirm_performed;
@@ -130,6 +127,8 @@ namespace MarUtility.UIExtensions
         //Remove input listeners.
         private void DisableInput()
         {
+            if (_playerInput == null) return;
+
             move.performed -= Move_performed;
             select.performed -= Select_performed;
             confirm.performed -= Confirm_performed;
