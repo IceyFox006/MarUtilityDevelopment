@@ -1,24 +1,27 @@
 using MarUtility.ExecutionManagement;
 using NaughtyAttributes;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace MarUtility.Multiplayer
 {
-    [RequireComponent(typeof(PlayerInputManager))]
     public class MultiplayerManager : Manager
     {
         private static MultiplayerManager inst;
 
-        [SerializeField, OnValueChanged("OnVC_PiControllers"), Label("Controllers")]
-        private List<PlayerInputController> _piControllers;
-
-        private PlayerInputManager piManager;
+        //[SerializeField, OnValueChanged("OnVC_PiControllers"), Label("Controllers")]
+        //private List<PlayerInputController> _piControllers;
+        [SerializeField, Label("Controllers")]
+        private Dictionary<string, PlayerInputController> _piControllers;
 
         #region GS
         public static MultiplayerManager INST { get => inst; }
-        public List<PlayerInputController> PiControllers { get => _piControllers; }
+        public Dictionary<string, PlayerInputController> PiControllers { get => _piControllers; set => _piControllers = value; }
+
+        //public List<PlayerInputController> PiControllers { get => _piControllers; }
         #endregion
 
         public override void Initialize()
@@ -26,28 +29,27 @@ namespace MarUtility.Multiplayer
             if (inst == null) inst = this;
             else DebugMessages.MultipleScriptInstances("Multiplayer Manager");
 
-            piManager = GetComponent<PlayerInputManager>();
-
             base.Initialize();
         }
 
-        public PlayerInputController GetFirstUnlinkedController()
+        public KeyValuePair<string, PlayerInputController> GetFirstUnlinkedController()
         {
-            for (int i = 0; i < _piControllers.Count; i++)
-                if (!_piControllers[i].IsLinked) return _piControllers[i];
+            //for (int i = 0; i < _piControllers.Count; i++)
+            //    if (!_piControllers[i].IsLinked) return _piControllers[i];
+            foreach (KeyValuePair<string, PlayerInputController> pic in _piControllers)
+                if (!pic.Value.IsLinked) return pic;
 
-            return null;
+            return new KeyValuePair<string, PlayerInputController>("", null);
         }
 
-        #region Inspector
-        private void OnVC_PiControllers()
-        {
-            piManager = GetComponent<PlayerInputManager>();
-
-            if (_piControllers.Count <= piManager.maxPlayerCount) return;
-            _piControllers.RemoveAt(_piControllers.Count - 1);
-        }
-        #endregion
+        //#region Inspector
+        //private void OnVC_PiControllers()
+        //{
+        //    PlayerInputManager piManager = FindAnyObjectByType<MultiplayerMaster>().GetComponent<PlayerInputManager>();
+        //    if (_piControllers.Count <= piManager.maxPlayerCount) return;
+        //    _piControllers.Remove(_piControllers.Keys.Last());
+        //}
+        //#endregion
     }
 }
 

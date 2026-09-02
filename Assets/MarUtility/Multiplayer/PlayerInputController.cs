@@ -1,7 +1,6 @@
-using MarUtility.ExecutionManagement;
 using MarUtility.UIExtensions;
-using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace MarUtility.Multiplayer
@@ -11,7 +10,7 @@ namespace MarUtility.Multiplayer
         [SerializeField, ReadOnly]
         private bool isLinked = false;
 
-        [SerializeField]
+        [SerializeField, Label("Object Event System")]
         private ObjectEventSystem _oes;
 
         #region GS

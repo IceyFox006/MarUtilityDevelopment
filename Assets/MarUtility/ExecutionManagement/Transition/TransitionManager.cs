@@ -32,6 +32,8 @@ namespace MarUtility.ExecutionManagement
 
         #region GS
         public static TransitionManager INST { get => inst; }
+        public UnityEvent OnOpenEnd { get => _onOpenEnd; set => _onOpenEnd = value; }
+        public UnityEvent OnCloseEnd { get => _onCloseEnd; set => _onCloseEnd = value; }
         #endregion
 
         public override void Initialize()
@@ -48,7 +50,7 @@ namespace MarUtility.ExecutionManagement
         {
             _ac.SetTrigger(_trigOpenID);
         }
-        public void OnOpenEnd()
+        public void OpenEnd()
         {
             _onOpenEnd.Invoke();
         }
@@ -58,7 +60,7 @@ namespace MarUtility.ExecutionManagement
             _ac.SetTrigger(_trigCloseID);
             nextScene = si;
         }
-        public void OnCloseEnd()
+        public void CloseEnd()
         {
             SceneManager.INST.LoadScene(nextScene);
             nextScene = "";
