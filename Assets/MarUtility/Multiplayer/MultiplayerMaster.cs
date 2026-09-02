@@ -1,6 +1,12 @@
+/*
+ * Marlow Greenan
+ * Created: 09/01/2026
+ * Last Updated: 09/02/2026
+ * 
+ * Put in a persistant scene.
+ */
+
 using MarUtility.ExecutionManagement;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

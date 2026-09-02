@@ -1,3 +1,10 @@
+/*
+ * Marlow Greenan
+ * Created: 09/01/2026
+ * Last Updated: 09/02/2026
+ * 
+ * On a player input player. Remembers the player it was initially assigned to and when switching scenes, relinks to PiController under the same keyID.
+ */
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -39,8 +46,11 @@ namespace MarUtility.Multiplayer
             }
         }
 
+        //Links to the piController with the same keyID.
         public void Relink()
         {
+            if (!_autoLinkOnSceneLoad) return;
+
             PlayerInputController piCon = MultiplayerManager.INST.PiControllers[keyID];
 
             if (piCon == null) return;
