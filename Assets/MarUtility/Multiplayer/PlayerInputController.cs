@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace MarUtility.Multiplayer
 {
-    public class PlayerInputController : Manager
+    public class PlayerInputController : MonoBehaviour
     {
         [SerializeField, ReadOnly]
         private bool isLinked = false;

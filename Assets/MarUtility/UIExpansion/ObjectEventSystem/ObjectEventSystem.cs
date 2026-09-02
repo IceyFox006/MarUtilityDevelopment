@@ -108,6 +108,8 @@ namespace MarUtility.UIExtensions
         //Assigns actions to inputs.
         private void InitializeInput()
         {
+            if (_playerInput == null) return;
+
             _playerInput.actions.Enable();
             move = _playerInput.actions.FindAction(moveActionPath);
             select = _playerInput.actions.FindAction(selectActionPath);
