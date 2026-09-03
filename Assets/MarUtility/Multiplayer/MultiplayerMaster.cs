@@ -7,6 +7,9 @@
  */
 
 using MarUtility.ExecutionManagement;
+using NaughtyAttributes;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,9 +22,13 @@ namespace MarUtility.Multiplayer
 
         private PlayerInputManager piManager;
 
+        [SerializeField, ReadOnly]
+        private List<GameObject> playerInputs = new List<GameObject>();
+
         #region GS
         public static MultiplayerMaster INST { get => inst; }
         public PlayerInputManager PiManager { get => piManager; }
+        public List<GameObject> PlayerInputs { get => playerInputs; }
         #endregion
 
         public override void Initialize()
@@ -32,6 +39,23 @@ namespace MarUtility.Multiplayer
             piManager = GetComponent<PlayerInputManager>();
 
             base.Initialize();
+        }
+
+        public void UpdatePlayerCount()
+        {
+            if (playerInputs.Count < MultiplayerManager.INST.MaxPlayerCount) //Under max player count.
+            {
+                piManager.EnableJoining();
+            }
+            else
+            {
+                while (PlayerInputs.Count > MultiplayerManager.INST.MaxPlayerCount)
+                {
+                    Destroy(PlayerInputs[PlayerInputs.Count - 1]);
+                    PlayerInputs.RemoveAt(PlayerInputs.Count - 1);
+                }
+                piManager.DisableJoining();
+            }
         }
     }
 }

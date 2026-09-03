@@ -9,6 +9,7 @@
 using MarUtility.UIExtensions;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace MarUtility.Multiplayer
@@ -17,13 +18,15 @@ namespace MarUtility.Multiplayer
     {
         [SerializeField, ReadOnly]
         private PlayerInput playerInput;
-        //private bool isLinked = false;
 
         [SerializeField, Label("Object Event System")]
         private ObjectEventSystem _oes;
 
+        [SerializeField]
+        private UnityEvent _onLink;
+
         #region GS
-        //public bool IsLinked { get => isLinked; set => isLinked = value; }
+        public PlayerInput PlayerInput { get => playerInput; }
         #endregion
 
         public void Link(PlayerInput pi)
@@ -32,6 +35,7 @@ namespace MarUtility.Multiplayer
             if (_oes != null) _oes.Initialize();
 
             playerInput = pi;
+            _onLink.Invoke();
         }
 
         public bool IsLinked()
