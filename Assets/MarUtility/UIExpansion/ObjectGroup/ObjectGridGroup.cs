@@ -27,6 +27,8 @@ namespace MarUtility.UIExtensions
         private Vector3 _childSize;
         [SerializeField, BoxGroup("Alignment"), OnValueChanged("OnVC_Children"), Tooltip("X = spacing between columns, Y = spacing between rows.")]
         private Vector3 _spacing;
+        [SerializeField, BoxGroup("Alignment"), OnValueChanged("OnVC_Children")]
+        private Vector3 _offset;
 
         //CHILDREN
         [SerializeField, BoxGroup("Children"), OnValueChanged("OnVC_SpawnChildren"), Tooltip("If TRUE, instead of using pre-existing children, spawn children in.\n*DELETES ALL PRE-EXISTING CHILDREN*")]
@@ -129,6 +131,8 @@ namespace MarUtility.UIExtensions
             }
         }
 
+        public void DoEntrance()
+            => StartCoroutine(PlayEntrance());
         //Plays entrance movement for all children.
         public IEnumerator PlayEntrance()
         {
@@ -173,6 +177,8 @@ namespace MarUtility.UIExtensions
             _onEntranceEnd.Invoke();
         }
 
+        public void DoExit()
+            => StartCoroutine(PlayExit());
         //Plays exit movement for all children.
         public IEnumerator PlayExit()
         {
@@ -356,9 +362,9 @@ namespace MarUtility.UIExtensions
         {
             if (GetCoordData(coord) == null) return new Vector3(-1, -1, -1);
 
-            float xPos = transform.position.x + (coord.x * (_spacing.x + _childSize.x));
-            float yPos = transform.position.y - (coord.y * (_spacing.y + _childSize.y));
-            float zPos = transform.position.z + (coord.z * (_spacing.z + _childSize.z));
+            float xPos = (transform.position.x + (coord.x * (_spacing.x + _childSize.x))) + _offset.x;
+            float yPos = (transform.position.y - (coord.y * (_spacing.y + _childSize.y))) + _offset.y;
+            float zPos = (transform.position.z + (coord.z * (_spacing.z + _childSize.z))) + _offset.z;
 
             return new Vector3(xPos, yPos, zPos);
         }
@@ -399,6 +405,14 @@ namespace MarUtility.UIExtensions
 
             return true;
         }
+
+        //Returns true if any child is null.
+        private bool IsAnyChildNull()
+        {
+            foreach (GameObject child in _children)
+                if (child == null) return true;
+            return false;
+        }
         #endregion
 
         #region Inspector
@@ -412,6 +426,8 @@ namespace MarUtility.UIExtensions
 
         private void OnVC_Children()
         {
+            if (IsAnyChildNull()) return;
+
             CreateGrid();
             SnapAll();
         }
