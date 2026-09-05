@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace MarUtility.ExecutionManagement
@@ -19,12 +20,15 @@ namespace MarUtility.ExecutionManagement
     {
         private static SceneManager inst;
 
-        [SerializeField, Required]
+        [SerializeField, BoxGroup("Loading Screen")]
         private GameObject _loadingScreen;
-        [SerializeField]
+        [SerializeField, BoxGroup("Loading Screen")]
         private FillController _progressBarFill;
-        [SerializeField]
+        [SerializeField, BoxGroup("Loading Screen")]
         private TMP_Text _loadingText;
+
+        [SerializeField]
+        private UnityEvent _onSceneLoaded;
 
         private float sceneLoadPercent;
         
@@ -76,6 +80,9 @@ namespace MarUtility.ExecutionManagement
                 }
             }
             _loadingScreen.gameObject.SetActive(false);
+
+            _onSceneLoaded.Invoke();
+
             if (TransitionManager.INST != null)
                 TransitionManager.INST.PlayOpen();
         }

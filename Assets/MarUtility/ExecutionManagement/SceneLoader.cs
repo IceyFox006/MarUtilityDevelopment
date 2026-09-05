@@ -1,12 +1,14 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 8/12/2026
+ * Last Updated: 09/04/2026
  * 
  * Manages the order in which managers are initialized.
  */
 using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 namespace MarUtility.ExecutionManagement
 {
@@ -24,6 +26,11 @@ namespace MarUtility.ExecutionManagement
 
         [SerializeField]
             private Manager[] _managers;
+
+        [SerializeField, BoxGroup("Start Events"), MinValue(0)]
+        private float _startDelay;
+        [SerializeField, BoxGroup("Start Events")]
+        private UnityEvent _onStart = new UnityEvent();
 
         #region GS
         public static SceneLoader INST { get => inst; private set => inst = value; }
@@ -54,6 +61,17 @@ namespace MarUtility.ExecutionManagement
             //Initialize managers
             foreach (Manager manager in _managers)
                 if (manager.InitializeTime == InitializeTime.SCENELOADER_AWAKE) manager.Initialize();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(StartDelay());
+        }
+
+        private IEnumerator StartDelay()
+        {
+            yield return new WaitForSeconds(_startDelay);
+            _onStart.Invoke();
         }
     }
     public enum InitializeTime
