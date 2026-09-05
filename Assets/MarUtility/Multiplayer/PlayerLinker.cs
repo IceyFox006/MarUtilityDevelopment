@@ -44,7 +44,7 @@ namespace MarUtility.Multiplayer
                 if (piPair.Value == null) return;
 
                 keyID = piPair.Key;
-                piPair.Value.Link(pi);
+                piPair.Value.Link(pi, keyID);
 
                 TransitionManager.INST.OnOpenEnd.AddListener(delegate { Relink(); } );
             }
@@ -59,7 +59,7 @@ namespace MarUtility.Multiplayer
 
             if (piCon == null) return;
             
-            piCon.Link(pi);
+            piCon.Link(pi, keyID);
 
         }
     }
