@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 7/1/2026
- * Last Updated: 7/20/2026
+ * Last Updated: 09/05/2026 by Marlow Greenan
  * 
  * General methods used for buttons, animation events, etc.
  */
@@ -45,6 +45,13 @@ namespace MarUtility
             => cg.alpha = 1f;
         public void HideCanvasGroup(CanvasGroup cg)
             => cg.alpha = 0f;
+        #endregion
+
+        #region Move
+        public void PositionLerp(LerpPositionDataEndP lerpData)
+            => lerpData.BeginPositionLerp();
+        public void PositionLerp(LerpPositionDataEndT lerpData)
+            => lerpData.BeginPositionLerp();
         #endregion
     }
 }
