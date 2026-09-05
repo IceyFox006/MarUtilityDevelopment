@@ -46,13 +46,6 @@ namespace MarUtility
         public void HideCanvasGroup(CanvasGroup cg)
             => cg.alpha = 0f;
         #endregion
-
-        #region Move
-        public void PositionLerp(LerpPositionDataEndP lerpData)
-            => lerpData.BeginPositionLerp();
-        public void PositionLerp(LerpPositionDataEndT lerpData)
-            => lerpData.BeginPositionLerp();
-        #endregion
     }
 }
 

@@ -51,7 +51,6 @@ namespace MarUtility
         #endregion
     }
     //-----------------------------------------------------------------------------------------------------------------
-    [Serializable]
     public class LerpPositionData : LerpData
     {
         [SerializeField, Required]
@@ -68,12 +67,12 @@ namespace MarUtility
         public IEnumerator PositionLerpInterval()
         {
             lTime = 0;
-            _movingTransform.position = lStart;
+            lStart = _movingTransform.position;
             _onStart.Invoke();
 
             while (lTime < _duration)
             {
-                _movingTransform.position += Vector3.Lerp(lStart, lEnd, lTime / _duration);
+                _movingTransform.position = Vector3.Lerp(lStart, lEnd, lTime / _duration);
                 lTime += Time.deltaTime;
                 _onBody.Invoke();
                 yield return null;
