@@ -67,17 +67,17 @@ namespace MarUtility
         public IEnumerator PositionLerpInterval()
         {
             lTime = 0;
-            lStart = _movingTransform.position;
+            lStart = _movingTransform.localPosition;
             _onStart.Invoke();
 
             while (lTime < _duration)
             {
-                _movingTransform.position = Vector3.Lerp(lStart, lEnd, lTime / _duration);
+                _movingTransform.localPosition = Vector3.Lerp(lStart, lEnd, lTime / _duration);
                 lTime += Time.deltaTime;
                 _onBody.Invoke();
                 yield return null;
             }
-            _movingTransform.position = lEnd;
+            _movingTransform.localPosition = lEnd;
             _onEnd.Invoke();
         }
     }

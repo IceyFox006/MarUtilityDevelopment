@@ -101,19 +101,19 @@ namespace MarUtility.UIExtensions
         private IEnumerator PositionLerpInterval()
         {
             lTime = 0;
-            transform.position = lStart;
+            transform.localPosition = lStart;
             curLD.OnStart.Invoke();
             isLerping = true;
 
             while (lTime < curLD.Duration)
             {
-                transform.position = Vector3.Lerp(lStart, lEnd, lTime / curLD.Duration);
+                transform.localPosition = Vector3.Lerp(lStart, lEnd, lTime / curLD.Duration);
                 lTime += Time.deltaTime;
                 curLD.OnBody.Invoke();
                 yield return null;
             }
 
-            transform.position = lEnd;
+            transform.localPosition = lEnd;
             curLD.OnEnd.Invoke();
             isLerping = false;
         }
