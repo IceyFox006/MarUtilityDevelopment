@@ -90,7 +90,7 @@ namespace MarUtility
 
         public override void BeginPositionLerp()
         {
-            lEnd = _endTransform.position;
+            lEnd = _endTransform.localPosition;
             base.BeginPositionLerp();
         }
     }

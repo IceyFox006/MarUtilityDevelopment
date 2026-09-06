@@ -67,9 +67,9 @@ namespace MarUtility.UIExtensions
         public void Initialize(ObjectGridGroup g)
         {
             group = g;
-            originPos = transform.position;
+            originPos = transform.localPosition;
             if (_doEntrance)
-                transform.position += EntrancePos;
+                transform.localPosition += EntrancePos;
         }
 
         #region PositionLerp
@@ -86,7 +86,7 @@ namespace MarUtility.UIExtensions
 
         //Begins lerping the position.
         public void BeginPositionLerp(LerpData cLD, Vector3 end)
-            => BeginPositionLerp(cLD, transform.position, end);
+            => BeginPositionLerp(cLD, transform.localPosition, end);
         public void BeginPositionLerp(LerpData cLD, Vector3 start, Vector3 end)
         {
             curLD = cLD;
