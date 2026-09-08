@@ -37,6 +37,8 @@ namespace MarUtility.UIExtensions
         private List<ObjectButton> curSelected = new List<ObjectButton>();
 
         //INPUT
+        [SerializeField]
+        private string _possedPlayerID;
         [SerializeField, BoxGroup("Input")]
         private bool _receiveInput = true;
         [SerializeField, BoxGroup("Input")]
@@ -87,6 +89,7 @@ namespace MarUtility.UIExtensions
         }
 
         public PlayerInput PlayerInput { get => _playerInput; set => _playerInput = value; }
+        public string PossedPlayerID { get => _possedPlayerID; set => _possedPlayerID = value; }
         #endregion
 
         private void OnDestroy()
@@ -222,6 +225,7 @@ namespace MarUtility.UIExtensions
         {
             for (int i = curSelected.Count - 1; i >= 0; i--)
             {
+                curSelected[i].LastPlayerID = _possedPlayerID;
                 if (_deselectOnConfirm)
                     RemoveSelected(curSelected[i]).OnConfirm();
                 else

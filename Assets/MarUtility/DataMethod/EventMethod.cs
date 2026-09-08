@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 7/1/2026
- * Last Updated: 7/20/2026
+ * Last Updated: 09/05/2026 by Marlow Greenan
  * 
  * General methods used for buttons, animation events, etc.
  */

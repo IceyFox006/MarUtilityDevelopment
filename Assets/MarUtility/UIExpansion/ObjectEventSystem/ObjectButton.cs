@@ -18,6 +18,9 @@ namespace MarUtility.UIExtensions
 {
     public class ObjectButton : MonoBehaviour
     {
+        [SerializeField, ReadOnly]
+        private string lastPlayerID;
+
         [SerializeField]
         private bool _interactable = true;
 
@@ -68,6 +71,7 @@ namespace MarUtility.UIExtensions
         public bool IsSelected { get => isSelected; set => isSelected = value; }
         public UnityEvent OnConfirmEvents { get => _onConfirmEvents; set => _onConfirmEvents = value; }
         public bool IsHovered { get => isHovered; set => isHovered = value; }
+        public string LastPlayerID { get => lastPlayerID; set => lastPlayerID = value; }
 
         #endregion
         #region Initialize

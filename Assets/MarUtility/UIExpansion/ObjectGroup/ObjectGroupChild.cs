@@ -44,6 +44,7 @@ namespace MarUtility.UIExtensions
         private ObjectGridGroup group;
         [SerializeField, ReadOnly]
         private Vector3Int gridCoord;
+        [SerializeField, ReadOnly]
         private Vector3 originPos;
 
         #region GS
@@ -67,9 +68,9 @@ namespace MarUtility.UIExtensions
         public void Initialize(ObjectGridGroup g)
         {
             group = g;
-            originPos = transform.position;
+            originPos = transform.localPosition;
             if (_doEntrance)
-                transform.position += EntrancePos;
+                transform.localPosition += EntrancePos;
         }
 
         #region PositionLerp
@@ -86,7 +87,7 @@ namespace MarUtility.UIExtensions
 
         //Begins lerping the position.
         public void BeginPositionLerp(LerpData cLD, Vector3 end)
-            => BeginPositionLerp(cLD, transform.position, end);
+            => BeginPositionLerp(cLD, transform.localPosition, end);
         public void BeginPositionLerp(LerpData cLD, Vector3 start, Vector3 end)
         {
             curLD = cLD;
@@ -101,19 +102,19 @@ namespace MarUtility.UIExtensions
         private IEnumerator PositionLerpInterval()
         {
             lTime = 0;
-            transform.position = lStart;
+            transform.localPosition = lStart;
             curLD.OnStart.Invoke();
             isLerping = true;
 
             while (lTime < curLD.Duration)
             {
-                transform.position = Vector3.Lerp(lStart, lEnd, lTime / curLD.Duration);
+                transform.localPosition = Vector3.Lerp(lStart, lEnd, lTime / curLD.Duration);
                 lTime += Time.deltaTime;
                 curLD.OnBody.Invoke();
                 yield return null;
             }
 
-            transform.position = lEnd;
+            transform.localPosition = lEnd;
             curLD.OnEnd.Invoke();
             isLerping = false;
         }

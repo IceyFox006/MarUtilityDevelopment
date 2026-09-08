@@ -29,9 +29,11 @@ namespace MarUtility.Multiplayer
         public PlayerInput PlayerInput { get => playerInput; }
         #endregion
 
-        public void Link(PlayerInput pi)
+        public void Link(PlayerInput pi, string playerID)
         {
             _oes.PlayerInput = pi;
+            _oes.PossedPlayerID = playerID;
+
             if (_oes != null) _oes.Initialize();
 
             playerInput = pi;
