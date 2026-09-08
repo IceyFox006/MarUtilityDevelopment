@@ -44,6 +44,7 @@ namespace MarUtility.UIExtensions
         private ObjectGridGroup group;
         [SerializeField, ReadOnly]
         private Vector3Int gridCoord;
+        [SerializeField, ReadOnly]
         private Vector3 originPos;
 
         #region GS

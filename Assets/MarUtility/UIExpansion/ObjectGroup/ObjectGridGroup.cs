@@ -362,9 +362,9 @@ namespace MarUtility.UIExtensions
         {
             if (GetCoordData(coord) == null) return new Vector3(-1, -1, -1);
 
-            float xPos = (transform.position.x + (coord.x * (_spacing.x + _childSize.x))) + _offset.x;
-            float yPos = (transform.position.y - (coord.y * (_spacing.y + _childSize.y))) + _offset.y;
-            float zPos = (transform.position.z + (coord.z * (_spacing.z + _childSize.z))) + _offset.z;
+            float xPos = (transform.localPosition.x + (coord.x * (_spacing.x + _childSize.x))) + _offset.x;
+            float yPos = (transform.localPosition.y - (coord.y * (_spacing.y + _childSize.y))) + _offset.y;
+            float zPos = (transform.localPosition.z + (coord.z * (_spacing.z + _childSize.z))) + _offset.z;
 
             return new Vector3(xPos, yPos, zPos);
         }
@@ -374,7 +374,7 @@ namespace MarUtility.UIExtensions
         {
             if (GetCoordData(coord) == null) return;
 
-            grid[coord.x, coord.y, coord.z].Obj.transform.position = CalculateOriginPos(coord);
+            grid[coord.x, coord.y, coord.z].Obj.transform.localPosition = CalculateOriginPos(coord);
         }
         #endregion
 
