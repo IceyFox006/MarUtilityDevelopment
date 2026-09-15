@@ -1,6 +1,6 @@
 {
     "version": 1,
-    "name": "IA_Player",
+    "name": "IA_2Player",
     "maps": [
         {
             "name": "UI",
@@ -55,7 +55,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard_Player0;Keyboard",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -66,7 +66,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player0",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -77,7 +77,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player0",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -88,7 +88,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player0",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -110,7 +110,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player1",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -121,7 +121,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player1",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -132,7 +132,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player1",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -143,7 +143,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": ";Keyboard;Keyboard_Player1",
                     "action": "MOVE",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -282,11 +282,55 @@
                 },
                 {
                     "name": "",
+                    "id": "452dd876-977b-4de8-b91d-5233073af196",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard_Player0",
+                    "action": "SELECT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be78aaff-a520-4156-add4-d1c928a41319",
+                    "path": "<Keyboard>/rightAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard_Player1",
+                    "action": "SELECT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "02c5def7-d6b9-4ff6-b499-e07d99ed51e8",
                     "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
+                    "action": "CONFIRM",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8fa3224-c17e-40f4-ba8f-35f46f8071d4",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard_Player0",
+                    "action": "CONFIRM",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "028e2a01-84ba-4f27-b769-9a1da7b81fb3",
+                    "path": "<Keyboard>/rightCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard_Player1",
                     "action": "CONFIRM",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -312,6 +356,28 @@
             "devices": [
                 {
                     "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard_Player0",
+            "bindingGroup": "Keyboard_Player0",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard_Player1",
+            "bindingGroup": "Keyboard_Player1",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
                 }

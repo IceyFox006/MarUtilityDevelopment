@@ -98,7 +98,7 @@ namespace MarUtility.UIExtensions
         }
         public override void Initialize()
         {
-            SwitchHover(curHover);
+            SwitchHover(_firstSelected);
 
             InitializeInput();
             if (_receiveInput)
