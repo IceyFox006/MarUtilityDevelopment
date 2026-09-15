@@ -98,9 +98,7 @@ namespace MarUtility.UIExtensions
         }
         public override void Initialize()
         {
-            curHover = _firstSelected;
-            if (curHover != null)
-                _firstSelected.OnHoverEnter();
+            SwitchHover(curHover);
 
             InitializeInput();
             if (_receiveInput)
