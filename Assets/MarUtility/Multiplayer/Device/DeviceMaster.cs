@@ -1,16 +1,85 @@
+using MarUtility.ExecutionManagement;
+using NaughtyAttributes;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
-public class DeviceMaster : MonoBehaviour
+namespace MarUtility.Multiplayer
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class DeviceMaster : Manager
     {
-        
-    }
+        private static DeviceMaster inst;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField, MinValue(0.1f), Tooltip("How often it checks for new devices.")]
+        private float _checkInterval = 1f;
+
+        [SerializeField, BoxGroup("Event")]
+        private UnityEvent _onDeviceConnected;
+        [SerializeField, BoxGroup("Event")]
+        private UnityEvent _onDeviceDisconnected;
+
+        [SerializeField, ReadOnly]
+        private int deviceCount = 0;
+        private List<InputDevice> validDevices = new List<InputDevice>();
+
+        #region GS
+        public static DeviceMaster INST { get => inst; }
+        #endregion
+
+        public override void Initialize()
+        {
+            if (inst == null) inst = this;
+            else DebugMessages.MultipleMasterInstances("Device");
+
+            StartCoroutine(CheckDevicesInterval());
+
+            base.Initialize();
+        }
+
+        private IEnumerator CheckDevicesInterval()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(_checkInterval);
+                
+                deviceCount = validDevices.Count;
+                LinkValidDevices();
+
+                if (validDevices.Count > deviceCount)
+                    DeviceConnected();
+                else if (validDevices.Count < deviceCount)
+                    DeviceDisconnected();
+            }
+        }
+
+        private void LinkValidDevices()
+        {
+            validDevices.Clear();
+
+            InputDevice[] devices = InputSystem.devices.ToArray();
+
+            foreach (InputDevice d in devices)
+            {
+                switch (d)
+                {
+                    case Keyboard:
+                    case Gamepad:
+                        validDevices.Add(d); break;
+                }
+            }
+        }
+
+        private void DeviceConnected()
+        {
+            _onDeviceConnected.Invoke();
+        }
+
+        private void DeviceDisconnected()
+        {
+            _onDeviceDisconnected.Invoke();
+        }
     }
 }
+

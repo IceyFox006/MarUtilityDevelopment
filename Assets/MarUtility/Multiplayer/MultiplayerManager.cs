@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 09/01/2026
- * Last Updated: 09/02/2026 by Marlow Greenan
+ * Last Updated: 09/18/2026 by Marlow Greenan
  * 
  * Contains the input controllers for a single scene.
  */
@@ -21,6 +21,9 @@ namespace MarUtility.Multiplayer
         [SerializeField, OnValueChanged("OnVC_MaxPlayers")]
         private int _maxPlayerCount = 1;
 
+        [SerializeField]
+        private bool _forceSpawnPlayers = true;
+
         [SerializeField, OnValueChanged("OnVC_PlayerKey")]
         private string _playerKey = "Player";
 
@@ -39,7 +42,11 @@ namespace MarUtility.Multiplayer
             else DebugMessages.MultipleScriptInstances("Multiplayer Manager");
 
             if (MultiplayerMaster.INST != null)
+            {
+                MultiplayerMaster.INST.SpawnAllPlayers();
                 MultiplayerMaster.INST.UpdatePlayerCount();
+            }
+
 
             base.Initialize();
         }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 751735707638431136}
   - component: {fileID: 110216911620814895}
+  - component: {fileID: -6720524435657795145}
   m_Layer: 0
   m_Name: Pre_DeviceMaster
   m_TagString: Untagged
@@ -44,3 +45,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b004cb63beba34d9ee48b08557d500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeviceMaster
+  _initializeTime: 110
+  _checkInterval: 1
+  _onDeviceConnected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6720524435657795145}
+        m_TargetAssemblyTypeName: MarUtility.EventMethod, Assembly-CSharp
+        m_MethodName: DebugLog
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Connected.
+          m_BoolArgument: 0
+        m_CallState: 2
+  _onDeviceDisconnected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6720524435657795145}
+        m_TargetAssemblyTypeName: MarUtility.EventMethod, Assembly-CSharp
+        m_MethodName: DebugLog
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Disconnected.
+          m_BoolArgument: 0
+        m_CallState: 2
+  deviceCount: 0
+--- !u!114 &-6720524435657795145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4962393240341432333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbfc085d16c20a4ab3499bd722ac107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarUtility.EventMethod

@@ -32,7 +32,7 @@ namespace MarUtility.Multiplayer
         {
             transform.parent = MultiplayerMaster.INST.transform;
 
-            MultiplayerMaster.INST.PlayerInputs.Add(gameObject);
+            MultiplayerMaster.INST.Players.Add(this);
             MultiplayerMaster.INST.UpdatePlayerCount();
 
             pi = GetComponent<PlayerInput>();
