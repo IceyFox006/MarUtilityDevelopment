@@ -19,16 +19,18 @@ namespace MarUtility
             => Debug.Log(message);
         #endregion
 
-        #region Scene
-        public void SceneTransition(string name)
-            => TransitionManager.INST.PlayClose(name);
-        #endregion
-
         #region Active
         public void SetActiveT(GameObject go)
             => go.SetActive(true);
         public void SetActiveF(GameObject go)
             => go.SetActive(false);
+        #endregion
+
+        #region Canvas
+        public void ShowCanvasGroup(CanvasGroup cg)
+            => cg.alpha = 1f;
+        public void HideCanvasGroup(CanvasGroup cg)
+            => cg.alpha = 0f;
         #endregion
 
         #region Destroy
@@ -40,11 +42,26 @@ namespace MarUtility
         }
         #endregion
 
-        #region Canvas
-        public void ShowCanvasGroup(CanvasGroup cg)
-            => cg.alpha = 1f;
-        public void HideCanvasGroup(CanvasGroup cg)
-            => cg.alpha = 0f;
+        #region Renderer
+        public void EnableSpriteRenderer(SpriteRenderer sr)
+            => sr.enabled = true;
+        public void DisableSpriteRenderer(SpriteRenderer sr)
+            => sr.enabled = false;
+
+        public void EnableMeshRenderer(MeshRenderer mr)
+            => mr.enabled = true;
+        public void DisableMeshRenderer(MeshRenderer mr)
+            => mr.enabled = false;
+
+        public void EnableTrailRenderer(TrailRenderer tr)
+            => tr.enabled = true;
+        public void DisableTrailRenderer(TrailRenderer tr)
+            => tr.enabled = false;
+        #endregion
+
+        #region Scene
+        public void SceneTransition(string name)
+            => TransitionManager.INST.PlayClose(name);
         #endregion
     }
 }
