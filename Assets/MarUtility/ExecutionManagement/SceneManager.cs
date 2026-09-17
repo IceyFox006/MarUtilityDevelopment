@@ -30,6 +30,9 @@ namespace MarUtility.ExecutionManagement
         [SerializeField]
         private UnityEvent _onSceneLoaded;
 
+        [SerializeField]
+        private Manager[] _persistantManagers;
+
         private float sceneLoadPercent;
         
         private string curScene;
@@ -41,12 +44,19 @@ namespace MarUtility.ExecutionManagement
 
         private void Awake()
         {
+            Initialize();
+            curScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        }
+
+        public void Initialize()
+        {
             if (inst == null)
                 inst = this;
             else
                 Debug.LogError("There are multiple instances of GAME_MANAGER. You can only have one.");
 
-            curScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            foreach (Manager m in _persistantManagers)
+                if (m.InitializeTime == InitializeTime.SCENELOADER_AWAKE) m.Initialize();
         }
 
         //Deloads current and loads new.

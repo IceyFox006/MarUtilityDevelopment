@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b004cb63beba34d9ee48b08557d500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeviceMaster
-  _initializeTime: 110
+  _initializeTime: 100
   _checkInterval: 1
   _onDeviceConnected:
     m_PersistentCalls:

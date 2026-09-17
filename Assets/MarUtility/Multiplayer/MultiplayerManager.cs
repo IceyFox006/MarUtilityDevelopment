@@ -8,6 +8,7 @@
 
 using MarUtility.ExecutionManagement;
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -42,13 +43,17 @@ namespace MarUtility.Multiplayer
             else DebugMessages.MultipleScriptInstances("Multiplayer Manager");
 
             if (MultiplayerMaster.INST != null)
-            {
-                MultiplayerMaster.INST.SpawnAllPlayers();
                 MultiplayerMaster.INST.UpdatePlayerCount();
-            }
 
+            StartCoroutine(DelayedInitialize());
 
             base.Initialize();
+        }
+
+        private IEnumerator DelayedInitialize()
+        {
+            yield return new WaitForSeconds(0.1f);
+            MultiplayerMaster.INST.SpawnAllPlayers();
         }
 
         //Returns the first unlinked controller.
@@ -60,7 +65,15 @@ namespace MarUtility.Multiplayer
             return new KeyValuePair<string, PlayerInputController>("", null);
         }
 
+        public void EnableAllPlayerInput()
+        {
+            foreach (KeyValuePair<string, PlayerInputController> kvp in _piControllers)
+                kvp.Value.DisableAllInput();
+        }
+        public void DisableAllPlayerInput()
+        {
 
+        }
 
         #region Inspector
         private void OnVC_MaxPlayers()

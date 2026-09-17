@@ -176,6 +176,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47221ea8a662f2443928bd61e5d12dce, type: 3}
+--- !u!114 &131457338 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 605560405419640865, guid: 47221ea8a662f2443928bd61e5d12dce, type: 3}
+  m_PrefabInstance: {fileID: 131457337}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3acc8ac4cae79418f1dd57945536ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiplayerMaster
 --- !u!1 &359408555
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,6 +310,12 @@ MonoBehaviour:
   _onSceneLoaded:
     m_PersistentCalls:
       m_Calls: []
+  _persistantManagers:
+  - {fileID: 2124633237}
+  - {fileID: 2107149918}
+  - {fileID: 131457338}
+  - {fileID: 7114515418971970061}
+  - {fileID: 1554630347}
 --- !u!1001 &834521965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -427,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1064707039347441630, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1310217467037327629, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -469,6 +486,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6395780902756759486, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -479,6 +500,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1064707039347441630, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
   m_PrefabInstance: {fileID: 1554630345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1554630347 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6847766360894494066, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
+  m_PrefabInstance: {fileID: 1554630345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554630346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e19944b2d274149b08e8eaddea5860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiplayerDeviceSwitcher
 --- !u!114 &2034670685 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2171226052722900, guid: 3481248a405221a498444e2f0682fafb, type: 3}
@@ -523,6 +555,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f13cefa04a6d48243a335c267a64a6ac, type: 3}
+--- !u!114 &2107149918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 833709477514015675, guid: f13cefa04a6d48243a335c267a64a6ac, type: 3}
+  m_PrefabInstance: {fileID: 2107149917}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b0c208c9d49614286d3c8934dbb92c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleMaster
 --- !u!1 &2116512601
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,6 +646,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 273203eb0af473347a4ea6eb484e5700, type: 3}
+--- !u!114 &2124633237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5001694377546888326, guid: 273203eb0af473347a4ea6eb484e5700, type: 3}
+  m_PrefabInstance: {fileID: 2124633236}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aace20f7ecf14144b3e8db16f0ae0af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarUtility.AudioMaster
 --- !u!1001 &6636933533207790229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -741,16 +795,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 7114515418971970060}
+      objectReference: {fileID: 1554630347}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 2
@@ -765,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 7114515418971970060}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetActiveT
+      value: BeginDeviceSwitchSequence
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -777,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: MarUtility.EventMethod, Assembly-CSharp
+      value: MarUtility.MultiplayerDeviceSwitcher, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -786,14 +840,14 @@ PrefabInstance:
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1554630346}
+      objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
       objectReference: {fileID: 1554630346}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -859,6 +913,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbfc085d16c20a4ab3499bd722ac107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.EventMethod
+--- !u!114 &7114515418971970061 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
+  m_PrefabInstance: {fileID: 7114515418971970059}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b004cb63beba34d9ee48b08557d500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeviceMaster
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

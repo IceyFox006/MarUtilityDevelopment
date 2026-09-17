@@ -23,6 +23,11 @@ namespace MarUtility.Multiplayer
         private bool _autoLinkOnSceneLoad = true;
 
         private PlayerInput pi;
+
+        #region GS
+        public PlayerInput Pi { get => pi; }
+        #endregion
+
         private void Start()
         {
             Initialize();

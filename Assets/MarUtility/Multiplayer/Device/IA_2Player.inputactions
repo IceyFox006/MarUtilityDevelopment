@@ -336,6 +336,46 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Connect",
+            "id": "95f5df39-7e64-440e-8185-9be952d6cd7e",
+            "actions": [
+                {
+                    "name": "CONNECT",
+                    "type": "Button",
+                    "id": "a6450906-3da0-46cf-b8b5-ccbd55ebd5a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ff655ffa-525e-40a3-bfb3-7303ddafe321",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CONNECT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "364d7d93-8842-4c6c-bc49-729a03a49b57",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "CONNECT",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

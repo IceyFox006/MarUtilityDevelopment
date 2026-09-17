@@ -26,6 +26,7 @@ namespace MarUtility.Multiplayer
 
         #region GS
         public static DeviceMaster INST { get => inst; }
+        public List<InputDevice> ValidDevices { get => validDevices; }
         #endregion
 
         public override void Initialize()
@@ -54,6 +55,7 @@ namespace MarUtility.Multiplayer
             }
         }
 
+        //Add keyboards and gamepads to valid devices.
         private void LinkValidDevices()
         {
             validDevices.Clear();
@@ -69,6 +71,17 @@ namespace MarUtility.Multiplayer
                         validDevices.Add(d); break;
                 }
             }
+        }
+
+        public int FindDevice(string deviceName)
+        {
+            for (int i = 0; i < validDevices.Count; i++)
+            {
+                if (validDevices[i].name.Equals(deviceName))
+                    return i;
+            }
+
+            return -1;
         }
 
         private void DeviceConnected()

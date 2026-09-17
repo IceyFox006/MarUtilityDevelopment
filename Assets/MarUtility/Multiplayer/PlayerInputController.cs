@@ -40,8 +40,20 @@ namespace MarUtility.Multiplayer
             _onLink.Invoke();
         }
 
+        public void EnableAllInput()
+        {
+            _oes.ReceiveInput = true;
+        }
+
+        public void DisableAllInput()
+        {
+            _oes.ReceiveInput = false;
+        }
+
+        #region Check
         public bool IsLinked()
             => playerInput != null;
+        #endregion
     }
 }
 
