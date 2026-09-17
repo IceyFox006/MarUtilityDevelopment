@@ -53,6 +53,6 @@ public class DeviceSensor : MonoBehaviour, IInput
     {
         Debug.Log(deviceID);
 
-        MultiplayerDeviceSwitcher.INST.ConnectDeviceToPlayerInSequence(deviceID);
+        MultiplayerDeviceSwitcher.INST.ConnectDeviceToPlayerInSequence(this);
     }
 }
