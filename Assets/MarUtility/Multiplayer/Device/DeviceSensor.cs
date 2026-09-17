@@ -1,4 +1,5 @@
 using MarUtility;
+using MarUtility.Multiplayer;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -51,5 +52,7 @@ public class DeviceSensor : MonoBehaviour, IInput
     private void Connect_performed(InputAction.CallbackContext obj)
     {
         Debug.Log(deviceID);
+
+        MultiplayerDeviceSwitcher.INST.ConnectDeviceToPlayerInSequence(deviceID);
     }
 }

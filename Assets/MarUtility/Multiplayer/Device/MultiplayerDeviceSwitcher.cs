@@ -33,6 +33,9 @@ namespace MarUtility
         [SerializeField, ReadOnly]
         private int playerSwitching = 0;
 
+        [SerializeField, ReadOnly]
+        private List<DeviceSensor> sensors = new List<DeviceSensor>();
+
         #region GS
         public static MultiplayerDeviceSwitcher INST { get => inst; }
         public int PlayerSwitching { get => playerSwitching; }
@@ -63,14 +66,29 @@ namespace MarUtility
             SpawnSensors();
         }
 
-       
+       public void ConnectDeviceToPlayerInSequence(string deviceName)
+       {
+            InputDevice d = DeviceMaster.INST.FindDevice(deviceName);
+
+            if (d != null)
+                MultiplayerMaster.INST.Players[playerSwitching].Pi.SwitchCurrentControlScheme(d);
+
+            playerSwitching++;
+
+            if (playerSwitching >= MultiplayerMaster.INST.Players.Count)
+                EndSwitchDeviceSequence();
+       }
 
         public void EndSwitchDeviceSequence()
         {
             //Destroy all device sensors.
+            DestroySensors();
 
             //Hide switch device UI.
             _switchDeviceUICG.alpha = 0;
+
+            //Enable player input.
+            MultiplayerManager.INST.EnableAllPlayerInput();
         }
 
         //Spawns device sensors and assigns each of them a device.
@@ -81,8 +99,18 @@ namespace MarUtility
             {
                 curDS = Instantiate(_deviceSensor, transform).GetComponent<DeviceSensor>();
                 curDS.Initialize(d.name);
-
                 curDS.Pi.SwitchCurrentControlScheme(d);
+
+                sensors.Add(curDS);
+            }
+        }
+
+        private void DestroySensors()
+        {
+            for (int i = sensors.Count - 1; i >= 0; i--)
+            {
+                Destroy(sensors[i].gameObject);
+                sensors.RemoveAt(i);
             }
         }
 

@@ -68,11 +68,12 @@ namespace MarUtility.Multiplayer
         public void EnableAllPlayerInput()
         {
             foreach (KeyValuePair<string, PlayerInputController> kvp in _piControllers)
-                kvp.Value.DisableAllInput();
+                kvp.Value.EnableAllInput();
         }
         public void DisableAllPlayerInput()
         {
-
+            foreach (KeyValuePair<string, PlayerInputController> kvp in _piControllers)
+                kvp.Value.DisableAllInput();
         }
 
         #region Inspector

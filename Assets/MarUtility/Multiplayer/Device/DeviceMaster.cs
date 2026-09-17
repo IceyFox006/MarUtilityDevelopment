@@ -73,15 +73,15 @@ namespace MarUtility.Multiplayer
             }
         }
 
-        public int FindDevice(string deviceName)
+        public InputDevice FindDevice(string deviceName)
         {
             for (int i = 0; i < validDevices.Count; i++)
             {
                 if (validDevices[i].name.Equals(deviceName))
-                    return i;
+                    return validDevices[i];
             }
 
-            return -1;
+            return null;
         }
 
         private void DeviceConnected()
