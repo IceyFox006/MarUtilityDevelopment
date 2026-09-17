@@ -82,13 +82,7 @@ namespace MarUtility
                 curDS = Instantiate(_deviceSensor, transform).GetComponent<DeviceSensor>();
                 curDS.Initialize(d.name);
 
-                switch (d)
-                {
-                    case Keyboard:
-                        curDS.Pi.SwitchCurrentControlScheme(_csKeyboardID, d); break;
-                    case Gamepad:
-                        curDS.Pi.SwitchCurrentControlScheme(_csGamepadID, d); break;
-                }
+                curDS.Pi.SwitchCurrentControlScheme(d);
             }
         }
 
