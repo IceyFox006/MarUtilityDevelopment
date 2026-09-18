@@ -20,6 +20,8 @@ namespace MarUtility.Multiplayer
 
         [SerializeField]
         private bool _playersCanUseSameKeyboard = true;
+        [SerializeField]
+        private bool _allowNewDeviceMidSwitch = true;
 
         [SerializeField]
         private GameObject _deviceSensor;
@@ -63,6 +65,9 @@ namespace MarUtility.Multiplayer
             //Add events to on device connected & disconnected.
             DeviceMaster.INST.OnDeviceConnected.AddListener( delegate { BeginDeviceSwitchSequence(); });
             DeviceMaster.INST.OnDeviceDisconnected.AddListener( delegate { BeginDeviceSwitchSequence(); });
+
+            if (_allowNewDeviceMidSwitch)
+                DeviceMaster.INST.OnDeviceConnected.AddListener( delegate { SpawnSensorsForNewDevices(); });
 
             base.Initialize();
         }
@@ -161,21 +166,57 @@ namespace MarUtility.Multiplayer
             isSwitching = false;
         }
 
+        #region Sensors
         //Spawns device sensors and assigns each of them a device.
         private void SpawnSensors()
         {
             DeviceSensor curDS;
             foreach (InputDevice d in DeviceMaster.INST.ValidDevices)
             {
-                curDS = Instantiate(_deviceSensor, transform).GetComponent<DeviceSensor>();
-                curDS.Initialize(d.name);
-                curDS.Pi.SwitchCurrentControlScheme(d);
+                SpawnSensor(d);
+                //curDS = Instantiate(_deviceSensor, transform).GetComponent<DeviceSensor>();
+                //curDS.Initialize(d.name);
+                //curDS.Pi.SwitchCurrentControlScheme(d);
 
-                sensors.Add(curDS);
+                //sensors.Add(curDS);
             }
         }
 
-        #region Sensors
+        private void SpawnSensorsForNewDevices()
+        {
+            InputDevice device = null;
+            DeviceSensor sensor;
+            bool foundMatch;
+            for (int vd = 0; vd < DeviceMaster.INST.ValidDevices.Count; vd++)
+            {
+                foundMatch = false;
+                for (int ds = 0; ds < sensors.Count; ds++)
+                {
+                    device = DeviceMaster.INST.ValidDevices[vd];
+                    sensor = sensors[ds];
+
+                    if (device.name.Equals(sensor.DeviceID))
+                    {
+                        foundMatch = true;
+                        break;
+                    }
+                }
+                if (!foundMatch)
+                    SpawnSensor(device);
+            }
+        }
+
+        private void SpawnSensor(InputDevice d)
+        {
+            if (d == null) return;
+
+            DeviceSensor curDS = Instantiate(_deviceSensor, transform).GetComponent<DeviceSensor>();
+            curDS.Initialize(d.name);
+            curDS.Pi.SwitchCurrentControlScheme(d);
+
+            sensors.Add(curDS);
+        }
+
         //Destroys all censors.
         private void DestroySensors()
         {
