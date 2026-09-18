@@ -2,6 +2,7 @@ using MarUtility.ExecutionManagement;
 using MarUtility.Multiplayer;
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -52,8 +53,7 @@ namespace MarUtility
         //Begins the device switch sequence.
         public void BeginDeviceSwitchSequence()
         {
-            //if (!_playersCanUseSameDevice && DeviceMaster.INST.ValidDevices.Count < MultiplayerManager.INST.MaxPlayerCount)
-            //    return;
+            if (!_playersCanUseSameKeyboard && DeviceMaster.INST.ValidDevices.Count < MultiplayerManager.INST.MaxPlayerCount) return;
 
             playerSwitching = 0;
 
@@ -70,15 +70,29 @@ namespace MarUtility
         //Connects the device with device name to the next player.
        public void AddDeviceToConnectionQueue(DeviceSensor sensor)
        {
-            //InputDevice d = DeviceMaster.INST.FindDevice(sensor.DeviceID);
+            InputDevice d = DeviceMaster.INST.FindDevice(sensor.DeviceID);
+            bool connectAndDestroySensor = false;
 
-            //if (d != null)
-            //{
-            //    MultiplayerMaster.INST.Players[playerSwitching].Pi.SwitchCurrentControlScheme(d);
-            //    DestroySensor(sensor);
-            //}
+            if (d != null)
+            {
+                switch (d)
+                {
+                    case Keyboard:
+                        if (_playersCanUseSameKeyboard) //2 players can be on the same keybaord.
+                            connectionQueue.Add(playerSwitching, sensor);
+                        else connectAndDestroySensor = true;
+                        break;
+                    case Gamepad: //2 players cannot uses the same gamepad. Link then destroy the sensor.
+                        connectAndDestroySensor = true;
+                        break;
+                }
+            }
 
-            connectionQueue.Add(playerSwitching, sensor);
+            if (connectAndDestroySensor)
+            {
+                MultiplayerMaster.INST.Players[playerSwitching].Pi.SwitchCurrentControlScheme(d);
+                DestroySensor(sensor);
+            }
 
             playerSwitching++;
 
@@ -86,6 +100,7 @@ namespace MarUtility
                 EndSwitchDeviceSequence();
        }
 
+        //Iterates through the connection queue and connects players to devices.
         private void ConnectDevicesToPlayers()
         {
             InputDevice d;
