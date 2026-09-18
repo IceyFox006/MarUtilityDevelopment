@@ -786,11 +786,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceDisconnected.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 110216911620814895, guid: 873449bab74fc844a92a640dfed69c0a, type: 3}
       propertyPath: _onDeviceConnected.m_PersistentCalls.m_Calls.Array.data[1].m_Mode

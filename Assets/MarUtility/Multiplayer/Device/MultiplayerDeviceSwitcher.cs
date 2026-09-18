@@ -60,6 +60,10 @@ namespace MarUtility.Multiplayer
             if (inst == null) inst = this;
             else DebugMessages.MultipleScriptInstances("MultiplayerDeviceSwitcher");
 
+            //Add events to on device connected & disconnected.
+            DeviceMaster.INST.OnDeviceConnected.AddListener( delegate { BeginDeviceSwitchSequence(); });
+            DeviceMaster.INST.OnDeviceDisconnected.AddListener( delegate { BeginDeviceSwitchSequence(); });
+
             base.Initialize();
         }
 

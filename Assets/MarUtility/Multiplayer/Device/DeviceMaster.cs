@@ -35,6 +35,8 @@ namespace MarUtility.Multiplayer
         #region GS
         public static DeviceMaster INST { get => inst; }
         public List<InputDevice> ValidDevices { get => validDevices; }
+        public UnityEvent OnDeviceConnected { get => _onDeviceConnected; }
+        public UnityEvent OnDeviceDisconnected { get => _onDeviceDisconnected; }
         #endregion
 
         public override void Initialize()
