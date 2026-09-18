@@ -277,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3796808e865ace4f82be4f72ee5659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
+  lastPlayerID: 
   _interactable: 1
   _navigation:
     _type: 100
@@ -470,6 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3796808e865ace4f82be4f72ee5659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
+  lastPlayerID: 
   _interactable: 1
   _navigation:
     _type: 100
@@ -646,6 +648,7 @@ MonoBehaviour:
   _replaceSelection: 0
   _indexReplaced: 0
   _deselectOnConfirm: 1
+  _possedPlayerID: 
   _receiveInput: 1
   _playerInput: {fileID: 0}
   moveActionPath: MOVE
@@ -716,6 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3796808e865ace4f82be4f72ee5659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
+  lastPlayerID: 
   _interactable: 1
   _navigation:
     _type: 100
@@ -885,6 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3796808e865ace4f82be4f72ee5659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
+  lastPlayerID: 
   _interactable: 1
   _navigation:
     _type: 100
@@ -1251,11 +1256,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.Multiplayer.MultiplayerManager
   _initializeTime: 100
-  _maxPlayerCount: 1
+  _maxPlayerCount: 2
   _playerKey: Player
   _piControllers:
   - key: Player0
     value: {fileID: 687780310}
+  - key: Player1
+    value: {fileID: 2005869385}
 --- !u!1 &1909661423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3796808e865ace4f82be4f72ee5659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
+  lastPlayerID: 
   _interactable: 1
   _navigation:
     _type: 100
@@ -1455,6 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3796808e865ace4f82be4f72ee5659f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
+  lastPlayerID: 
   _interactable: 1
   _navigation:
     _type: 100
@@ -1631,6 +1640,7 @@ MonoBehaviour:
   _replaceSelection: 0
   _indexReplaced: 0
   _deselectOnConfirm: 1
+  _possedPlayerID: 
   _receiveInput: 1
   _playerInput: {fileID: 0}
   moveActionPath: MOVE

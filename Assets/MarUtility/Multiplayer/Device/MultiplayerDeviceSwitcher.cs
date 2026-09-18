@@ -172,16 +172,10 @@ namespace MarUtility.Multiplayer
         {
             DeviceSensor curDS;
             foreach (InputDevice d in DeviceMaster.INST.ValidDevices)
-            {
                 SpawnSensor(d);
-                //curDS = Instantiate(_deviceSensor, transform).GetComponent<DeviceSensor>();
-                //curDS.Initialize(d.name);
-                //curDS.Pi.SwitchCurrentControlScheme(d);
-
-                //sensors.Add(curDS);
-            }
         }
 
+        //Spawns sensors for devices that do not already have sensors.
         private void SpawnSensorsForNewDevices()
         {
             InputDevice device = null;
@@ -195,7 +189,7 @@ namespace MarUtility.Multiplayer
                     device = DeviceMaster.INST.ValidDevices[vd];
                     sensor = sensors[ds];
 
-                    if (device.name.Equals(sensor.DeviceID))
+                    if (device.name.Equals(sensor.DeviceID)) //Device already has a sensor.
                     {
                         foundMatch = true;
                         break;
@@ -206,6 +200,7 @@ namespace MarUtility.Multiplayer
             }
         }
 
+        //Spawns a sensor for a device.
         private void SpawnSensor(InputDevice d)
         {
             if (d == null) return;
