@@ -165,6 +165,8 @@ namespace MarUtility
 
         private void DestroySensor(int i)
         {
+            if (i >= sensors.Count) return;
+
             Destroy(sensors[i].gameObject);
             sensors.RemoveAt(i);
         }

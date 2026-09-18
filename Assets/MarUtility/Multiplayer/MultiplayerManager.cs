@@ -42,7 +42,7 @@ namespace MarUtility.Multiplayer
             if (MultiplayerMaster.INST != null)
                 MultiplayerMaster.INST.UpdatePlayerCount();
 
-            //StartCoroutine(DelayedInitialize());
+            StartCoroutine(DelayedInitialize());
 
             base.Initialize();
         }
