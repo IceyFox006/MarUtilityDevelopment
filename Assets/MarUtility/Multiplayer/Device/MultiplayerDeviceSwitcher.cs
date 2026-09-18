@@ -5,6 +5,7 @@ using MarUtility.ExecutionManagement;
 using MarUtility.Multiplayer;
 using NaughtyAttributes;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,8 +30,10 @@ namespace MarUtility
         [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Player 1 Keyboard ID")]
         private string _csP1KeyboardID = "Keyboard_Player1";
 
-        [SerializeField, BoxGroup("Components")]
+        [SerializeField, BoxGroup("Components, UI")]
         private CanvasGroup _switchDeviceUICG;
+        [SerializeField, BoxGroup("Components UI")]
+        private TMP_Text _playerSwitchingText;
 
         [SerializeField, ReadOnly]
         private int playerSwitching = 0;
@@ -66,6 +69,7 @@ namespace MarUtility
 
             //Show switch device UI.
             _switchDeviceUICG.alpha = 1;
+            _playerSwitchingText.text = "Player " + playerSwitching + " press a button on an unlinked controller.";
 
             //Spawn device sensors.
             SpawnSensors();
@@ -99,6 +103,8 @@ namespace MarUtility
             }
 
             playerSwitching++;
+
+            _playerSwitchingText.text = "Player " + playerSwitching + " press a button on an unlinked controller.";
 
             if (playerSwitching >= MultiplayerMaster.INST.Players.Count)
                 EndSwitchDeviceSequence();
@@ -149,12 +155,15 @@ namespace MarUtility
             }
         }
 
+        #region Sensors
+        //Destroys all censors.
         private void DestroySensors()
         {
             for (int i = sensors.Count - 1; i >= 0; i--)
                 DestroySensor(i);
         }
 
+        //Destroys the sensor and removes it from the sensors list.
         private void DestroySensor(DeviceSensor sensor)
         {
             int i = FindSensor(sensor);
@@ -163,6 +172,7 @@ namespace MarUtility
             DestroySensor(i);
         }
 
+        //Destroys sensor at i and removes it from the sensors list.
         private void DestroySensor(int i)
         {
             if (i >= sensors.Count) return;
@@ -171,6 +181,7 @@ namespace MarUtility
             sensors.RemoveAt(i);
         }
 
+        //Returns the index of the sensor in sensors.
         private int FindSensor(DeviceSensor sensor)
         {
             for (int i = 0; i < sensors.Count; i++)
@@ -180,14 +191,8 @@ namespace MarUtility
             }
             return -1;
         }
+        #endregion
 
-       
-
-        //INITIATE SEQUENCE
-        //Disable all input.
-        //Show swap device UI.
-        //Spawn device sensors.
-        //
     }
 }
 

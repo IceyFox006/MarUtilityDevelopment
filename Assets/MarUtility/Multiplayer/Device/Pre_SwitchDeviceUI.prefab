@@ -53,6 +53,7 @@ MonoBehaviour:
   _csP0KeyboardID: Keyboard_Player0
   _csP1KeyboardID: Keyboard_Player1
   _switchDeviceUICG: {fileID: 6395780902756759486}
+  _playerSwitchingText: {fileID: 2913672314859524053}
   playerSwitching: 0
   sensors: []
   connectionQueue: []
