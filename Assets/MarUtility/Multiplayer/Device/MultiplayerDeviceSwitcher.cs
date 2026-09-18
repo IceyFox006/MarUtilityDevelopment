@@ -40,6 +40,9 @@ namespace MarUtility.Multiplayer
         [SerializeField, BoxGroup("Components UI")]
         private TMP_Text _playerSwitchingText;
 
+        //READ ONLY
+        [SerializeField, ReadOnly]
+        private bool isSwitching = false;
         [SerializeField, ReadOnly]
         private int playerSwitching = 0;
         [SerializeField, ReadOnly]
@@ -63,7 +66,10 @@ namespace MarUtility.Multiplayer
         //Begins the device switch sequence.
         public void BeginDeviceSwitchSequence()
         {
+            if (isSwitching) return;
             if (!_playersCanUseSameKeyboard && DeviceMaster.INST.ValidDevices.Count < MultiplayerManager.INST.MaxPlayerCount) return;
+
+            isSwitching = true;
 
             playerSwitching = 0;
 
@@ -147,6 +153,8 @@ namespace MarUtility.Multiplayer
 
             //Enable player input.
             MultiplayerManager.INST.EnableAllPlayerInput();
+
+            isSwitching = false;
         }
 
         //Spawns device sensors and assigns each of them a device.
