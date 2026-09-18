@@ -1,15 +1,18 @@
 /*
+ * Marlow Greenan
+ * Created: 09/17/2026
+ * Last Updated: 09/18/2026 by Marlow Greenan
  * 
+ * Allows the switching of devices between players.
  */
 using MarUtility.ExecutionManagement;
-using MarUtility.Multiplayer;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MarUtility
+namespace MarUtility.Multiplayer
 {
     public class MultiplayerDeviceSwitcher : Manager
     {
@@ -21,6 +24,7 @@ namespace MarUtility
         [SerializeField]
         private GameObject _deviceSensor;
 
+        //CONTROL SCHEME
         [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Gamepad ID")]
         private string _csGamepadID = "Gamepad";
         [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Keyboard ID")]
@@ -30,6 +34,7 @@ namespace MarUtility
         [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Player 1 Keyboard ID"), ShowIf("_playersCanUseSameKeyboard")]
         private string _csP1KeyboardID = "Keyboard_Player1";
 
+        //UI COMPONENTS
         [SerializeField, BoxGroup("Components, UI")]
         private CanvasGroup _switchDeviceUICG;
         [SerializeField, BoxGroup("Components UI")]
@@ -51,8 +56,6 @@ namespace MarUtility
         {
             if (inst == null) inst = this;
             else DebugMessages.MultipleScriptInstances("MultiplayerDeviceSwitcher");
-
-            
 
             base.Initialize();
         }
@@ -91,8 +94,7 @@ namespace MarUtility
                         else connectAndDestroySensor = true;
                         break;
                     case Gamepad: //2 players cannot uses the same gamepad. Link then destroy the sensor.
-                        connectAndDestroySensor = true;
-                        break;
+                        connectAndDestroySensor = true; break;
                 }
             }
 
@@ -126,30 +128,12 @@ namespace MarUtility
                             MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme("Keyboard_Player" + kvp.Key, d); break;
                         default:
                             MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme(d); break;
-
                     }
-                    //MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme(d);
                     DestroySensor(kvp.Key);
                 }
             }
             connectionQueue.Clear();
         }
-
-        //private void ConnectDevice(int playerI, DeviceSensor sensor, string controlScheme = "")
-        //{
-        //    InputDevice d = DeviceMaster.INST.FindDevice(sensor.DeviceID);
-
-        //    if (!controlScheme.Equals(""))
-        //    {
-        //        MultiplayerMaster.INST.Players[playerI].Pi.SwitchCurrentControlScheme(controlScheme, d);
-        //        return;
-        //    }
-        //    switch (d)
-        //    {
-        //        case Keyboard: MultiplayerMaster.INST.Players[playerI].Pi.SwitchCurrentControlScheme(_csKeyboardID, d); break;
-        //        case Gamepad: MultiplayerMaster.INST.Players[playerI].Pi.SwitchCurrentControlScheme(_csGamepadID, d); break;
-        //    }
-        //}
 
         public void EndSwitchDeviceSequence()
         {

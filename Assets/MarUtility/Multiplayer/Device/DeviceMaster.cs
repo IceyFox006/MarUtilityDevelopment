@@ -1,3 +1,10 @@
+/*
+ * Marlow Greenan
+ * Created: 09/16/2026
+ * Last Updated: 09/18/2026 by Marlow Greenan
+ * 
+ * Detects when a device is connected or disconnected.
+ */
 using MarUtility.ExecutionManagement;
 using NaughtyAttributes;
 using System.Collections;
@@ -15,6 +22,7 @@ namespace MarUtility.Multiplayer
         [SerializeField, MinValue(0.1f), Tooltip("How often it checks for new devices.")]
         private float _checkInterval = 1f;
 
+        //EVENTS
         [SerializeField, BoxGroup("Event")]
         private UnityEvent _onDeviceConnected;
         [SerializeField, BoxGroup("Event")]
@@ -39,6 +47,7 @@ namespace MarUtility.Multiplayer
             base.Initialize();
         }
 
+        //Checks if a device is connected or disconnected.
         private IEnumerator CheckDevicesInterval()
         {
             while (true)
@@ -72,7 +81,8 @@ namespace MarUtility.Multiplayer
                 }
             }
         }
-
+    
+        //Finds a device with the matching name.
         public InputDevice FindDevice(string deviceName)
         {
             for (int i = 0; i < validDevices.Count; i++)
