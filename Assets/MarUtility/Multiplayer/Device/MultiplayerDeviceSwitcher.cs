@@ -34,7 +34,7 @@ namespace MarUtility
         [SerializeField, ReadOnly]
         private List<DeviceSensor> sensors = new List<DeviceSensor>();
         [SerializeField, ReadOnly]
-        private Dictionary<DeviceSensor, int> connectionQueue = new Dictionary<DeviceSensor, int>();
+        private Dictionary<int, DeviceSensor> connectionQueue = new Dictionary<int, DeviceSensor>();
 
         #region GS
         public static MultiplayerDeviceSwitcher INST { get => inst; }
@@ -78,7 +78,7 @@ namespace MarUtility
             //    DestroySensor(sensor);
             //}
 
-            connectionQueue.Add(sensor, playerSwitching);
+            connectionQueue.Add(playerSwitching, sensor);
 
             playerSwitching++;
 
@@ -89,13 +89,13 @@ namespace MarUtility
         private void ConnectDevicesToPlayers()
         {
             InputDevice d;
-            foreach (KeyValuePair<DeviceSensor, int> kvp in connectionQueue)
+            foreach (KeyValuePair<int, DeviceSensor> kvp in connectionQueue)
             {
-                d = DeviceMaster.INST.FindDevice(kvp.Key.DeviceID);
+                d = DeviceMaster.INST.FindDevice(kvp.Value.DeviceID);
 
                 if (d != null)
                 {
-                    MultiplayerMaster.INST.Players[kvp.Value].Pi.SwitchCurrentControlScheme(d);
+                    MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme(d);
                     DestroySensor(kvp.Key);
                 }
             }
