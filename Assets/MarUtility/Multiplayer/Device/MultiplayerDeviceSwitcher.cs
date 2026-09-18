@@ -25,9 +25,9 @@ namespace MarUtility
         private string _csGamepadID = "Gamepad";
         [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Keyboard ID")]
         private string _csKeyboardID = "Keyboard";
-        [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Player 0 Keyboard ID")]
+        [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Player 0 Keyboard ID"), ShowIf("_playersCanUseSameKeyboard")]
         private string _csP0KeyboardID = "Keyboard_Player0";
-        [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Player 1 Keyboard ID")]
+        [SerializeField, BoxGroup("Control Scheme IDs"), Label("Control Scheme Player 1 Keyboard ID"), ShowIf("_playersCanUseSameKeyboard")]
         private string _csP1KeyboardID = "Keyboard_Player1";
 
         [SerializeField, BoxGroup("Components, UI")]
@@ -120,12 +120,36 @@ namespace MarUtility
 
                 if (d != null)
                 {
-                    MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme(d);
+                    switch (d)
+                    {
+                        case Keyboard:
+                            MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme("Keyboard_Player" + kvp.Key, d); break;
+                        default:
+                            MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme(d); break;
+
+                    }
+                    //MultiplayerMaster.INST.Players[kvp.Key].Pi.SwitchCurrentControlScheme(d);
                     DestroySensor(kvp.Key);
                 }
             }
             connectionQueue.Clear();
         }
+
+        //private void ConnectDevice(int playerI, DeviceSensor sensor, string controlScheme = "")
+        //{
+        //    InputDevice d = DeviceMaster.INST.FindDevice(sensor.DeviceID);
+
+        //    if (!controlScheme.Equals(""))
+        //    {
+        //        MultiplayerMaster.INST.Players[playerI].Pi.SwitchCurrentControlScheme(controlScheme, d);
+        //        return;
+        //    }
+        //    switch (d)
+        //    {
+        //        case Keyboard: MultiplayerMaster.INST.Players[playerI].Pi.SwitchCurrentControlScheme(_csKeyboardID, d); break;
+        //        case Gamepad: MultiplayerMaster.INST.Players[playerI].Pi.SwitchCurrentControlScheme(_csGamepadID, d); break;
+        //    }
+        //}
 
         public void EndSwitchDeviceSequence()
         {
