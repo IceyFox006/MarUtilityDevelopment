@@ -1,8 +1,10 @@
+/*
+ * 
+ */
 using MarUtility.ExecutionManagement;
 using MarUtility.Multiplayer;
 using NaughtyAttributes;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,6 +48,8 @@ namespace MarUtility
         {
             if (inst == null) inst = this;
             else DebugMessages.MultipleScriptInstances("MultiplayerDeviceSwitcher");
+
+            
 
             base.Initialize();
         }

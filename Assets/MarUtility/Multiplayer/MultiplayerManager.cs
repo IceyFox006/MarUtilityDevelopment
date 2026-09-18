@@ -22,9 +22,6 @@ namespace MarUtility.Multiplayer
         [SerializeField, OnValueChanged("OnVC_MaxPlayers")]
         private int _maxPlayerCount = 1;
 
-        [SerializeField]
-        private bool _forceSpawnPlayers = true;
-
         [SerializeField, OnValueChanged("OnVC_PlayerKey")]
         private string _playerKey = "Player";
 
@@ -45,7 +42,7 @@ namespace MarUtility.Multiplayer
             if (MultiplayerMaster.INST != null)
                 MultiplayerMaster.INST.UpdatePlayerCount();
 
-            StartCoroutine(DelayedInitialize());
+            //StartCoroutine(DelayedInitialize());
 
             base.Initialize();
         }

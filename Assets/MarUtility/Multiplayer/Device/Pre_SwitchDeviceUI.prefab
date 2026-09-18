@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerDeviceSwitcher
   _initializeTime: 100
-  _playersCanUseSameKeyboard: 0
+  _playersCanUseSameKeyboard: 1
   _deviceSensor: {fileID: 5810247893321473431, guid: 4832ae8dd98df4b41a40898b6f3fe3ec, type: 3}
   _csGamepadID: Gamepad
   _csKeyboardID: Keyboard
