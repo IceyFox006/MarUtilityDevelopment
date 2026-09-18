@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/21/2026 by Marlow Greenan
+ * Last Updated: 9/15/2026 by Marlow Greenan
  * 
  * Runs the system for object buttons.
  */
@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 
 namespace MarUtility.UIExtensions
 {
-    public class ObjectEventSystem : ExecutionManagement.Manager
+    public class ObjectEventSystem : ExecutionManagement.Manager, IInput
     {
         //SELECTION
         [SerializeField, BoxGroup("Selection")]
@@ -98,7 +98,7 @@ namespace MarUtility.UIExtensions
         }
         public override void Initialize()
         {
-            SwitchHover(curHover);
+            SwitchHover(_firstSelected);
 
             InitializeInput();
             if (_receiveInput)
@@ -107,7 +107,7 @@ namespace MarUtility.UIExtensions
 
         #region Input
         //Assigns actions to inputs.
-        private void InitializeInput()
+        public void InitializeInput()
         {
             if (_playerInput == null) return;
 
@@ -118,7 +118,7 @@ namespace MarUtility.UIExtensions
         }
 
         //Add input listeners.
-        private void EnableInput()
+        public void EnableInput()
         {
             if (_playerInput == null) return;
 
@@ -128,7 +128,7 @@ namespace MarUtility.UIExtensions
         }
 
         //Remove input listeners.
-        private void DisableInput()
+        public void DisableInput()
         {
             if (_playerInput == null) return;
 

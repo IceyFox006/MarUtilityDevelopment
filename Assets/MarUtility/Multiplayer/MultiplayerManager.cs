@@ -1,13 +1,14 @@
 /*
  * Marlow Greenan
  * Created: 09/01/2026
- * Last Updated: 09/02/2026 by Marlow Greenan
+ * Last Updated: 09/18/2026 by Marlow Greenan
  * 
  * Contains the input controllers for a single scene.
  */
 
 using MarUtility.ExecutionManagement;
 using NaughtyAttributes;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -41,7 +42,15 @@ namespace MarUtility.Multiplayer
             if (MultiplayerMaster.INST != null)
                 MultiplayerMaster.INST.UpdatePlayerCount();
 
+            StartCoroutine(DelayedInitialize());
+
             base.Initialize();
+        }
+
+        private IEnumerator DelayedInitialize()
+        {
+            yield return new WaitForSeconds(0.1f);
+            MultiplayerMaster.INST.SpawnAllPlayers();
         }
 
         //Returns the first unlinked controller.
@@ -53,7 +62,16 @@ namespace MarUtility.Multiplayer
             return new KeyValuePair<string, PlayerInputController>("", null);
         }
 
-
+        public void EnableAllPlayerInput()
+        {
+            foreach (KeyValuePair<string, PlayerInputController> kvp in _piControllers)
+                kvp.Value.EnableAllInput();
+        }
+        public void DisableAllPlayerInput()
+        {
+            foreach (KeyValuePair<string, PlayerInputController> kvp in _piControllers)
+                kvp.Value.DisableAllInput();
+        }
 
         #region Inspector
         private void OnVC_MaxPlayers()

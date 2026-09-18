@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3acc8ac4cae79418f1dd57945536ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerMaster
-  _initializeTime: 110
+  _initializeTime: 100
+  players: []
 --- !u!114 &383104198914976133
 MonoBehaviour:
   m_ObjectHideFlags: 0

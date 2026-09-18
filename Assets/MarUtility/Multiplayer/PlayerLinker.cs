@@ -23,6 +23,11 @@ namespace MarUtility.Multiplayer
         private bool _autoLinkOnSceneLoad = true;
 
         private PlayerInput pi;
+
+        #region GS
+        public PlayerInput Pi { get => pi; }
+        #endregion
+
         private void Start()
         {
             Initialize();
@@ -32,7 +37,7 @@ namespace MarUtility.Multiplayer
         {
             transform.parent = MultiplayerMaster.INST.transform;
 
-            MultiplayerMaster.INST.PlayerInputs.Add(gameObject);
+            MultiplayerMaster.INST.Players.Add(this);
             MultiplayerMaster.INST.UpdatePlayerCount();
 
             pi = GetComponent<PlayerInput>();

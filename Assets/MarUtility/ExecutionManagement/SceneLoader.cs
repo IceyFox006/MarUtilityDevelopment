@@ -33,7 +33,7 @@ namespace MarUtility.ExecutionManagement
         private UnityEvent _onStart = new UnityEvent();
 
         #region GS
-        public static SceneLoader INST { get => inst; private set => inst = value; }
+        public static SceneLoader INST { get => inst; }
         public float TickInterval
         {
             get => _tickInterval;
@@ -52,11 +52,10 @@ namespace MarUtility.ExecutionManagement
             if (!UnityEngine.SceneManagement.SceneManager.GetSceneByName(_scenePersistantID).isLoaded)
                 UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(_scenePersistantID, LoadSceneMode.Additive);
 
+
             //SceneLoader Instance
-            if (INST != null && INST != this)
-                Destroy(this);
-            else
-                INST = this;
+            if (inst != null && inst != this) Destroy(this);
+            else inst = this;
 
             //Initialize managers
             foreach (Manager manager in _managers)
