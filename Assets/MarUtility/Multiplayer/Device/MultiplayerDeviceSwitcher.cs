@@ -1,7 +1,6 @@
 using MarUtility.ExecutionManagement;
 using MarUtility.Multiplayer;
 using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,8 +11,8 @@ namespace MarUtility
     {
         private static MultiplayerDeviceSwitcher inst;
 
-        //[SerializeField]
-        //private bool _playersCanUseSameKeyboard = false;
+        [SerializeField]
+        private bool _playersCanUseSameKeyboard = true;
 
         [SerializeField]
         private GameObject _deviceSensor;
@@ -32,9 +31,10 @@ namespace MarUtility
 
         [SerializeField, ReadOnly]
         private int playerSwitching = 0;
-
         [SerializeField, ReadOnly]
         private List<DeviceSensor> sensors = new List<DeviceSensor>();
+        [SerializeField, ReadOnly]
+        private Dictionary<DeviceSensor, int> connectionQueue = new Dictionary<DeviceSensor, int>();
 
         #region GS
         public static MultiplayerDeviceSwitcher INST { get => inst; }
@@ -68,16 +68,17 @@ namespace MarUtility
         }
 
         //Connects the device with device name to the next player.
-       public void ConnectDeviceToPlayerInSequence(DeviceSensor sensor)
+       public void AddDeviceToConnectionQueue(DeviceSensor sensor)
        {
-            InputDevice d = DeviceMaster.INST.FindDevice(sensor.DeviceID);
+            //InputDevice d = DeviceMaster.INST.FindDevice(sensor.DeviceID);
 
-            if (d != null)
-            {
-                MultiplayerMaster.INST.Players[playerSwitching].Pi.SwitchCurrentControlScheme(d);
-                DestroySensor(sensor);
-            }
+            //if (d != null)
+            //{
+            //    MultiplayerMaster.INST.Players[playerSwitching].Pi.SwitchCurrentControlScheme(d);
+            //    DestroySensor(sensor);
+            //}
 
+            connectionQueue.Add(sensor, playerSwitching);
 
             playerSwitching++;
 
@@ -85,8 +86,26 @@ namespace MarUtility
                 EndSwitchDeviceSequence();
        }
 
+        private void ConnectDevicesToPlayers()
+        {
+            InputDevice d;
+            foreach (KeyValuePair<DeviceSensor, int> kvp in connectionQueue)
+            {
+                d = DeviceMaster.INST.FindDevice(kvp.Key.DeviceID);
+
+                if (d != null)
+                {
+                    MultiplayerMaster.INST.Players[kvp.Value].Pi.SwitchCurrentControlScheme(d);
+                    DestroySensor(kvp.Key);
+                }
+            }
+            connectionQueue.Clear();
+        }
+
         public void EndSwitchDeviceSequence()
         {
+            ConnectDevicesToPlayers();
+
             //Destroy all device sensors.
             DestroySensors();
 
