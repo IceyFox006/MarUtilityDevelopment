@@ -440,7 +440,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1064707039347441630, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
       propertyPath: m_Name
-      value: Pre_SwitchDeviceUI
+      value: Pre_MultiplayerDeviceSwitcher
       objectReference: {fileID: 0}
     - target: {fileID: 1064707039347441630, guid: 18aa738da7abcd9439d82711e6daf5e1, type: 3}
       propertyPath: m_IsActive
