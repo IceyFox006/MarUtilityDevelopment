@@ -31,10 +31,12 @@ namespace MarUtility.Multiplayer
 
         public void Link(PlayerInput pi, string playerID)
         {
-            _oes.PlayerInput = pi;
-            _oes.PossedPlayerID = playerID;
-
-            if (_oes != null) _oes.Initialize();
+            if (_oes != null)
+            {
+                _oes.PlayerInput = pi;
+                _oes.PossedPlayerID = playerID;
+                _oes.Initialize();
+            }
 
             playerInput = pi;
             _onLink.Invoke();
@@ -42,12 +44,12 @@ namespace MarUtility.Multiplayer
 
         public void EnableAllInput()
         {
-            _oes.ReceiveInput = true;
+            if (_oes != null) _oes.ReceiveInput = true;
         }
 
         public void DisableAllInput()
         {
-            _oes.ReceiveInput = false;
+            if (_oes != null) _oes.ReceiveInput = false;
         }
 
         #region Check
