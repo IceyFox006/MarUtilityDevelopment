@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 7/1/2026
- * Last Updated: 09/05/2026 by Marlow Greenan
+ * Last Updated: 09/19/2026 by Marlow Greenan
  * 
  * General methods used for buttons, animation events, etc.
  */
@@ -62,6 +62,16 @@ namespace MarUtility
         #region Scene
         public void SceneTransition(string name)
             => TransitionManager.INST.PlayClose(name);
+        #endregion
+
+        #region Time
+        public void SetTime(float t)
+            => Time.timeScale = t;
+        public void ResumeTime()
+            => Time.timeScale = 1;
+        public void PauseTime()
+            => Time.timeScale = 0;
+
         #endregion
     }
 }
