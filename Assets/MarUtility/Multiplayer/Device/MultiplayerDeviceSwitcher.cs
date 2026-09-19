@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 09/17/2026
- * Last Updated: 09/18/2026 by Marlow Greenan
+ * Last Updated: 09/19/2026 by Marlow Greenan
  * 
  * Allows the switching of devices between players.
  */
@@ -10,6 +10,7 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace MarUtility.Multiplayer
@@ -41,6 +42,12 @@ namespace MarUtility.Multiplayer
         private CanvasGroup _switchDeviceUICG;
         [SerializeField, BoxGroup("Components UI")]
         private TMP_Text _playerSwitchingText;
+
+        //EVENTS
+        [SerializeField, BoxGroup("Events")]
+        private UnityEvent _onDeviceSwitchSequenceBegin;
+        [SerializeField, BoxGroup("Events")]
+        private UnityEvent _onDeviceSwitchSequenceEnd;
 
         //READ ONLY
         [SerializeField, ReadOnly]
@@ -91,6 +98,8 @@ namespace MarUtility.Multiplayer
 
             //Spawn device sensors.
             SpawnSensors();
+
+            _onDeviceSwitchSequenceBegin.Invoke();
         }
 
         //Connects the device with device name to the next player.
@@ -162,6 +171,8 @@ namespace MarUtility.Multiplayer
 
             //Enable player input.
             MultiplayerManager.INST.EnableAllPlayerInput();
+
+            _onDeviceSwitchSequenceEnd.Invoke();
 
             isSwitching = false;
         }
