@@ -283,7 +283,7 @@
                 {
                     "name": "",
                     "id": "452dd876-977b-4de8-b91d-5233073af196",
-                    "path": "<Keyboard>/leftAlt",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard_Player0",
@@ -294,22 +294,11 @@
                 {
                     "name": "",
                     "id": "be78aaff-a520-4156-add4-d1c928a41319",
-                    "path": "<Keyboard>/rightAlt",
+                    "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard_Player1",
                     "action": "SELECT",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "02c5def7-d6b9-4ff6-b499-e07d99ed51e8",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "CONFIRM",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

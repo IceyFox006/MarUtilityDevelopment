@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
+  _hoverable: 1
   _interactable: 1
   _navigation:
     _type: 100
@@ -472,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
+  _hoverable: 1
   _interactable: 1
   _navigation:
     _type: 100
@@ -720,7 +722,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
-  _interactable: 1
+  _hoverable: 0
+  _interactable: 0
   _navigation:
     _type: 100
     _up: {fileID: 0}
@@ -890,6 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
+  _hoverable: 1
   _interactable: 1
   _navigation:
     _type: 100
@@ -1294,6 +1298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
+  _hoverable: 1
   _interactable: 1
   _navigation:
     _type: 100
@@ -1464,6 +1469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
+  _hoverable: 1
   _interactable: 1
   _navigation:
     _type: 100
