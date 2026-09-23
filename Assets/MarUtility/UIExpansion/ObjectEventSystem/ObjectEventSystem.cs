@@ -237,7 +237,7 @@ namespace MarUtility.UIExtensions
         private bool CanMoveTo(ObjectButton bo)
         {
             if (bo == null) return false;
-            if (!bo.Interactable) return false;
+            if (!bo.Hoverable) return false;
 
             return true;
             //(bo != null && bo.Interactable);

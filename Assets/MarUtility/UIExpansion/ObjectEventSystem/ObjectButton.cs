@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 4/19/2026
- * Last Updated: 6/20/2026 by Marlow Greenan
+ * Last Updated: 09/23/2026 by Marlow Greenan
  * 
  * A button for the ObjectEventSystem. Manages events and visuals for selection changes.
  */
@@ -21,7 +21,9 @@ namespace MarUtility.UIExtensions
         [SerializeField, ReadOnly]
         private string lastPlayerID;
 
-        [SerializeField]
+        [SerializeField, OnValueChanged("OnVC_Hoverable")]
+        private bool _hoverable = true;
+        [SerializeField, ShowIf("_hoverable")]
         private bool _interactable = true;
 
         private bool isHovered = false;
@@ -72,6 +74,7 @@ namespace MarUtility.UIExtensions
         public UnityEvent OnConfirmEvents { get => _onConfirmEvents; set => _onConfirmEvents = value; }
         public bool IsHovered { get => isHovered; set => isHovered = value; }
         public string LastPlayerID { get => lastPlayerID; set => lastPlayerID = value; }
+        public bool Hoverable { get => _hoverable; set => _hoverable = value; }
 
         #endregion
         #region Initialize
@@ -108,6 +111,8 @@ namespace MarUtility.UIExtensions
         //Invoke confirm events and update visuals.
         public void OnConfirm()
         {
+            if (!_interactable) return;
+
             if (!_invokeAtEndOfConfirmVisual)
                 _onConfirmEvents.Invoke();
 
@@ -118,6 +123,8 @@ namespace MarUtility.UIExtensions
         //Invoke select events and update visuals.
         public void OnSelect()
         {
+            if (!_interactable) return;
+
             isSelected = true;
 
             if (isHovered)
@@ -154,6 +161,8 @@ namespace MarUtility.UIExtensions
         //Invoke hover enter events and update visuals.
         public void OnHoverEnter()
         {
+            if (!_hoverable) return;
+
             isHovered = true;
 
             if (!isSelected)
@@ -172,6 +181,8 @@ namespace MarUtility.UIExtensions
         //Invoke hover exit events and update visuals.
         public void OnHoverExit()
         {
+            if (!_hoverable) return;
+
             isHovered = false;
 
             if (!isSelected)
@@ -206,6 +217,13 @@ namespace MarUtility.UIExtensions
             else
                 visual.Reset();
         }
+
+        #region Inspector
+        private void OnVC_Hoverable()
+        {
+            if (!_hoverable) _interactable = false;
+        }
+        #endregion
     }
     [Flags]
     public enum OBEventType
@@ -217,8 +235,6 @@ namespace MarUtility.UIExtensions
         HOVER_ENTER = 1 << 300,
         HOVER_EXIT = 1 << 310,
     }
-
-
     //=================================================================================================================
     [System.Serializable]
     public class OBNavigation
