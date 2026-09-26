@@ -34,7 +34,7 @@ namespace MarUtility.Multiplayer
             if (_oes != null)
             {
                 _oes.PlayerInput = pi;
-                _oes.PossedPlayerID = playerID;
+                _oes.PossessedPlayerID = playerID;
                 _oes.Initialize();
             }
 

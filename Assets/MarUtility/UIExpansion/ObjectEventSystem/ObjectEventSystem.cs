@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 
 namespace MarUtility.UIExtensions
 {
-    public class ObjectEventSystem : ExecutionManagement.Manager, IInput
+    public class ObjectEventSystem : ExecutionManagement.Manager
     {
         //SELECTION
         [SerializeField, BoxGroup("Selection")]
@@ -38,9 +38,11 @@ namespace MarUtility.UIExtensions
 
         //INPUT
         [SerializeField]
-        private string _possedPlayerID;
+        private string _possessedPlayerID;
         [SerializeField, BoxGroup("Input")]
         private bool _receiveInput = true;
+        [SerializeField, BoxGroup("Input"), Tooltip("The direction that an input leads to.\nLeave as null for normal directions.")]
+        private DistortedMoveInput _curMoveInputDistortion;
         [SerializeField, BoxGroup("Input")]
         private PlayerInput _playerInput;
         //Move
@@ -89,7 +91,8 @@ namespace MarUtility.UIExtensions
         }
 
         public PlayerInput PlayerInput { get => _playerInput; set => _playerInput = value; }
-        public string PossedPlayerID { get => _possedPlayerID; set => _possedPlayerID = value; }
+        public string PossessedPlayerID { get => _possessedPlayerID; set => _possessedPlayerID = value; }
+        public DistortedMoveInput CurMoveInputDistortion { get => _curMoveInputDistortion; set => _curMoveInputDistortion = value; }
         #endregion
 
         private void OnDestroy()
@@ -118,7 +121,7 @@ namespace MarUtility.UIExtensions
         }
 
         //Add input listeners.
-        public void EnableInput()
+        private void EnableInput()
         {
             if (_playerInput == null) return;
 
@@ -128,7 +131,7 @@ namespace MarUtility.UIExtensions
         }
 
         //Remove input listeners.
-        public void DisableInput()
+        private void DisableInput()
         {
             if (_playerInput == null) return;
 
@@ -137,12 +140,29 @@ namespace MarUtility.UIExtensions
             confirm.performed -= Confirm_performed;
         }
 
+        //Updates move direction with the input action value and if there is a distortion, applies it.
+        private void LinkMoveDirection()
+        {
+            moveDirection = move.ReadValue<Vector2>();
+
+            if (_curMoveInputDistortion != null)
+            {
+                switch (moveDirection)
+                {
+                    case Vector2 v when v.Equals(Vector2.up): moveDirection = MarData.ToVector2(_curMoveInputDistortion.UpPath); break;
+                    case Vector2 v when v.Equals(Vector2.down): moveDirection = MarData.ToVector2(_curMoveInputDistortion.DownPath); break;
+                    case Vector2 v when v.Equals(Vector2.left): moveDirection = MarData.ToVector2(_curMoveInputDistortion.LeftPath); break;
+                    case Vector2 v when v.Equals(Vector2.right): moveDirection = MarData.ToVector2(_curMoveInputDistortion.RightPath); break;
+                }
+            }
+        }
+
         //Switches hover to button in direction.
         private void Move_performed(InputAction.CallbackContext obj)
         {
             if (curHover == null) return;
 
-            moveDirection = move.ReadValue<Vector2>();
+            LinkMoveDirection();
 
             //Switch Hover
             if (moveDirection == Vector2.up && CanMoveTo(curHover.Navigation.Up)) //Up
@@ -190,8 +210,6 @@ namespace MarUtility.UIExtensions
         }
         #endregion
 
-
-
         #region Selection Management
         //Switches which button is currently being hovered over.
         public void SwitchHover(ObjectButton ob)
@@ -225,7 +243,7 @@ namespace MarUtility.UIExtensions
         {
             for (int i = curSelected.Count - 1; i >= 0; i--)
             {
-                curSelected[i].LastPlayerID = _possedPlayerID;
+                curSelected[i].LastPlayerID = _possessedPlayerID;
                 if (_deselectOnConfirm)
                     RemoveSelected(curSelected[i]).OnConfirm();
                 else
@@ -271,6 +289,26 @@ namespace MarUtility.UIExtensions
                 return false;
             }
         }
+        #endregion
+    }
+
+    [System.Serializable]
+    public class DistortedMoveInput
+    {
+        [SerializeField, Tooltip("The direction the up input will lead to instead of up.")]
+        private EDirection2D _upPath = EDirection2D.UP;
+        [SerializeField, Tooltip("The direction the up input will lead to instead of up.")]
+        private EDirection2D _downPath = EDirection2D.DOWN;
+        [SerializeField, Tooltip("The direction the up input will lead to instead of up.")]
+        private EDirection2D _leftPath = EDirection2D.LEFT;
+        [SerializeField, Tooltip("The direction the up input will lead to instead of up.")]
+        private EDirection2D _rightPath = EDirection2D.RIGHT;
+
+        #region GS
+        public EDirection2D UpPath { get => _upPath; set => _upPath = value; }
+        public EDirection2D DownPath { get => _downPath; set => _downPath = value; }
+        public EDirection2D LeftPath { get => _leftPath; set => _leftPath = value; }
+        public EDirection2D RightPath { get => _rightPath; set => _rightPath = value; }
         #endregion
     }
 }
