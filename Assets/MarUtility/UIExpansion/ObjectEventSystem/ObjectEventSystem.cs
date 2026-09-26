@@ -190,6 +190,8 @@ namespace MarUtility.UIExtensions
         }
         #endregion
 
+
+
         #region Selection Management
         //Switches which button is currently being hovered over.
         public void SwitchHover(ObjectButton ob)
