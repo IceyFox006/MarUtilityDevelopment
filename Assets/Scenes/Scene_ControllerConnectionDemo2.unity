@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectButton
   lastPlayerID: 
-  _hoverable: 0
+  _hoverable: 1
   _interactable: 0
   _navigation:
     _type: 100
