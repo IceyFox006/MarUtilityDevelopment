@@ -650,8 +650,13 @@ MonoBehaviour:
   _replaceSelection: 0
   _indexReplaced: 0
   _deselectOnConfirm: 1
-  _possedPlayerID: 
+  _possessedPlayerID: 
   _receiveInput: 1
+  _curMoveInputDistortion:
+    _upPath: 1
+    _downPath: 0
+    _leftPath: 3
+    _rightPath: 2
   _playerInput: {fileID: 0}
   moveActionPath: MOVE
   selectActionPath: SELECT
@@ -1646,8 +1651,13 @@ MonoBehaviour:
   _replaceSelection: 0
   _indexReplaced: 0
   _deselectOnConfirm: 1
-  _possedPlayerID: 
+  _possessedPlayerID: 
   _receiveInput: 1
+  _curMoveInputDistortion:
+    _upPath: 0
+    _downPath: 0
+    _leftPath: 0
+    _rightPath: 0
   _playerInput: {fileID: 0}
   moveActionPath: MOVE
   selectActionPath: SELECT

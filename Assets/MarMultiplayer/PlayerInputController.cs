@@ -27,6 +27,7 @@ namespace MarUtility.Multiplayer
 
         #region GS
         public PlayerInput PlayerInput { get => playerInput; }
+        public ObjectEventSystem Oes { get => _oes; }
         #endregion
 
         public void Link(PlayerInput pi, string playerID)
@@ -34,7 +35,7 @@ namespace MarUtility.Multiplayer
             if (_oes != null)
             {
                 _oes.PlayerInput = pi;
-                _oes.PossedPlayerID = playerID;
+                _oes.PossessedPlayerID = playerID;
                 _oes.Initialize();
             }
 

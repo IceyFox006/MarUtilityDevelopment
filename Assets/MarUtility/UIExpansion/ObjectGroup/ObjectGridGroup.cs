@@ -42,13 +42,13 @@ namespace MarUtility.UIExtensions
         [SerializeField, BoxGroup("Entrance/Exit")]
         private float _intervalBetweenPiece = 0.01f;
         [SerializeField, BoxGroup("Entrance/Exit")]
-        private FrontBack _entranceListExecutionOrder;
+        private EFrontBack _entranceListExecutionOrder;
         [SerializeField, BoxGroup("Entrance/Exit")]
         private UnityEvent _onEntranceStart;
         [SerializeField, BoxGroup("Entrance/Exit")]
         private UnityEvent _onEntranceEnd;
         [SerializeField, BoxGroup("Entrance/Exit")]
-        private FrontBack _exitListExecutionOrder;
+        private EFrontBack _exitListExecutionOrder;
         [SerializeField, BoxGroup("Entrance/Exit")]
         private UnityEvent _onExitStart;
         [SerializeField, BoxGroup("Entrance/Exit")]
@@ -139,7 +139,7 @@ namespace MarUtility.UIExtensions
             _onEntranceStart.Invoke();
             StartCoroutine(EntranceCD());
 
-            if (_entranceListExecutionOrder == FrontBack.FRONT) //Front
+            if (_entranceListExecutionOrder == EFrontBack.FRONT) //Front
             {
                 for (int z = 0; z < grid.GetLength(2); z++)
                 {
@@ -185,7 +185,7 @@ namespace MarUtility.UIExtensions
             _onExitStart.Invoke();
             StartCoroutine(ExitCD());
 
-            if (_exitListExecutionOrder == FrontBack.FRONT) //Front
+            if (_exitListExecutionOrder == EFrontBack.FRONT) //Front
             {
                 for (int z = 0; z < grid.GetLength(2); z++)
                 {
