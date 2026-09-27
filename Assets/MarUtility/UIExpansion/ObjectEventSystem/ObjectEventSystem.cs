@@ -42,7 +42,7 @@ namespace MarUtility.UIExtensions
         [SerializeField, BoxGroup("Input")]
         private bool _receiveInput = true;
         [SerializeField, BoxGroup("Input"), Tooltip("The direction that an input leads to.\nLeave as null for normal directions.")]
-        private DistortedMoveInput _curMoveInputDistortion;
+        private DistortedMoveInput _curMoveInputDistortion = null;
         [SerializeField, BoxGroup("Input")]
         private PlayerInput _playerInput;
         //Move

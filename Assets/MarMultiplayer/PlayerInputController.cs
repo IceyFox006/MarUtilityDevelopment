@@ -27,6 +27,7 @@ namespace MarUtility.Multiplayer
 
         #region GS
         public PlayerInput PlayerInput { get => playerInput; }
+        public ObjectEventSystem Oes { get => _oes; }
         #endregion
 
         public void Link(PlayerInput pi, string playerID)
