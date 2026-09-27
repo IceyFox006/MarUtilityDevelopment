@@ -1,10 +1,11 @@
 /*
  * Marlow Greenan
  * Created: 04/19/2026 by Marlow Greenan
- * Last Updated: 08/19/2026
+ * Last Updated: 09/27/2026
  * 
  * Contains various reuable enums.
  */
+using NUnit.Framework;
 using UnityEngine;
 
 namespace MarUtility
@@ -29,6 +30,23 @@ namespace MarUtility
         public static Vector3[] Direction3DVec3 { get => direction3DVec3; }
         public static Vector3Int[] Direction3DVec3Int { get => direction3DVec3Int; }
         #endregion
+
+        //Returns the child of parent that has the name. If none exists, returns null.
+        public static Transform FindChildWithName(Transform parent, string name)
+        {
+            foreach (Transform child in parent)
+            {
+                if (child.name == name)
+                    return child;
+                else
+                {
+                    Transform found = FindChildWithName(child, name);
+                    if (found != null)
+                        return found;
+                }
+            }
+            return null;
+        }
 
         #region ToVector2
         public static Vector2 ToVector2(EDirection2D dir)
@@ -65,6 +83,8 @@ namespace MarUtility
             => "[" + value.x + "," + value.y + "," + value.z + "]";
         #endregion
     }
+
+    #region Enums
     public enum EDirection3D
     {
         UP,
@@ -100,5 +120,6 @@ namespace MarUtility
         NULL,
         THIS,
     }
+    #endregion
 }
 
