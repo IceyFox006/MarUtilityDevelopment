@@ -51,6 +51,7 @@ namespace MarUtility
         #endregion
     }
     //-----------------------------------------------------------------------------------------------------------------
+    [Serializable]
     public class LerpPositionData : LerpData
     {
         [SerializeField, Required]
@@ -100,6 +101,8 @@ namespace MarUtility
     {
         [SerializeField]
         private Vector3 _endPosition;
+
+        public Vector3 EndPosition { get => _endPosition; set => _endPosition = value; }
 
         public override void BeginPositionLerp()
         {
