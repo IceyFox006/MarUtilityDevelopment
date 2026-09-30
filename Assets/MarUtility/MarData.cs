@@ -70,7 +70,23 @@ namespace MarUtility
         public static Vector2Int ToVector2Int(Vector3Int value)
             => new Vector2Int(value.x, value.y);
         #endregion
-        
+
+        #region ToVector3
+        public static Vector3 ToVector3(EDirection3D dir)
+        {
+            switch (dir)
+            {
+                case EDirection3D.UP: return Vector3.up;
+                case EDirection3D.DOWN: return Vector3.down;
+                case EDirection3D.LEFT: return Vector3.left;
+                case EDirection3D.RIGHT: return Vector3.right;
+                case EDirection3D.FORWARD: return Vector3.forward;
+                case EDirection3D.BACKWARD: return Vector3.back;
+            }
+            return Vector2.zero;
+        }
+        #endregion
+
         #region ToString
         public static string ToString(Vector2 value)
             => "[" + value.x + "," + value.y + "]";
