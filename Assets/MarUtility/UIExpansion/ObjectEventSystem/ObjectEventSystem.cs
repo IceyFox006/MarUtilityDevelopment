@@ -93,6 +93,7 @@ namespace MarUtility.UIExtensions
         public PlayerInput PlayerInput { get => _playerInput; set => _playerInput = value; }
         public string PossessedPlayerID { get => _possessedPlayerID; set => _possessedPlayerID = value; }
         public DistortedMoveInput CurMoveInputDistortion { get => _curMoveInputDistortion; set => _curMoveInputDistortion = value; }
+        public ObjectButton CurHover { get => curHover; }
         #endregion
 
         private void OnDestroy()
