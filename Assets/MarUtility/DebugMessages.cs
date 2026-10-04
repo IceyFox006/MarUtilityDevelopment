@@ -46,6 +46,30 @@ namespace MarUtility
         public static void SimulationPlaytestOnly(string simulationName)
             => Debug.Log("Simulate " + simulationName + " will only work while the game window is playing.");
         #endregion
+
+        #region Material Has x
+        //Returns false and debugs an error if the material does not have a texture called texID in it.
+        public static bool MaterialHasTexture(MeshRenderer m, string texID)
+        {
+            if (!m.material.HasTexture(texID))
+            {
+                Debug.LogError("The material " + m.name + " does not have a texture with the name " + texID + ".");
+                return false; 
+            }
+            return true;
+        }
+
+        //Returns false and debugs an error if the material does not have a color called colorID in it.
+        public static bool MaterialHasColor(MeshRenderer m, string colorID)
+        {
+            if (!m.material.HasColor(colorID))
+            {
+                Debug.LogError("The material " + m.name + " does not have a color with the name " + colorID + ".");
+                return false;
+            }
+            return true;
+        }
+        #endregion
     }
 
 }
