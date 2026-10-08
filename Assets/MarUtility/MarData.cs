@@ -6,6 +6,7 @@
  * Contains various reuable enums.
  */
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MarUtility
@@ -46,6 +47,22 @@ namespace MarUtility
                 }
             }
             return null;
+        }
+
+        public static List<Transform> FindChildrenWithName(Transform parent, string name)
+        {
+            List<Transform> children = new List<Transform>();
+            foreach (Transform child in parent)
+            {
+                if (child.name == name)
+                    children.Add(child);
+                else
+                {
+                    foreach (Transform c in FindChildrenWithName(child, name))
+                        children.Add(c);
+                }
+            }
+            return children;
         }
 
         #region ToVector2
@@ -97,6 +114,22 @@ namespace MarUtility
             => "[" + value.x + "," + value.y + "," + value.z + "]";
         public static string ToString(Vector3 value)
             => "[" + value.x + "," + value.y + "," + value.z + "]";
+        #endregion
+
+        #region Material
+        //Sets the texture of a material. If the textureID is missing sends an error and returns.
+        public static void SetTexture(MeshRenderer mr, string texID, Texture tex)
+        {
+            if (!DebugMessages.MaterialHasTexture(mr, texID)) return;
+            mr.material.SetTexture(texID, tex);
+        }
+
+        //Sets the color of a material. If the colorID is missing sends an error and returns.
+        public static void SetColor(MeshRenderer mr, string colorID, Color color)
+        {
+            if (!DebugMessages.MaterialHasColor(mr, colorID)) return;
+            mr.material.SetColor(colorID, color);
+        }
         #endregion
     }
 

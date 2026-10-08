@@ -1,5 +1,7 @@
 using MarUtility;
 using MarUtility.InspectorExtentions;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Test : MonoBehaviour
@@ -15,9 +17,7 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        if (MarData.FindChildWithName(transform, "Hi") != null)
-            Debug.Log("Found");
-        else
-            Debug.Log("Not found");
+        List<Transform> l = MarData.FindChildrenWithName(transform, "Hi");
+        Debug.Log(l.Count);
     }
 }
