@@ -31,6 +31,10 @@ namespace MarUtility
         public static Vector3Int[] Direction3DVec3Int { get => direction3DVec3Int; }
         #endregion
 
+        //Returns the string without "(Clone)" if it was at the end. Else returns the original string.
+        public static string WithoutClone(string text)
+            => (text.Substring(text.Length - 7, 7).Equals("(Clone)")) ? text.Substring(0, text.Length - 7) : text;
+
         #region Children
         //Returns all children of a transform.
         public static List<Transform> GetAllChildren(Transform parent)
