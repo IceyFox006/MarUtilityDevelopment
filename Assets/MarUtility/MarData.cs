@@ -5,7 +5,6 @@
  * 
  * Contains various reuable enums.
  */
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +31,24 @@ namespace MarUtility
         public static Vector3Int[] Direction3DVec3Int { get => direction3DVec3Int; }
         #endregion
 
+        #region Children
+        //Returns all children of a transform.
+        public static List<Transform> GetAllChildren(Transform parent)
+        {
+            List<Transform> children = new List<Transform>();
+            foreach (Transform child in parent)
+            {
+                if (child.childCount == 0)
+                    children.Add(child);
+                else
+                {
+                    foreach (Transform c in GetAllChildren(child))
+                        children.Add(c);
+                }
+            }
+            return children;
+        }
+
         //Returns the child of parent that has the name. If none exists, returns null.
         public static Transform FindChildWithName(Transform parent, string name)
         {
@@ -49,6 +66,7 @@ namespace MarUtility
             return null;
         }
 
+        //Returns children of the parent with the name given.
         public static List<Transform> FindChildrenWithName(Transform parent, string name)
         {
             List<Transform> children = new List<Transform>();
@@ -64,6 +82,16 @@ namespace MarUtility
             }
             return children;
         }
+        #endregion
+
+        #region List
+        //Adds the transforms from addition into the reference list.
+        public static void CombineTransformLists(ref List<Transform> list, List<Transform> addition)
+        {
+            foreach (Transform t in addition)
+                list.Add(t);
+        }
+        #endregion
 
         #region ToVector2
         public static Vector2 ToVector2(EDirection2D dir)
