@@ -26,7 +26,9 @@ namespace MarUtility.UIExtensions
         [SerializeField, ShowIf("_hoverable")]
         private bool _interactable = true;
 
+        [ReadOnly, SerializeField]
         private bool isHovered = false;
+        [ReadOnly, SerializeField]
         private bool isSelected = false;
 
         //Navigation
