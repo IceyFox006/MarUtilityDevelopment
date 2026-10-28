@@ -1,60 +1,88 @@
+/*
+ * Marlow Greenan
+ * Created: 10/25/2026
+ * Last Updated: 10/27/2026
+ * 
+ * Manages the dialogue progression.
+ */
+using MarUtility.ExecutionManagement;
+using MarUtility.UIExtensions;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : Manager
 {
-    public RuntimeDialogueGraph RuntimeDialogueGraph;
+    //UI
+    [SerializeField, BoxGroup("UI")]
+    private GameObject _dialoguePanel;
+    [SerializeField, BoxGroup("UI")]
+    private TMP_Text _speakerNameText;
+    [SerializeField, BoxGroup("UI")]
+    private TMP_Text _dialogueText;
+    [SerializeField, BoxGroup("UI")]
+    private ObjectButton _continueButton;
 
-    public GameObject DialoguePanel;
-    public TMP_Text SpeakerNameText;
-    public TMP_Text DialogueText;
+    [SerializeField]
+    private ObjectEventSystem _oes;
 
+    //SIMULATION
+    [SerializeField, BoxGroup("Simulation")]
+    private RuntimeDialogueGraph _simDialogue;
+
+    //DATA
     private Dictionary<string, RuntimeDialogueNode> nodeDictionary = new Dictionary<string, RuntimeDialogueNode>();
     private RuntimeDialogueNode curNode;
 
-    private void Start()
+    public void StartDialogue(RuntimeDialogueGraph rtDG)
     {
-        Initialize();
-    }
-    private void Initialize()
-    {
-        foreach (var node in RuntimeDialogueGraph.Nodes)
+        //If already in dialogue, exit.
+        if (curNode != null)
         {
-            nodeDictionary[node.NodeID] = node;
+            Debug.LogError("Cannot start dialogue, when already in dialogue.");
+            return;
         }
 
-        if (!string.IsNullOrEmpty(RuntimeDialogueGraph.EntryNodeID))
-            ShowNode(RuntimeDialogueGraph.EntryNodeID);
-        else
-            EndDialogue();
+        //Set-up node directory.
+        foreach (var node in rtDG.Nodes)
+            nodeDictionary[node.NodeID] = node;
+
+        //Show the dialogue panel and first node.
+        _dialoguePanel.SetActive(true);
+        _oes.SwitchHover(_continueButton);
+        ShowNode(rtDG.EntryNodeID);
     }
 
+    //Shows the next node.
     public void NextNode()
-    {
-        if (string.IsNullOrEmpty(curNode.NextNodeID))
-            ShowNode(curNode.NextNodeID);
-        else
-            EndDialogue();
-    }
+        => ShowNode(curNode.NextNodeID);
 
     private void ShowNode(string nodeID)
     {
-        //Node dicitonary does not have the nodeID within in.
-        if (!nodeDictionary.ContainsKey(nodeID))
+        //Node dicitonary does not have the nodeID within, end the dialogue.
+        if (!nodeDictionary.ContainsKey(nodeID) || string.IsNullOrEmpty(nodeID))
         {
             EndDialogue();
             return;
         }
 
         curNode = nodeDictionary[nodeID];
-        DialoguePanel.SetActive(true);
-        DialogueText.text = curNode.DialogueText;
+        _dialogueText.text = curNode.DialogueText;
     }
 
+    //Hides the dialogue panel, clears the node dictionary, and sets curNode to null.
     private void EndDialogue()
     {
-        DialoguePanel.SetActive(false);
+        _dialoguePanel.SetActive(false);
+        nodeDictionary.Clear();
         curNode = null;
     }
+
+    #region Inspector
+    [Button]
+    private void StartDialogue()
+        => StartDialogue(_simDialogue);
+    #endregion
 }

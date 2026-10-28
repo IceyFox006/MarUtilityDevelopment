@@ -1,15 +1,24 @@
+/*
+ * Marlow Greenan
+ * Created: 10/25/2026
+ * Last Updated: 10/27/2026
+ * 
+ * Transfers data from the Unity editor graph into a runtime scriptable object for builds.
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity;
 using Unity.GraphToolkit.Editor;
+using UnityEditor;
 using UnityEditor.AssetImporters;
 using UnityEngine;
-using Unity;
 
 
 [ScriptedImporter(1, DialogueGraph.AssetExtension)]
 public class DialogueGraphImporter : ScriptedImporter
 {
+    //Goes off when the graph is saved. Transfers all the data from the editor graph to a runtime scriptable object for use in builds.
     public override void OnImportAsset(AssetImportContext ctx)
     {
         DialogueGraph editorGraph = GraphDatabase.LoadGraphForImporter<DialogueGraph>(ctx.assetPath);
@@ -40,12 +49,12 @@ public class DialogueGraphImporter : ScriptedImporter
                 ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
 
             runtimeGraph.Nodes.Add(runtimeNode);
-
-            ctx.AddObjectToAsset("RuntimeData", runtimeGraph);
-            ctx.SetMainObject(runtimeGraph);
         }
+        ctx.AddObjectToAsset("RuntimeData", runtimeGraph);
+        ctx.SetMainObject(runtimeGraph);
     }
 
+    //Converts the data of a single node.
     private void ProcessDialogueNode(DialogueNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
         //Get data from editor node and assign it to runtime node.
@@ -53,11 +62,12 @@ public class DialogueGraphImporter : ScriptedImporter
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
 
         //Go to next node.
-        var nextNodePort = node.GetOutputPortByName("Out").FirstConnectedPort;
+        var nextNodePort = node.GetOutputPortByName("Next").FirstConnectedPort;
         if (nextNodePort != null)
             runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
     }
 
+    //Returns the value of the port.
     private T GetPortValue<T>(IPort port)
     {
         if (port == null) return default;

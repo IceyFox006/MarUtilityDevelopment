@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MarUtility.UIExtensions.ObjectEventSystem
   _initializeTime: 110
-  _firstSelected: {fileID: 2030865512}
+  _firstSelected: {fileID: 0}
   _maxNumSelected: 1
   _confirmOnSelect: 1
   _replaceSelection: 0
@@ -799,10 +799,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2de38a9bb8844448caf8a6adbcc747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  RuntimeDialogueGraph: {fileID: 3965311268370046156, guid: 6ed31d0deac136541bca84dadf79b43c, type: 3}
-  DialoguePanel: {fileID: 154216540}
-  SpeakerNameText: {fileID: 704780798}
-  DialogueText: {fileID: 68904797}
+  _initializeTime: 0
+  _dialoguePanel: {fileID: 154216540}
+  _speakerNameText: {fileID: 704780798}
+  _dialogueText: {fileID: 68904797}
+  _continueButton: {fileID: 2030865512}
+  _oes: {fileID: 227244889}
+  _simDialogue: {fileID: 3965311268370046156, guid: e9d6e2055e973054291ffe630dc736d4, type: 3}
 --- !u!4 &989801089
 Transform:
   m_ObjectHideFlags: 0

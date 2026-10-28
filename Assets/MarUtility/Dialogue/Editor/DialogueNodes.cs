@@ -1,3 +1,10 @@
+/*
+ * Marlow Greenan
+ * Created: 10/25/2026
+ * Last Updated: 10/27/2026
+ * 
+ * Contains data for dialogue nodes.
+ */
 using UnityEngine;
 using Unity.GraphToolkit.Editor;
 using System;
@@ -11,7 +18,7 @@ public class StartNode : Node
 {
     protected override void OnDefinePorts(IPortDefinitionContext context)
     {
-        context.AddOutputPort("Out").Build();
+        context.AddOutputPort("Begin").Build();
     }
 }
 
@@ -23,7 +30,7 @@ public class EndNode: Node
 {
     protected override void OnDefinePorts(IPortDefinitionContext context)
     {
-        context.AddInputPort("In").Build();
+        context.AddInputPort("End").Build();
     }
 }
 
@@ -35,8 +42,8 @@ public class DialogueNode : Node
 {
     protected override void OnDefinePorts(IPortDefinitionContext context)
     {
-        context.AddInputPort("In").Build();
-        context.AddOutputPort("Out").Build();
+        context.AddInputPort("Previous").Build();
+        context.AddOutputPort("Next").Build();
 
         context.AddInputPort<string>("Speaker").Build();
         context.AddInputPort<string>("Dialogue").Build();

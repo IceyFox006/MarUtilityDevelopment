@@ -1,4 +1,10 @@
-using NUnit.Framework;
+/*
+ * Marlow Greenan
+ * Created: 10/25/2026
+ * Last Updated: 10/27/2026
+ * 
+ * Contains data for dialogue usable in builds.
+ */
 using System;
 using System.Collections.Generic;
 using UnityEngine;
