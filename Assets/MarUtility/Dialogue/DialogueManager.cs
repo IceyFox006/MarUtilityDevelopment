@@ -70,6 +70,7 @@ public class DialogueManager : Manager
 
         curNode = nodeDictionary[nodeID];
         _dialogueText.text = curNode.DialogueText;
+        _speakerNameText.text = curNode.Speaker.Name;
     }
 
     //Hides the dialogue panel, clears the node dictionary, and sets curNode to null.

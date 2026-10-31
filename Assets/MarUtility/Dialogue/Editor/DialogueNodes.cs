@@ -42,10 +42,25 @@ public class DialogueNode : Node
 {
     protected override void OnDefinePorts(IPortDefinitionContext context)
     {
-        context.AddInputPort("Previous").Build();
+        context.AddInputPort("Prev").Build();
         context.AddOutputPort("Next").Build();
 
-        context.AddInputPort<string>("Speaker").Build();
+        context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
         context.AddInputPort<string>("Dialogue").Build();
+    }
+}
+//=====================================================================================================================
+// Relationship Node
+//=====================================================================================================================
+[Serializable]
+public class RelationshipNode : Node
+{
+    protected override void OnDefinePorts(IPortDefinitionContext context)
+    {
+        context.AddInputPort("Prev").Build();
+        context.AddOutputPort("Next").Build();
+
+        context.AddInputPort<SO_DialogueCharacter>("Character").Build();
+        context.AddInputPort<int>("Points").Build();
     }
 }

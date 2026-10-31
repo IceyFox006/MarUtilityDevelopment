@@ -58,8 +58,9 @@ public class DialogueGraphImporter : ScriptedImporter
     private void ProcessDialogueNode(DialogueNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
     {
         //Get data from editor node and assign it to runtime node.
-        runtimeNode.SpeakerName = GetPortValue<string>(node.GetInputPortByName("Speaker"));
+        runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
         runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
+
 
         //Go to next node.
         var nextNodePort = node.GetOutputPortByName("Next").FirstConnectedPort;
