@@ -9,24 +9,38 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[CreateAssetMenu(fileName = "RuntimeDiallogueGraph", menuName = "Scriptable Objects/RuntimeDiallogueGraph")]
-//=====================================================================================================================
-// Runtime Dialogue Graph
-//=====================================================================================================================
-public class RuntimeDialogueGraph : ScriptableObject
+namespace MarUtility.Dialogue
 {
-    public string EntryNodeID;
-    public List<RuntimeDialogueNode> Nodes = new List<RuntimeDialogueNode>();
-}
+    //=====================================================================================================================
+    // Runtime Dialogue Graph
+    //=====================================================================================================================
+    public class RuntimeDialogueGraph : ScriptableObject
+    {
+        public string EntryNodeID;
+        public List<RuntimeDialogueNode> Nodes = new List<RuntimeDialogueNode>();
+    }
 
-//=====================================================================================================================
-// Runtime Dialogue Node
-//=====================================================================================================================
-[Serializable]
-public class RuntimeDialogueNode
-{
-    public string NodeID;
-    public string SpeakerName;
-    public string DialogueText;
-    public string NextNodeID;
+    //=====================================================================================================================
+    // Runtime Dialogue Node
+    //=====================================================================================================================
+    [Serializable]
+    public class RuntimeDialogueNode
+    {
+        public string NodeID;
+        public string NextNodeID;
+
+        public SO_DialogueCharacter Speaker;
+        public string DialogueText;
+
+        public List<ChoiceData> Choices = new List<ChoiceData>();
+    }
+    //=====================================================================================================================
+    // Runtime Dialogue Node
+    //=====================================================================================================================
+    [Serializable]
+    public class ChoiceData
+    {
+        public string ChoiceText;
+        public string NextNodeID;
+    }
 }

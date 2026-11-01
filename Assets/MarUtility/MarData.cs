@@ -35,6 +35,10 @@ namespace MarUtility
         public static string WithoutClone(string text)
             => (text.Substring(text.Length - 7, 7).Equals("(Clone)")) ? text.Substring(0, text.Length - 7) : text;
 
+        //Returns true if the index is within the bounds of a collection count.
+        public static bool InRange(int index, int count)
+            => (index < 0 || index >= count)? false : true;
+
         #region Children
         //Returns all children of a transform.
         public static List<Transform> GetAllChildren(Transform parent)

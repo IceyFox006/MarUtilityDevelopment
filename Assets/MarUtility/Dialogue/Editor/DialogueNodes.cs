@@ -8,44 +8,102 @@
 using UnityEngine;
 using Unity.GraphToolkit.Editor;
 using System;
+using NUnit.Framework;
+using System.ComponentModel;
+using Unity.VisualScripting;
 
-public class DialogueNodes { }
-//=====================================================================================================================
-// Start Node
-//=====================================================================================================================
-[Serializable]
-public class StartNode : Node
+namespace MarUtility.Dialogue
 {
-    protected override void OnDefinePorts(IPortDefinitionContext context)
+    public class DialogueNodes { }
+    //=====================================================================================================================
+    // Start Node
+    //=====================================================================================================================
+    [Serializable]
+    public class StartNode : Node
     {
-        context.AddOutputPort("Begin").Build();
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddOutputPort("Begin").Build();
+        }
+    }
+
+    //=====================================================================================================================
+    // End Node
+    //=====================================================================================================================
+    [Serializable]
+    public class EndNode : Node
+    {
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("End").Build();
+        }
+    }
+
+    //=================================================================================================================
+    // Dialogue Node
+    //=================================================================================================================
+    [Serializable]
+    public class DialogueNode : Node
+    {
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("Prev").Build();
+            context.AddOutputPort("Next").Build();
+
+            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
+            context.AddInputPort<string>("Dialogue").Build();
+            context.AddInputPort<CharacterRelation[]>("Test").Build();
+        }
+    }
+    //=================================================================================================================
+    // Choice Node
+    //=================================================================================================================
+    [Serializable]
+    public class ChoiceNode : Node
+    {
+        const string optionID = "portCount";
+
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("Prev").Build();
+            
+            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
+            context.AddInputPort<string>("Dialogue").Build();
+
+            //Add multiple input and output ports for choices.
+            var option = GetNodeOptionByName(optionID);
+            option.TryGetValue(out int portCount);
+            for (int i = 0; i < portCount; i++)
+            {
+                context.AddInputPort<string>($"Choice Text {i}").Build();
+                context.AddOutputPort($"Choice {i}").Build();
+            }
+        }
+
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>(optionID);
+        }
+    }
+    //=================================================================================================================
+    // Relationship Node
+    //=================================================================================================================
+    [Serializable]
+    public class RelationNode : Node
+    {
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort<SO_DialogueCharacter>("Character").Build();
+            context.AddInputPort<float>("Point").Build();
+
+            context.AddOutputPort<CharacterRelation>("Out").Build();
+        }
+    }
+
+    public class CharacterRelation
+    {
+        public SO_DialogueCharacter Character;
+        public float Point;
     }
 }
 
-//=====================================================================================================================
-// End Node
-//=====================================================================================================================
-[Serializable]
-public class EndNode: Node
-{
-    protected override void OnDefinePorts(IPortDefinitionContext context)
-    {
-        context.AddInputPort("End").Build();
-    }
-}
-
-//=====================================================================================================================
-// Dialogue Node
-//=====================================================================================================================
-[Serializable]
-public class DialogueNode : Node
-{
-    protected override void OnDefinePorts(IPortDefinitionContext context)
-    {
-        context.AddInputPort("Previous").Build();
-        context.AddOutputPort("Next").Build();
-
-        context.AddInputPort<string>("Speaker").Build();
-        context.AddInputPort<string>("Dialogue").Build();
-    }
-}
