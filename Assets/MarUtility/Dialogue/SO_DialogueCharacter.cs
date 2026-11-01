@@ -2,39 +2,43 @@ using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DChar_", menuName = "Scriptable Objects/Dialogue/Character")]
-public class SO_DialogueCharacter : ScriptableObject
+namespace MarUtility.Dialogue
 {
-    [SerializeField]
-    private string _name;
-
-    [SerializeField]
-    private int _relationPoints;
-
-    //EMOTIONS
-    [SerializeField, BoxGroup("Emote")]
-    private EEmoteType _emoteType; 
-    [SerializeField, BoxGroup("Emote"), ShowIf("_emoteType", EEmoteType.SPRITE)]
-    private Dictionary<EEmotion, Sprite> _spriteEmotes;
-    [SerializeField, BoxGroup("Emote"), ShowIf("_emoteType", EEmoteType.ANIMATION)]
-    private Dictionary<EEmotion, string> _animationEmotes;
-
-    #region GS
-    public string Name { get => _name; }
-    #endregion
-
-    public enum EEmoteType
+    [CreateAssetMenu(fileName = "DChar_", menuName = "Scriptable Objects/Dialogue/Character")]
+    public class SO_DialogueCharacter : ScriptableObject
     {
-        SPRITE,
-        ANIMATION
+        [SerializeField]
+        private string _name;
+
+        [SerializeField]
+        private int _relationPoints;
+
+        //EMOTIONS
+        [SerializeField, BoxGroup("Emote")]
+        private EEmoteType _emoteType;
+        [SerializeField, BoxGroup("Emote"), ShowIf("_emoteType", EEmoteType.SPRITE)]
+        private Dictionary<EEmotion, Sprite> _spriteEmotes;
+        [SerializeField, BoxGroup("Emote"), ShowIf("_emoteType", EEmoteType.ANIMATION)]
+        private Dictionary<EEmotion, string> _animationEmotes;
+
+        #region GS
+        public string Name { get => _name; }
+        #endregion
+
+        public enum EEmoteType
+        {
+            SPRITE,
+            ANIMATION
+        }
+
     }
 
+    public enum EEmotion
+    {
+        NEUTRAL,
+
+    }
+
+
+
 }
-
-public enum EEmotion
-{
-    NEUTRAL,
-
-}
-
-
