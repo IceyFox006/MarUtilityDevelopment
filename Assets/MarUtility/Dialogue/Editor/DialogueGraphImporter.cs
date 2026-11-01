@@ -48,6 +48,8 @@ namespace MarUtility.Dialogue
                 var runtimeNode = new RuntimeDialogueNode { NodeID = nodeIDMap[node] };
                 if (node is DialogueNode dialogueNode)
                     ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
+                else if (node is ChoiceNode choiceNode)
+                    ProcessChoiceNode(choiceNode, runtimeNode, nodeIDMap);
 
                 runtimeGraph.Nodes.Add(runtimeNode);
             }
@@ -55,7 +57,7 @@ namespace MarUtility.Dialogue
             ctx.SetMainObject(runtimeGraph);
         }
 
-        //Converts the data of a single node.
+        //Converts the data of a single dialogue node.
         private void ProcessDialogueNode(DialogueNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             //Get data from editor node and assign it to runtime node.
@@ -67,6 +69,28 @@ namespace MarUtility.Dialogue
             var nextNodePort = node.GetOutputPortByName("Next").FirstConnectedPort;
             if (nextNodePort != null)
                 runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
+        }
+
+        private void ProcessChoiceNode(ChoiceNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+        {
+            //Get data from editor node and assign it to runtime node.
+            runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
+            runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
+
+            var choiceOutputPorts = node.GetOutputPorts().Where(p => p.Name.StartsWith("Choice "));
+            foreach (var outputPort in choiceOutputPorts)
+            {
+                var index = outputPort.Name.Substring("Choice ".Length);
+                var textPort = node.GetInputPortByName($"Choice Text {index}");
+
+                var choiceData = new ChoiceData
+                {
+                    ChoiceText = GetPortValue<string>(textPort),
+                    NextNodeID = outputPort.FirstConnectedPort != null ? nodeIDMap[outputPort.FirstConnectedPort.GetNode()] : null,
+                };
+
+                runtimeNode.Choices.Add(choiceData);
+            }
         }
 
         //Returns the value of the port.

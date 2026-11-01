@@ -31,6 +31,16 @@ namespace MarUtility.Dialogue
 
         public SO_DialogueCharacter Speaker;
         public string DialogueText;
-    }
 
+        public List<ChoiceData> Choices = new List<ChoiceData>();
+    }
+    //=====================================================================================================================
+    // Runtime Dialogue Node
+    //=====================================================================================================================
+    [Serializable]
+    public class ChoiceData
+    {
+        public string ChoiceText;
+        public string NextNodeID;
+    }
 }

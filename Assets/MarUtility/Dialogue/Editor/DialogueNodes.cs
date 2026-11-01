@@ -9,6 +9,8 @@ using UnityEngine;
 using Unity.GraphToolkit.Editor;
 using System;
 using NUnit.Framework;
+using System.ComponentModel;
+using Unity.VisualScripting;
 
 namespace MarUtility.Dialogue
 {
@@ -37,9 +39,9 @@ namespace MarUtility.Dialogue
         }
     }
 
-    //=====================================================================================================================
+    //=================================================================================================================
     // Dialogue Node
-    //=====================================================================================================================
+    //=================================================================================================================
     [Serializable]
     public class DialogueNode : Node
     {
@@ -53,9 +55,39 @@ namespace MarUtility.Dialogue
             context.AddInputPort<CharacterRelation[]>("Test").Build();
         }
     }
-    //=====================================================================================================================
+    //=================================================================================================================
+    // Choice Node
+    //=================================================================================================================
+    [Serializable]
+    public class ChoiceNode : Node
+    {
+        const string optionID = "portCount";
+
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("Prev").Build();
+            
+            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
+            context.AddInputPort<string>("Dialogue").Build();
+
+            //Add multiple input and output ports for choices.
+            var option = GetNodeOptionByName(optionID);
+            option.TryGetValue(out int portCount);
+            for (int i = 0; i < portCount; i++)
+            {
+                context.AddInputPort<string>($"Choice Text {i}").Build();
+                context.AddOutputPort($"Choice {i}").Build();
+            }
+        }
+
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>(optionID);
+        }
+    }
+    //=================================================================================================================
     // Relationship Node
-    //=====================================================================================================================
+    //=================================================================================================================
     [Serializable]
     public class RelationNode : Node
     {

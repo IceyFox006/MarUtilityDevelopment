@@ -9,6 +9,7 @@ using MarUtility.ExecutionManagement;
 using MarUtility.UIExtensions;
 using NaughtyAttributes;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +27,8 @@ namespace MarUtility.Dialogue
         private TMP_Text _dialogueText;
         [SerializeField, BoxGroup("UI")]
         private ObjectButton _continueButton;
+        [SerializeField, BoxGroup("UI")]
+        private DialogueChoiceUI[] _choiceBoxes;
 
         [SerializeField]
         private ObjectEventSystem _oes;
@@ -38,6 +41,11 @@ namespace MarUtility.Dialogue
         private Dictionary<string, RuntimeDialogueNode> nodeDictionary = new Dictionary<string, RuntimeDialogueNode>();
         private RuntimeDialogueNode curNode;
 
+        public override void Initialize()
+        {
+            for (int i = 0; i < _choiceBoxes.Count(); i++)
+                _choiceBoxes[i].Initialize(this, i);
+        }
         public void StartDialogue(RuntimeDialogueGraph rtDG)
         {
             //If already in dialogue, exit.
@@ -61,6 +69,7 @@ namespace MarUtility.Dialogue
         public void NextNode()
             => ShowNode(curNode.NextNodeID);
 
+        //Shows the current node and its choices.
         private void ShowNode(string nodeID)
         {
             //Node dicitonary does not have the nodeID within, end the dialogue.
@@ -71,8 +80,12 @@ namespace MarUtility.Dialogue
             }
 
             curNode = nodeDictionary[nodeID];
+
             _dialogueText.text = curNode.DialogueText;
             _speakerNameText.text = curNode.Speaker.Name;
+
+            if (!UpdateChoices())
+                _oes.SwitchHover(_continueButton);
         }
 
         //Hides the dialogue panel, clears the node dictionary, and sets curNode to null.
@@ -82,6 +95,39 @@ namespace MarUtility.Dialogue
             nodeDictionary.Clear();
             curNode = null;
         }
+
+        #region Choice
+        //Updates the choice buttons to match the current node.
+        private bool UpdateChoices()
+        {
+            HideChoices();
+            if (curNode.Choices.Count <= 0) return false;
+
+            //Show choice boxes.
+            for (int i = 0; i < curNode.Choices.Count; i++)
+            {
+                //Visibility
+                _choiceBoxes[i].gameObject.SetActive(true);
+                _choiceBoxes[i].Text.text = curNode.Choices[i].ChoiceText;
+
+                //Navigation
+                _choiceBoxes[i].Button.Navigation.Up = (MarData.InRange(i - 1, curNode.Choices.Count())) ? _choiceBoxes[i - 1].Button : null;
+                _choiceBoxes[i].Button.Navigation.Down = (MarData.InRange(i + 1, curNode.Choices.Count())) ? _choiceBoxes[i + 1].Button : null;
+            }
+            _oes.SwitchHover(_choiceBoxes[0].GetComponent<ObjectButton>());
+            return true;
+        }
+
+        //Deactivates all choice buttons.
+        private void HideChoices()
+        {
+            foreach (DialogueChoiceUI dcUI in _choiceBoxes)
+                dcUI.gameObject.SetActive(false);
+        }
+
+        public void SelectChoice(int i)
+            => ShowNode(curNode.Choices[i].NextNodeID);
+        #endregion
 
         #region Inspector
         [Button]
