@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 10/25/2026
- * Last Updated: 10/27/2026
+ * Last Updated: 11/01/2026
  * 
  * Transfers data from the Unity editor graph into a runtime scriptable object for builds.
  */
@@ -50,6 +50,8 @@ namespace MarUtility.Dialogue
                     ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
                 else if (node is ChoiceNode choiceNode)
                     ProcessChoiceNode(choiceNode, runtimeNode, nodeIDMap);
+                else if (node is RelationNode relationNode)
+                    ProcessRelationNode(relationNode, runtimeNode, nodeIDMap);
 
                 runtimeGraph.Nodes.Add(runtimeNode);
             }
@@ -57,6 +59,7 @@ namespace MarUtility.Dialogue
             ctx.SetMainObject(runtimeGraph);
         }
 
+        #region Process Nodes
         //Converts the data of a single dialogue node.
         private void ProcessDialogueNode(DialogueNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
@@ -71,27 +74,56 @@ namespace MarUtility.Dialogue
                 runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
         }
 
+        //Converts the data of a single choice node.
         private void ProcessChoiceNode(ChoiceNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
         {
             //Get data from editor node and assign it to runtime node.
             runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
             runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
 
+            //Choice outputs.
             var choiceOutputPorts = node.GetOutputPorts().Where(p => p.Name.StartsWith("Choice "));
             foreach (var outputPort in choiceOutputPorts)
             {
+                //Determine choice port.
                 var index = outputPort.Name.Substring("Choice ".Length);
                 var textPort = node.GetInputPortByName($"Choice Text {index}");
 
+                //Create new choice data.
                 var choiceData = new ChoiceData
                 {
                     ChoiceText = GetPortValue<string>(textPort),
                     NextNodeID = outputPort.FirstConnectedPort != null ? nodeIDMap[outputPort.FirstConnectedPort.GetNode()] : null,
                 };
-
                 runtimeNode.Choices.Add(choiceData);
             }
         }
+
+        //Converts the data of a single relation node.
+        private void ProcessRelationNode(RelationNode node, RuntimeDialogueNode runtimeNode, Dictionary<INode, string> nodeIDMap)
+        {
+            //Get data from editor node and assign it to runtime node.
+            runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
+            runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
+
+            //Relation inputs.
+            var characterInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Character "));
+            var pointInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Point "));
+            for (int i = 0; i < characterInputPorts.Count(); i++)
+            {
+                //Determine relation port.
+                var characterPort = node.GetInputPortByName($"Character {i}");
+                var pointPort = node.GetInputPortByName($"Point {i}");
+
+                var relationData = new RelationData
+                {
+                    Character = GetPortValue<SO_DialogueCharacter>(characterPort),
+                    Point = GetPortValue<float>(pointPort),
+                };
+                runtimeNode.Relations.Add(relationData);
+            }
+        }
+        #endregion
 
         //Returns the value of the port.
         private T GetPortValue<T>(IPort port)

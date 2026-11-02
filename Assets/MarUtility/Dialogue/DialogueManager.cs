@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 10/25/2026
- * Last Updated: 10/27/2026
+ * Last Updated: 11/01/2026
  * 
  * Manages the dialogue progression.
  */
@@ -46,6 +46,8 @@ namespace MarUtility.Dialogue
             for (int i = 0; i < _choiceBoxes.Count(); i++)
                 _choiceBoxes[i].Initialize(this, i);
         }
+
+        #region Dialogue
         public void StartDialogue(RuntimeDialogueGraph rtDG)
         {
             //If already in dialogue, exit.
@@ -95,6 +97,7 @@ namespace MarUtility.Dialogue
             nodeDictionary.Clear();
             curNode = null;
         }
+        #endregion
 
         #region Choice
         //Updates the choice buttons to match the current node.
