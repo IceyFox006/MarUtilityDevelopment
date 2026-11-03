@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 10/25/2026
- * Last Updated: 10/27/2026
+ * Last Updated: 11/01/2026
  * 
  * Manages the dialogue progression.
  */
@@ -38,6 +38,8 @@ namespace MarUtility.Dialogue
         private RuntimeDialogueGraph _simDialogue;
 
         //DATA
+        [SerializeField, ReadOnly]
+        private Dictionary<SO_DialogueCharacter, float> characterRelationDictionary = new Dictionary<SO_DialogueCharacter, float>();
         private Dictionary<string, RuntimeDialogueNode> nodeDictionary = new Dictionary<string, RuntimeDialogueNode>();
         private RuntimeDialogueNode curNode;
 
@@ -46,6 +48,8 @@ namespace MarUtility.Dialogue
             for (int i = 0; i < _choiceBoxes.Count(); i++)
                 _choiceBoxes[i].Initialize(this, i);
         }
+
+        #region Dialogue
         public void StartDialogue(RuntimeDialogueGraph rtDG)
         {
             //If already in dialogue, exit.
@@ -84,8 +88,11 @@ namespace MarUtility.Dialogue
             _dialogueText.text = curNode.DialogueText;
             _speakerNameText.text = curNode.Speaker.Name;
 
+            //Update choice options and if the dialogue has choices, switch the event system hover.
             if (!UpdateChoices())
                 _oes.SwitchHover(_continueButton);
+
+            UpdateRelations();
         }
 
         //Hides the dialogue panel, clears the node dictionary, and sets curNode to null.
@@ -95,6 +102,7 @@ namespace MarUtility.Dialogue
             nodeDictionary.Clear();
             curNode = null;
         }
+        #endregion
 
         #region Choice
         //Updates the choice buttons to match the current node.
@@ -129,12 +137,45 @@ namespace MarUtility.Dialogue
             => ShowNode(curNode.Choices[i].NextNodeID);
         #endregion
 
+        #region Relation
+        //Updates all relations.
+        private void UpdateRelations()
+        {
+            if (curNode.Relations.Count() <= 0) return;
+
+            foreach (RelationData rd in curNode.Relations)
+                AddRelationPoint(rd);
+        }
+
+        //Adds relation points to the character.
+        private void AddRelationPoint(RelationData rd)
+        {
+            if (characterRelationDictionary.ContainsKey(rd.Character)) //Character is in relation dictionary.
+                characterRelationDictionary[rd.Character] += rd.Point;
+            else //Character is not in relation dictioanry.
+                characterRelationDictionary.Add(rd.Character, rd.Point);
+            Debug.Log(rd.Character.Name + "\t" + rd.Point);
+        }
+        #endregion
+
+        public void InvokeEvents()
+        {
+
+        }
+
         #region Inspector
         [Button]
         private void StartDialogue()
             => StartDialogue(_simDialogue);
         #endregion
     }
+}
+
+public enum EDialogueEvent
+{
+    NONE = 000,
+    FADE_TO_BLACK = 100,
+    FADE_FROM_BLACK = 200,
 
 }
 

@@ -52,7 +52,7 @@ namespace MarUtility.Dialogue
 
             context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
             context.AddInputPort<string>("Dialogue").Build();
-            context.AddInputPort<CharacterRelation[]>("Test").Build();
+            context.AddInputPort<EDialogueEvent[]>("Events").Build();
         }
     }
     //=================================================================================================================
@@ -61,7 +61,7 @@ namespace MarUtility.Dialogue
     [Serializable]
     public class ChoiceNode : Node
     {
-        const string optionID = "portCount";
+        const string choiceID = "Choice Count";
 
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
@@ -69,10 +69,11 @@ namespace MarUtility.Dialogue
             
             context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
             context.AddInputPort<string>("Dialogue").Build();
+            context.AddInputPort<EDialogueEvent[]>("Events").Build();
 
             //Add multiple input and output ports for choices.
-            var option = GetNodeOptionByName(optionID);
-            option.TryGetValue(out int portCount);
+            var choice = GetNodeOptionByName(choiceID);
+            choice.TryGetValue(out int portCount);
             for (int i = 0; i < portCount; i++)
             {
                 context.AddInputPort<string>($"Choice Text {i}").Build();
@@ -82,7 +83,7 @@ namespace MarUtility.Dialogue
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
-            context.AddOption<int>(optionID);
+            context.AddOption<int>(choiceID);
         }
     }
     //=================================================================================================================
@@ -91,19 +92,30 @@ namespace MarUtility.Dialogue
     [Serializable]
     public class RelationNode : Node
     {
+        const string relationshipID = "Relation Count";
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            context.AddInputPort<SO_DialogueCharacter>("Character").Build();
-            context.AddInputPort<float>("Point").Build();
+            context.AddInputPort("Prev").Build();
+            context.AddOutputPort("Next").Build();
 
-            context.AddOutputPort<CharacterRelation>("Out").Build();
+            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
+            context.AddInputPort<string>("Dialogue").Build();
+            context.AddInputPort<EDialogueEvent[]>("Events").Build();
+
+            //Add multiple input and output ports for choices.
+            var relation = GetNodeOptionByName(relationshipID);
+            relation.TryGetValue(out int portCount);
+            for (int i = 0; i < portCount; i++)
+            {
+                context.AddInputPort<SO_DialogueCharacter>($"Character {i}").Build();
+                context.AddInputPort<float>($"Point {i}").Build();
+            }
         }
-    }
 
-    public class CharacterRelation
-    {
-        public SO_DialogueCharacter Character;
-        public float Point;
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>(relationshipID);
+        }
     }
 }
 
