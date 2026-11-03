@@ -52,6 +52,7 @@ namespace MarUtility.Dialogue
 
             context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
             context.AddInputPort<string>("Dialogue").Build();
+            context.AddInputPort<EDialogueEvent[]>("Events").Build();
         }
     }
     //=================================================================================================================
@@ -68,6 +69,7 @@ namespace MarUtility.Dialogue
             
             context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
             context.AddInputPort<string>("Dialogue").Build();
+            context.AddInputPort<EDialogueEvent[]>("Events").Build();
 
             //Add multiple input and output ports for choices.
             var choice = GetNodeOptionByName(choiceID);
@@ -98,6 +100,7 @@ namespace MarUtility.Dialogue
 
             context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
             context.AddInputPort<string>("Dialogue").Build();
+            context.AddInputPort<EDialogueEvent[]>("Events").Build();
 
             //Add multiple input and output ports for choices.
             var relation = GetNodeOptionByName(relationshipID);

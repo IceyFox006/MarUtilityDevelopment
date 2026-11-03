@@ -10,9 +10,6 @@ namespace MarUtility.Dialogue
         [SerializeField]
         private string _name;
 
-        [SerializeField]
-        private int _relationPoints;
-
         //EMOTIONS
         [SerializeField, BoxGroup("Emote")]
         private EEmoteType _emoteType;

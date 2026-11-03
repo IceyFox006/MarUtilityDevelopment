@@ -67,7 +67,6 @@ namespace MarUtility.Dialogue
             runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
             runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
 
-
             //Go to next node.
             var nextNodePort = node.GetOutputPortByName("Next").FirstConnectedPort;
             if (nextNodePort != null)

@@ -39,9 +39,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Events
           m_ValueList:
           - rid: 3736599031169941593
           - rid: 3736599031169941594
+          - rid: 3736599066134446159
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -157,9 +159,11 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
+          - Events
           m_ValueList:
           - rid: 3736599031169941602
           - rid: 3736599031169941603
+          - rid: 3736599066134446160
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -278,12 +282,14 @@ MonoBehaviour:
           - Choice Text 1
           - Choice Text 0
           - __option_Choice Count
+          - Events
           m_ValueList:
           - rid: 3736599031169941681
           - rid: 3736599031169941682
           - rid: 3736599044666949793
           - rid: 3736599044666949794
           - rid: 3736599044666949791
+          - rid: 3736599066134446167
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -526,12 +532,14 @@ MonoBehaviour:
           - __option_Relation Count
           - Character 0
           - Point 0
+          - Events
           m_ValueList:
           - rid: 3736599044666949781
           - rid: 3736599044666949782
           - rid: 3736599044666949792
           - rid: 3736599044666949806
           - rid: 3736599044666949807
+          - rid: 3736599066134446168
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -646,6 +654,48 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
         m_Value: -1
+    - rid: 3736599066134446159
+      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: 
+    - rid: 3736599066134446160
+      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: 
+    - rid: 3736599066134446167
+      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: 
+    - rid: 3736599066134446168
+      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: 
+    - rid: 3736599074595405909
+      type: {class: VariableDeclarationModel, ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Guid:
+          m_Value0: 6042937528133012821
+          m_Value1: 15083229224194328834
+        m_HashGuid:
+          serializedVersion: 2
+          Hash: 55cd3e3caad3dc5302c9e4a5106552d1
+        m_Version: 2
+        m_Name: New Variable
+        m_UniqueId: 
+        m_DataType:
+          m_Identification: EDialogueEvent[], Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        m_IsExposed: 0
+        m_Scope: 0
+        m_ShowOnInspectorOnly: 0
+        m_Tooltip: 
+        m_InitializationValue:
+          rid: 3736599074595405910
+        m_Modifiers: 0
+        m_VariableFlags: 0
+    - rid: 3736599074595405910
+      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: 64000000i
     - rid: 3848086819812409344
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -675,7 +725,8 @@ MonoBehaviour:
         - rid: 3736599044666949789
         m_GraphStickyNoteModels: []
         m_GraphPlacematModels: []
-        m_GraphVariableModels: []
+        m_GraphVariableModels:
+        - rid: 3736599074595405909
         m_GraphPortalModels:
         - rid: 3736599031169941710
         m_SectionModels:
@@ -686,7 +737,7 @@ MonoBehaviour:
           x: 642.4
           y: 105.6
           width: 2778.4
-          height: 431.99997
+          height: 455.99997
         m_GraphElementMetaData:
         - m_Guid:
             m_Value0: 3471385413936358858
@@ -816,6 +867,14 @@ MonoBehaviour:
             Hash: 546f96ed5bc6a3955a8cae862159fa80
           m_Category: 2
           m_Index: 6
+        - m_Guid:
+            m_Value0: 6042937528133012821
+            m_Value1: 15083229224194328834
+          m_HashGuid:
+            serializedVersion: 2
+            Hash: 55cd3e3caad3dc5302c9e4a5106552d1
+          m_Category: 1
+          m_Index: 0
         m_EntryPoint:
           rid: 3736599031169941597
         m_Graph:
@@ -830,7 +889,8 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: 6404c887f8fb3bd1522a693565e4bf69
         m_Version: 2
-        m_Items: []
+        m_Items:
+        - rid: 3736599074595405909
         m_Title: 
     - rid: 3848086819812409346
       type: {class: DialogueGraph, ns: , asm: Assembly-CSharp-Editor}
