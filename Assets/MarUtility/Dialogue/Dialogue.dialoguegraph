@@ -39,11 +39,9 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
-          - Events
           m_ValueList:
           - rid: 3736599031169941593
           - rid: 3736599031169941594
-          - rid: 3736599066134446159
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -159,11 +157,9 @@ MonoBehaviour:
           m_KeyList:
           - Speaker
           - Dialogue
-          - Events
           m_ValueList:
           - rid: 3736599031169941602
           - rid: 3736599031169941603
-          - rid: 3736599066134446160
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -282,14 +278,12 @@ MonoBehaviour:
           - Choice Text 1
           - Choice Text 0
           - __option_Choice Count
-          - Events
           m_ValueList:
           - rid: 3736599031169941681
           - rid: 3736599031169941682
           - rid: 3736599044666949793
           - rid: 3736599044666949794
           - rid: 3736599044666949791
-          - rid: 3736599066134446167
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -527,19 +521,17 @@ MonoBehaviour:
         m_State: 0
         m_InputConstantsById:
           m_KeyList:
-          - Speaker
-          - Dialogue
           - __option_Relation Count
           - Character 0
           - Point 0
-          - Events
+          - Speaker
+          - Dialogue
           m_ValueList:
-          - rid: 3736599044666949781
-          - rid: 3736599044666949782
           - rid: 3736599044666949792
           - rid: 3736599044666949806
           - rid: 3736599044666949807
-          - rid: 3736599066134446168
+          - rid: 3736599097002164298
+          - rid: 3736599097002164299
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -555,14 +547,6 @@ MonoBehaviour:
           m_HasUserColor: 0
         m_Node:
           rid: 3736599044666949783
-    - rid: 3736599044666949781
-      type: {class: 'Constant`1[[MarUtility.Dialogue.SO_DialogueCharacter, Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: {fileID: 11400000, guid: 30029c4d91c4db44aa588f575c1d0834, type: 2}
-    - rid: 3736599044666949782
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: WAIT U CANT DO TH-
     - rid: 3736599044666949783
       type: {class: RelationNode, ns: MarUtility.Dialogue, asm: Assembly-CSharp-Editor}
       data: 
@@ -654,22 +638,6 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.Single, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
         m_Value: -1
-    - rid: 3736599066134446159
-      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: 
-    - rid: 3736599066134446160
-      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: 
-    - rid: 3736599066134446167
-      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: 
-    - rid: 3736599066134446168
-      type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: 
     - rid: 3736599074595405909
       type: {class: VariableDeclarationModel, ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
@@ -696,6 +664,14 @@ MonoBehaviour:
       type: {class: 'Constant`1[[EDialogueEvent[], Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
         m_Value: 64000000i
+    - rid: 3736599097002164298
+      type: {class: 'Constant`1[[MarUtility.Dialogue.SO_DialogueCharacter, Assembly-CSharp]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: {fileID: 11400000, guid: 30029c4d91c4db44aa588f575c1d0834, type: 2}
+    - rid: 3736599097002164299
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: WAIT YOU CANT DO THA-
     - rid: 3848086819812409344
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: UnityEditor.GraphToolkitModule}
       data:
