@@ -43,12 +43,26 @@ namespace MarUtility.Dialogue
     //=================================================================================================================
     public class BaseDialogueNode : Node
     {
+        const string eventID = "Event Count";
+
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
             context.AddInputPort("Prev").Build();
 
             context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
             context.AddInputPort<string>("Dialogue").Build();
+
+            var dEvent = GetNodeOptionByName(eventID);
+            dEvent.TryGetValue(out int portCount);
+            for (int i = 0; i < portCount; i++)
+            {
+                context.AddInputPort<string>($"Event {i}").Build();
+            }
+        }
+
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>(eventID);
         }
     }
     //=================================================================================================================
@@ -88,6 +102,8 @@ namespace MarUtility.Dialogue
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
+            base.OnDefineOptions(context);
+
             context.AddOption<int>(choiceID);
         }
     }
@@ -114,6 +130,8 @@ namespace MarUtility.Dialogue
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
+            base.OnDefineOptions(context);
+
             context.AddOption<int>(relationshipID);
         }
     }

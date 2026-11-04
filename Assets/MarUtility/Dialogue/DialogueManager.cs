@@ -171,11 +171,3 @@ namespace MarUtility.Dialogue
     }
 }
 
-public enum EDialogueEvent
-{
-    NONE = 000,
-    FADE_TO_BLACK = 100,
-    FADE_FROM_BLACK = 200,
-
-}
-
