@@ -685,6 +685,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 704780796}
   m_CullTransparentMesh: 1
+--- !u!1 &727519707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727519708}
+  - component: {fileID: 727519711}
+  - component: {fileID: 727519710}
+  m_Layer: 5
+  m_Name: ColorScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &727519708
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727519707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1586103633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &727519710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727519707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &727519711
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727519707}
+  m_CullTransparentMesh: 1
 --- !u!1 &848993711
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +1040,8 @@ GameObject:
   m_Component:
   - component: {fileID: 989801089}
   - component: {fileID: 989801088}
+  - component: {fileID: 989801091}
+  - component: {fileID: 989801090}
   m_Layer: 0
   m_Name: Pre_DialogueManager
   m_TagString: Untagged
@@ -995,6 +1072,40 @@ MonoBehaviour:
   - {fileID: 2145484127}
   _oes: {fileID: 227244889}
   _simDialogue: {fileID: 3965311268370046156, guid: e9d6e2055e973054291ffe630dc736d4, type: 3}
+  _dialogueEvents:
+  - key: FADE_TO_INVISIBLE
+    value:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 989801091}
+          m_TargetAssemblyTypeName: MarUtility.LerpController, Assembly-CSharp
+          m_MethodName: ImageColorLerp
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SCREEN_FadeToInvisible
+            m_BoolArgument: 0
+          m_CallState: 2
+  - key: FADE_TO_BLACK
+    value:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 989801091}
+          m_TargetAssemblyTypeName: MarUtility.LerpController, Assembly-CSharp
+          m_MethodName: ImageColorLerp
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SCREEN_FadeToBlack
+            m_BoolArgument: 0
+          m_CallState: 2
+  characterRelationDictionary: []
 --- !u!4 &989801089
 Transform:
   m_ObjectHideFlags: 0
@@ -1011,6 +1122,108 @@ Transform:
   - {fileID: 1586103633}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &989801090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989801087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbfc085d16c20a4ab3499bd722ac107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarUtility.EventMethod
+--- !u!114 &989801091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989801087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50910d1b7b9699a46831b41c60ef1184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MarUtility.LerpController
+  _positionLerps: []
+  _imageColorLerps:
+  - key: SCREEN_FadeToBlack
+    value:
+      _duration: 1
+      _curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 0
+      _onStart:
+        m_PersistentCalls:
+          m_Calls: []
+      _onBody:
+        m_PersistentCalls:
+          m_Calls: []
+      _onEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      _endColor: {r: 0, g: 0, b: 0, a: 1}
+      _image: {fileID: 727519710}
+  - key: SCREEN_FadeToInvisible
+    value:
+      _duration: 1
+      _curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 0
+      _onStart:
+        m_PersistentCalls:
+          m_Calls: []
+      _onBody:
+        m_PersistentCalls:
+          m_Calls: []
+      _onEnd:
+        m_PersistentCalls:
+          m_Calls: []
+      _endColor: {r: 0, g: 0, b: 0, a: 0}
+      _image: {fileID: 727519710}
 --- !u!1 &1169950649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,6 +1351,63 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &1426629761
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3213315320706700244, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_Name
+      value: Pre_SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.53697
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.70447
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.13404
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949330711228544730, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1c341ff46cdcc84418cfece7cd669cf6, type: 3}
 --- !u!1 &1586103629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,6 +1503,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 727519708}
   - {fileID: 154216541}
   m_Father: {fileID: 989801089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1651,3 +1922,4 @@ SceneRoots:
   - {fileID: 1169950651}
   - {fileID: 989801089}
   - {fileID: 227244890}
+  - {fileID: 1426629761}

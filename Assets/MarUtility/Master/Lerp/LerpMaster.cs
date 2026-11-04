@@ -9,8 +9,10 @@ using MarUtility.ExecutionManagement;
 using NaughtyAttributes;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace MarUtility
 {
@@ -42,6 +44,8 @@ namespace MarUtility
         [SerializeField]
         protected UnityEvent _onEnd;
 
+        protected float lTime;
+
         #region GS
         public float Duration { get => _duration; set => _duration = value; }
         public AnimationCurve Curve { get => _curve; set => _curve = value; }
@@ -50,7 +54,10 @@ namespace MarUtility
         public UnityEvent OnEnd { get => _onEnd; set => _onEnd = value; }
         #endregion
     }
-    //-----------------------------------------------------------------------------------------------------------------
+    #region Position
+    //=================================================================================================================
+    // Lerp Position Data
+    //=================================================================================================================
     [Serializable]
     public class LerpPositionData : LerpData
     {
@@ -59,7 +66,6 @@ namespace MarUtility
 
         protected Vector3 lStart;
         protected Vector3 lEnd;
-        private float lTime;
         
         public  virtual void BeginPositionLerp()
             => SceneManager.INST.StartCoroutine(PositionLerpInterval());
@@ -108,6 +114,49 @@ namespace MarUtility
         {
             lEnd = _endPosition;
             base.BeginPositionLerp();
+        }
+    }
+    #endregion
+    //=================================================================================================================
+    // Lerp Image Color Data
+    //=================================================================================================================
+    [Serializable]
+    public class LerpColorData : LerpData
+    {
+        [SerializeField]
+        private Color _endColor = Color.white;
+
+        protected Color lStart;
+        protected Color lEnd;
+
+        public virtual void BeginColorLerp()
+        {
+            lEnd = _endColor;
+             SceneManager.INST.StartCoroutine(ColorLerpInterval());
+        }
+        protected virtual IEnumerator ColorLerpInterval() { yield return null; }
+    }
+    //-----------------------------------------------------------------------------------------------------------------
+    [Serializable]
+    public class LerpColorDataI : LerpColorData
+    {
+        [SerializeField]
+        private Image _image;
+
+        protected override IEnumerator ColorLerpInterval()
+        {
+            lTime = 0;
+            lStart = _image.color;
+            _onStart.Invoke();
+            while (lTime < _duration)
+            {
+                _image.color = Color.Lerp(lStart, lEnd, lTime / _duration);
+                lTime += Time.deltaTime;
+                _onBody.Invoke();
+                yield return null;
+            }
+            _image.color = lEnd;
+            _onEnd.Invoke();
         }
     }
 }

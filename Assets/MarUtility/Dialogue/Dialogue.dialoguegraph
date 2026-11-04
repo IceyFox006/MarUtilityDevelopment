@@ -45,7 +45,7 @@ MonoBehaviour:
           - rid: 3736599031169941593
           - rid: 3736599031169941594
           - rid: 3736599097002164301
-          - rid: 3736599117234700370
+          - rid: 3736599117234700397
         m_InputPortInfos:
           expandedPortsById:
             m_KeyList: []
@@ -82,7 +82,7 @@ MonoBehaviour:
           serializedVersion: 2
           Hash: d5c6b274b45074909e230d1121ec0c2c
         m_Version: 2
-        m_Position: {x: 698.80005, y: 210.59999}
+        m_Position: {x: 705.4, y: 208.20001}
         m_Title: 
         m_Tooltip: 
         m_NodePreviewModel:
@@ -674,14 +674,14 @@ MonoBehaviour:
       type: {class: 'Constant`1[[System.Int32, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
         m_Value: 1
-    - rid: 3736599117234700370
-      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
-      data:
-        m_Value: FADE_FROM_BLACK
     - rid: 3736599117234700374
       type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
       data:
         m_Value: FADE_TO_BLACK
+    - rid: 3736599117234700397
+      type: {class: 'Constant`1[[System.String, mscorlib]]', ns: Unity.GraphToolkit.Editor, asm: UnityEditor.GraphToolkitModule}
+      data:
+        m_Value: FADE_TO_INVISIBLE
     - rid: 3848086819812409344
       type: {class: GraphModelImp, ns: Unity.GraphToolkit.Editor.Implementation, asm: UnityEditor.GraphToolkitModule}
       data:
