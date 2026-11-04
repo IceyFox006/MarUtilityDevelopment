@@ -38,38 +38,57 @@ namespace MarUtility.Dialogue
             context.AddInputPort("End").Build();
         }
     }
+    //=================================================================================================================
+    // Base Dialogue Node
+    //=================================================================================================================
+    public class BaseDialogueNode : Node
+    {
+        const string eventID = "Event Count";
 
+        protected override void OnDefinePorts(IPortDefinitionContext context)
+        {
+            context.AddInputPort("Prev").Build();
+
+            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
+            context.AddInputPort<string>("Dialogue").Build();
+
+            var dEvent = GetNodeOptionByName(eventID);
+            dEvent.TryGetValue(out int portCount);
+            for (int i = 0; i < portCount; i++)
+            {
+                context.AddInputPort<string>($"Event {i}").Build();
+            }
+        }
+
+        protected override void OnDefineOptions(IOptionDefinitionContext context)
+        {
+            context.AddOption<int>(eventID);
+        }
+    }
     //=================================================================================================================
     // Dialogue Node
     //=================================================================================================================
     [Serializable]
-    public class DialogueNode : Node
+    public class DialogueNode : BaseDialogueNode
     {
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            context.AddInputPort("Prev").Build();
-            context.AddOutputPort("Next").Build();
+            base.OnDefinePorts(context);
 
-            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
-            context.AddInputPort<string>("Dialogue").Build();
-            context.AddInputPort<EDialogueEvent[]>("Events").Build();
+            context.AddOutputPort("Next").Build();
         }
     }
     //=================================================================================================================
     // Choice Node
     //=================================================================================================================
     [Serializable]
-    public class ChoiceNode : Node
+    public class ChoiceNode : BaseDialogueNode
     {
         const string choiceID = "Choice Count";
 
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            context.AddInputPort("Prev").Build();
-            
-            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
-            context.AddInputPort<string>("Dialogue").Build();
-            context.AddInputPort<EDialogueEvent[]>("Events").Build();
+            base.OnDefinePorts(context);
 
             //Add multiple input and output ports for choices.
             var choice = GetNodeOptionByName(choiceID);
@@ -83,6 +102,8 @@ namespace MarUtility.Dialogue
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
+            base.OnDefineOptions(context);
+
             context.AddOption<int>(choiceID);
         }
     }
@@ -90,17 +111,12 @@ namespace MarUtility.Dialogue
     // Relationship Node
     //=================================================================================================================
     [Serializable]
-    public class RelationNode : Node
+    public class RelationNode : DialogueNode
     {
         const string relationshipID = "Relation Count";
         protected override void OnDefinePorts(IPortDefinitionContext context)
         {
-            context.AddInputPort("Prev").Build();
-            context.AddOutputPort("Next").Build();
-
-            context.AddInputPort<SO_DialogueCharacter>("Speaker").Build();
-            context.AddInputPort<string>("Dialogue").Build();
-            context.AddInputPort<EDialogueEvent[]>("Events").Build();
+            base.OnDefinePorts(context);
 
             //Add multiple input and output ports for choices.
             var relation = GetNodeOptionByName(relationshipID);
@@ -114,6 +130,8 @@ namespace MarUtility.Dialogue
 
         protected override void OnDefineOptions(IOptionDefinitionContext context)
         {
+            base.OnDefineOptions(context);
+
             context.AddOption<int>(relationshipID);
         }
     }

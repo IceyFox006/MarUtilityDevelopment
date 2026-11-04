@@ -1,7 +1,7 @@
 /*
  * Marlow Greenan
  * Created: 10/25/2026
- * Last Updated: 11/01/2026
+ * Last Updated: 11/04/2026
  * 
  * Manages the dialogue progression.
  */
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace MarUtility.Dialogue
@@ -36,6 +37,10 @@ namespace MarUtility.Dialogue
         //SIMULATION
         [SerializeField, BoxGroup("Simulation")]
         private RuntimeDialogueGraph _simDialogue;
+
+        //EVENTS
+        [SerializeField, BoxGroup("Events")]
+        private Dictionary<string, UnityEvent> _dialogueEvents;
 
         //DATA
         [SerializeField, ReadOnly]
@@ -85,13 +90,22 @@ namespace MarUtility.Dialogue
 
             curNode = nodeDictionary[nodeID];
 
+            //Updates dialogue and speaker text.
             _dialogueText.text = curNode.DialogueText;
             _speakerNameText.text = curNode.Speaker.Name;
+
+            //Invokes events.
+            foreach (string eventID in curNode.Events)
+            {
+                if (_dialogueEvents.ContainsKey(eventID))
+                    _dialogueEvents[eventID].Invoke();
+            }
 
             //Update choice options and if the dialogue has choices, switch the event system hover.
             if (!UpdateChoices())
                 _oes.SwitchHover(_continueButton);
 
+            //Updates relations.
             UpdateRelations();
         }
 
@@ -169,13 +183,5 @@ namespace MarUtility.Dialogue
             => StartDialogue(_simDialogue);
         #endregion
     }
-}
-
-public enum EDialogueEvent
-{
-    NONE = 000,
-    FADE_TO_BLACK = 100,
-    FADE_FROM_BLACK = 200,
-
 }
 

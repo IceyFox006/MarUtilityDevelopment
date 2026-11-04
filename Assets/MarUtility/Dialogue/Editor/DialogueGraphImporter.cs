@@ -66,6 +66,14 @@ namespace MarUtility.Dialogue
             //Get data from editor node and assign it to runtime node.
             runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
             runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
+            
+            var eventInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Event "));
+            for (int i = 0; i < eventInputPorts.Count(); i++)
+            {
+                //Determine relation port.
+                var eventPort = node.GetInputPortByName($"Event {i}");
+                runtimeNode.Events.Add(GetPortValue<string>(eventPort));
+            }
 
             //Go to next node.
             var nextNodePort = node.GetOutputPortByName("Next").FirstConnectedPort;

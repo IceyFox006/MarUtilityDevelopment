@@ -31,7 +31,7 @@ namespace MarUtility.Dialogue
 
         public SO_DialogueCharacter Speaker;
         public string DialogueText;
-        public EDialogueEvent[] Events;
+        public List<string> Events = new List<string>();
 
         public List<ChoiceData> Choices = new List<ChoiceData>();
         public List<RelationData> Relations = new List<RelationData>();
