@@ -46,12 +46,13 @@ namespace MarUtility.Dialogue
 
                 //Save the editor dialogue node data to a runtime node.
                 var runtimeNode = new RuntimeDialogueNode { NodeID = nodeIDMap[node] };
-                if (node is DialogueNode dialogueNode)
-                    ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
-                else if (node is ChoiceNode choiceNode)
+
+                if (node is ChoiceNode choiceNode)
                     ProcessChoiceNode(choiceNode, runtimeNode, nodeIDMap);
                 else if (node is RelationNode relationNode)
                     ProcessRelationNode(relationNode, runtimeNode, nodeIDMap);
+                else if (node is DialogueNode dialogueNode)
+                    ProcessDialogueNode(dialogueNode, runtimeNode, nodeIDMap);
 
                 runtimeGraph.Nodes.Add(runtimeNode);
             }
@@ -88,6 +89,14 @@ namespace MarUtility.Dialogue
             runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
             runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
 
+            var eventInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Event "));
+            for (int i = 0; i < eventInputPorts.Count(); i++)
+            {
+                //Determine relation port.
+                var eventPort = node.GetInputPortByName($"Event {i}");
+                runtimeNode.Events.Add(GetPortValue<string>(eventPort));
+            }
+
             //Choice outputs.
             var choiceOutputPorts = node.GetOutputPorts().Where(p => p.Name.StartsWith("Choice "));
             foreach (var outputPort in choiceOutputPorts)
@@ -113,6 +122,14 @@ namespace MarUtility.Dialogue
             runtimeNode.Speaker = GetPortValue<SO_DialogueCharacter>(node.GetInputPortByName("Speaker"));
             runtimeNode.DialogueText = GetPortValue<string>(node.GetInputPortByName("Dialogue"));
 
+            var eventInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Event "));
+            for (int i = 0; i < eventInputPorts.Count(); i++)
+            {
+                //Determine relation port.
+                var eventPort = node.GetInputPortByName($"Event {i}");
+                runtimeNode.Events.Add(GetPortValue<string>(eventPort));
+            }
+
             //Relation inputs.
             var characterInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Character "));
             var pointInputPorts = node.GetInputPorts().Where(p => p.Name.StartsWith("Point "));
@@ -129,6 +146,11 @@ namespace MarUtility.Dialogue
                 };
                 runtimeNode.Relations.Add(relationData);
             }
+
+            //Go to next node.
+            var nextNodePort = node.GetOutputPortByName("Next").FirstConnectedPort;
+            if (nextNodePort != null)
+                runtimeNode.NextNodeID = nodeIDMap[nextNodePort.GetNode()];
         }
         #endregion
 
