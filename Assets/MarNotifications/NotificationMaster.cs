@@ -48,7 +48,10 @@ namespace MarUtility.Notifications
             if (notificationPool.Count < _maxNotifications) //Spawns a new notification if the notification pool is not full;
                 n = SpawnNotification();
             else //Updates the oldest notification with new information.
-                n = notificationPool[notificationPool.Count - 1];
+            {
+                n = notificationPool[0];
+
+            }
 
             n.CurNotification = nd;
         }
