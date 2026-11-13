@@ -50,7 +50,10 @@ namespace MarUtility.Notifications
             else //Updates the oldest notification with new information.
             {
                 n = notificationPool[0];
-
+                for (int i = notificationPool.Count - 1; i >= 1; i--)
+                {
+                    notificationPool[i].CurNotification = notificationPool[i - 1].CurNotification;
+                }
             }
 
             n.CurNotification = nd;
