@@ -42,6 +42,9 @@ namespace MarUtility.UIExtensions
 
         public UnityEvent OnLink { get => onLink; set => onLink = value; }
         public LerpData Ld { get => _ld; set => _ld = value; }
+        public float LStart { get => lStart; }
+        public float LEnd { get => lEnd; }
+        public float LTime { get => lTime; }
         #endregion
 
         //Begins lerping the fill amount.
